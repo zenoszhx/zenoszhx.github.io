@@ -1,135 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head><meta name="generator" content="Hexo 3.8.0">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="keyword" content="">
-    <link rel="shortcut icon" href="/img/favicon.ico">
+  <meta charset="utf-8">
+  
 
-    <title>
-        
-        Cocos2d-x3.0的新特性 - undefined
-        
-    </title>
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/aircloud.css">
-    <link rel="stylesheet" href="/css/gitment.css">
-    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
-    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
-    <!-- ga & ba script hoook -->
-    <script></script>
+  
+  <title>Cocos2d-x3.0的新特性 | ArrayStars</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Cocos2d-x3.0的新特性1. 使用C++风格1.1使用命名空间代替“CC”前缀例如：CCSprite更名为Sprite;一些全局方法也被加入相应的命名空间中，如与绘制几何基元相关的方法被加入DrawPrimitives命名空间，与OpenGL ES相关的命令封装则使用GL命名空间。  1.2使用clone()代替copy()方法clone()方法用来深度复制一个对象。例如Cocos2d-x">
+<meta name="keywords" content="Cococs2d与OpenGL ES">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cocos2d-x3.0的新特性">
+<meta property="og:url" content="http://yoursite.com/2018/11/24/Cocos-C++-P/1. Cocos2d-x3.0的新特性/index.html">
+<meta property="og:site_name" content="ArrayStars">
+<meta property="og:description" content="Cocos2d-x3.0的新特性1. 使用C++风格1.1使用命名空间代替“CC”前缀例如：CCSprite更名为Sprite;一些全局方法也被加入相应的命名空间中，如与绘制几何基元相关的方法被加入DrawPrimitives命名空间，与OpenGL ES相关的命令封装则使用GL命名空间。  1.2使用clone()代替copy()方法clone()方法用来深度复制一个对象。例如Cocos2d-x">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://7xqzxs.com1.z0.glb.clouddn.com/0319Cocos2d-3.x%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4.png">
+<meta property="og:image" content="http://7xqzxs.com1.z0.glb.clouddn.com/0320coco2d-x3.x%E4%BD%BF%E7%94%A8%E5%BC%BA%E7%B1%BB%E5%9E%8B%E6%9E%9A%E4%B8%BE.png">
+<meta property="og:updated_time" content="2018-11-24T03:57:15.359Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cocos2d-x3.0的新特性">
+<meta name="twitter:description" content="Cocos2d-x3.0的新特性1. 使用C++风格1.1使用命名空间代替“CC”前缀例如：CCSprite更名为Sprite;一些全局方法也被加入相应的命名空间中，如与绘制几何基元相关的方法被加入DrawPrimitives命名空间，与OpenGL ES相关的命令封装则使用GL命名空间。  1.2使用clone()代替copy()方法clone()方法用来深度复制一个对象。例如Cocos2d-x">
+<meta name="twitter:image" content="http://7xqzxs.com1.z0.glb.clouddn.com/0319Cocos2d-3.x%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4.png">
+  
+    <link rel="alternate" href="/atom.xml" title="ArrayStars" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-
+</html>
 <body>
-
-<div class="site-nav-toggle" id="site-nav-toggle">
-    <button>
-        <span class="btn-bar"></span>
-        <span class="btn-bar"></span>
-        <span class="btn-bar"></span>
-    </button>
-</div>
-
-<div class="index-about">
-    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
-</div>
-
-<div class="index-container">
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">ArrayStars</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">一些个人的总结，辩证来看，不保证完全正确。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Cocos-C++-P/1. Cocos2d-x3.0的新特性" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/24/Cocos-C++-P/1. Cocos2d-x3.0的新特性/" class="article-date">
+  <time datetime="2018-11-24T03:55:32.923Z" itemprop="datePublished">2018-11-24</time>
+</a>
     
-    <div class="index-left">
-        
-<div class="nav" id="nav">
-    <div class="avatar-name">
-        <div class="avatar">
-            <img src="/img/avatar.png">
-        </div>
-        <div class="name">
-            <i>Zenos</i>
-        </div>
-    </div>
-    <div class="contents" id="nav-content">
-        <ul>
-            <li>
-                <a href="/">
-                    <i class="iconfont icon-shouye1"></i>
-                    <span>主页</span>
-                </a>
-            </li>
-            <li>
-                <a href="/tags">
-                    <i class="iconfont icon-biaoqian1"></i>
-                    <span>标签</span>
-                </a>
-            </li>
-            <li>
-                <a href="/archives">
-                    <i class="iconfont icon-guidang2"></i>
-                    <span>存档</span>
-                </a>
-            </li>
-            <li>
-                <a href="/about/">
-                    <i class="iconfont icon-guanyu2"></i>
-                    <span>关于</span>
-                </a>
-            </li>
-            
-        </ul>
-    </div>
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Cococs2d与OpenGL-ES/">Cococs2d与OpenGL ES</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
     
-        <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Cocos2d-x3-0的新特性"><span class="toc-text">Cocos2d-x3.0的新特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-使用C-风格"><span class="toc-text">1. 使用C++风格</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1使用命名空间代替“CC”前缀"><span class="toc-text">1.1使用命名空间代替“CC”前缀</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2使用clone-代替copy-方法"><span class="toc-text">1.2使用clone()代替copy()方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3用getInstance-和destroyInstance-代替sharedXXX-和endXXX-来使用单例。"><span class="toc-text">1.3用getInstance()和destroyInstance()代替sharedXXX()和endXXX()来使用单例。</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4更明确的get前缀来表示属性获取方法"><span class="toc-text">1.4更明确的get前缀来表示属性获取方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-5对于POD类型使用引用参数代替指针传递"><span class="toc-text">1.5对于POD类型使用引用参数代替指针传递</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-6部分C-11的特性"><span class="toc-text">1.6部分C++11的特性</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-跨平台的Label"><span class="toc-text">2.跨平台的Label</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-新渲染系统"><span class="toc-text">3.新渲染系统</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-统一的消息分发"><span class="toc-text">4.统一的消息分发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-物理引擎集成"><span class="toc-text">5.物理引擎集成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-新的数据结构"><span class="toc-text">6.新的数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-其他"><span class="toc-text">7.其他</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#补充："><span class="toc-text">补充：</span></a></li></ol>
-</div>
     
-</div>
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Cocos2d-x3.0的新特性
+    </h1>
+  
 
-
-<div class="search-field" id="search-field">
-    <div class="search-container">
-        <div class="search-input">
-            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
-            <input id="search-input">
-            <span id="begin-search">搜索</span>
-        </div>
-        <div class="search-result-container" id="search-result-container">
-
-        </div>
-    </div>
-</div>
-        <div class="index-about-mobile">
-            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
-        </div>
-    </div>
+      </header>
     
-    <div class="index-middle">
-        <!-- Main Content -->
-        
-
-
-<div class="post-container">
-    <div class="post-title">
-        Cocos2d-x3.0的新特性
-    </div>
-
-    <div class="post-meta">
-        <span class="attr">发布于：<span>2018-11-24 11:55:32</span></span>
-        
-        <span class="attr">标签：/
-        
-        <a class="tag" href="/tags/#Cococs2d与OpenGL ES" title="Cococs2d与OpenGL ES">Cococs2d与OpenGL ES</a>
-        <span>/</span>
-        
-        
-        </span>
-        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
-</span>
-
-    </div>
-    <div class="post-content ">
+    <div class="article-entry" itemprop="articleBody">
+      
         <h1 id="Cocos2d-x3-0的新特性"><a href="#Cocos2d-x3-0的新特性" class="headerlink" title="Cocos2d-x3.0的新特性"></a>Cocos2d-x3.0的新特性</h1><h3 id="1-使用C-风格"><a href="#1-使用C-风格" class="headerlink" title="1. 使用C++风格"></a>1. 使用C++风格</h3><h5 id="1-1使用命名空间代替“CC”前缀"><a href="#1-1使用命名空间代替“CC”前缀" class="headerlink" title="1.1使用命名空间代替“CC”前缀"></a>1.1使用命名空间代替“CC”前缀</h5><p>例如：CCSprite更名为Sprite;一些全局方法也被加入相应的命名空间中，如与绘制几何基元相关的方法被加入DrawPrimitives命名空间，与OpenGL ES相关的命令封装则使用GL命名空间。</p>
 <p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0319Cocos2d-3.x%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4.png" alt=""></p>
 <h5 id="1-2使用clone-代替copy-方法"><a href="#1-2使用clone-代替copy-方法" class="headerlink" title="1.2使用clone()代替copy()方法"></a>1.2使用clone()代替copy()方法</h5><p>clone()方法用来深度复制一个对象。例如Cocos2d-x中的Action广泛使用clone()方法来避免对原对象的修改。也可以利用一些模板对象来动态构造新的对象，以达到类似反射效果。</p>
@@ -382,62 +350,147 @@ void swap(T&amp; a, T&amp; b)
     b = std::move(tmp);
 }
 </code></pre>
-        
-        <br>
-        <div id="comment-container">
-        </div>
-        <div id="disqus_thread"></div>
-
-        <div id="lv-container">
-        </div>
-
+      
     </div>
-</div>
-    </div>
-</div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/11/24/Cocos-C++-P/1. Cocos2d-x3.0的新特性/" data-id="cjov31rhe000688ri64fx24ir" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Cococs2d与OpenGL-ES/">Cococs2d与OpenGL ES</a></li></ul>
 
-
-<footer class="footer">
-    <ul class="list-inline text-center">
-        
-        
-
-        
-
-        
-
-        
-
-        
-
-    </ul>
+    </footer>
+  </div>
+  
     
-    <p>
-        <span id="busuanzi_container_site_pv">
-            <span id="busuanzi_value_site_pv"></span>PV
-        </span>
-        <span id="busuanzi_container_site_uv">
-            <span id="busuanzi_value_site_uv"></span>UV
-        </span>
-        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+<nav id="article-nav">
+  
+    <a href="/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OpenGL ES2.0概览
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/24/Cocos-C++-P/3.3 帧缓冲/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Cococs2d与OpenGL-ES/">Cococs2d与OpenGL ES</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cocos2d-C/">Cocos2d-C++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cocos2d-Lua/">Cocos2d-Lua</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Cocos2d与OpenGL-ES/">Cocos2d与OpenGL ES</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JavaScript/">JavaScript</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cococs2d与OpenGL-ES/">Cococs2d与OpenGL ES</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-C/">Cocos-C++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cocos-Lua/">Cocos-Lua</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lua/">Lua</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Cococs2d与OpenGL-ES/" style="font-size: 12.5px;">Cococs2d与OpenGL ES</a> <a href="/tags/Cocos-C/" style="font-size: 20px;">Cocos-C++</a> <a href="/tags/Cocos-Lua/" style="font-size: 17.5px;">Cocos-Lua</a> <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/Lua/" style="font-size: 15px;">Lua</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">November 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/11/24/Cocos-C++-P/3.2 精灵/">3.2 精灵</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/24/Cocos-C++-P/3.1（2） 纹理压缩及应用/">3.1(2) 纹理压缩及应用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/24/Cocos-C++-P/3.1（1） 纹理/">3.1 纹理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/24/Cocos-C++-P/3 全新的绘制系统/">全新的绘制系统</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/24/Cocos-C++-P/2.2 OpenGL ES 着色程序/">OpenGL ES着色程序</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 Zenos<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
 </footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
 
 
 
-
+  </div>
 </body>
-
-<script>
-    // We expose some of the variables needed by the front end
-    window.hexo_search_path = ""
-    window.hexo_root = "/"
-    window.isPost = true
-</script>
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
 </html>
