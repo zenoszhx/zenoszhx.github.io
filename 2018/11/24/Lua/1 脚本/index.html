@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1. 脚本 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-脚本概念"><span class="toc-text">1 脚本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-脚本的分类"><span class="toc-text">1.1 脚本的分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-脚本的特征"><span class="toc-text">1.2 脚本的特征</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-脚本的架构"><span class="toc-text">1.3 脚本的架构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-Lua脚本"><span class="toc-text">1.4 Lua脚本</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Lua脚本语言的功能"><span class="toc-text">2 Lua脚本语言的功能</span></a></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1. 脚本
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:25:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="1-脚本概念"><a href="#1-脚本概念" class="headerlink" title="1 脚本概念"></a>1 脚本概念</h3><p>脚本语言是相对于静态编译型语言而言的，它通常在应用程序运行期间通过虚拟机解释执行。因此脚本代码是与平台无关的，引擎可以把代码当作数据处理，在运行期间动态载入内存执行。</p>
+<p>Cocos2d-x支持Lua和JavaScript两种脚本语言，同时还提供绑定的机制，让开发者自定义的C++对象可以被脚本访问。</p>
+<h5 id="1-1-脚本的分类"><a href="#1-1-脚本的分类" class="headerlink" title="1.1 脚本的分类"></a>1.1 脚本的分类</h5><p>广义的脚本实际上可以分为两种：</p>
+<ul>
+<li><p>数据定义语言：主要功能在于让用户创建及填充数据结构，这些数据供引擎读取。这些语言通常是声明式的，如HTML、XML、JSON。</p>
+</li>
+<li><p>运行时脚本语言：包含的是引擎可执行代码，在运行时的引擎上下文中执行。这些语言通常用于扩展或定制游戏对象模型/或其他引擎系统的硬编码（是指被编译器翻译成机器码，这些机器码在CPU上执行而不能被运行时修改）。</p>
+</li>
+</ul>
+<p>运行时脚本语言本质上是属于数据定制脚本语言，但是通过结合以属性为中心的对象模型，它也能够实现一些对游戏对象行为的修改。所以他们直接的区别在于游戏引擎是需要解析脚本还是执行脚本。Lua在Cocos2d中属于后者。</p>
+<h5 id="1-2-脚本的特征"><a href="#1-2-脚本的特征" class="headerlink" title="1.2 脚本的特征"></a>1.2 脚本的特征</h5><p>脚本的特征是解析。大多数脚本语言是直译式的，也称之为动态解释型，动态解释型是相对于静态的编译式语言而言。</p>
+<p>（1）执行速度</p>
+<p>编译时语言的源码由编译器翻译成机器码，然后机器码直接在cpu上运行，编译器可以可以针对平台进行优化，因而它的执行速度比较快。</p>
+<p>直译式的源码可以在运行时直接解析，或是先编译为与平台无关的的字节码，然后这些字节码在在虚拟机中直接执行。直译式语言通常需要一个宿主程序来执行虚拟机，因此它几乎可以移植到任何平台。但是虚拟机执行字节码和速度比原生CPU执行机器码和速度要慢得多。</p>
+<p>（2）轻量级</p>
+<p>脚本语言相对于原生语言要轻量的多，并且它们的虚拟机比较简单，消耗的内存比较少。例如在Lua中，它以代码段（Chunk）为单位，虚拟机在执行的时候使用一个很小的栈来保存方法、地址及参数，然后将执行结果保存在栈中供原生语言来获取，在执行完一个方法即清空栈。这使得Lua执行速度很快且非常轻量级。</p>
+<p>（3）适用场景</p>
+<p>由于脚本的解析特征，以及以代码段为单位，因而它特别适合用来对程序的某些方面提供一些定制功能。例如用来发送处理一些事件，实现有限状态机，以及一些对系统的控制。</p>
+<p>此外，一些脚本语言是函数式的，其目的是完全避免使用状态。在函数式语言中，程序由一组函数定义，每个函数都不对系统其他数据构成影响。程序的构建方法是由一个函数传送输入参数至另外一个函数，直到取得所需结果。这些语言适合实现一些数据处理管道。</p>
+<h5 id="1-3-脚本的架构"><a href="#1-3-脚本的架构" class="headerlink" title="1.3 脚本的架构"></a>1.3 脚本的架构</h5><p>脚本在游戏引擎中可以扮演不同的角色，有许多架构可以参考，从简单的脚本代码片段去代表一个游戏对象或引擎系统执行一个简单的功能，到高层的脚本去管理游戏的操作。下面讨论一些可能的脚本：</p>
+<p>（1）回调脚本：</p>
+<p>在这种架构中，引擎的大部分功能主要是原生语言硬编码的，只有某些关键的小功能设计成可定制的。这些部分通常实现为回调函数。让用户提供一个函数供引擎调用，以实现一些定制。回调函数可以使用脚本编写。例如在游戏循环中更新游戏对象时，引擎可提供一个回调函数，让用户有机会对游戏对象更新方式作一些定制。</p>
+<p>（2）事件处理脚本</p>
+<p>事件处理器是一种特殊的回调函数，其作用是令游戏对象回应游戏世界发生的事件，例如对爆炸作出反应，或是回应游戏引擎本身的事件，如内存不足。事件处理脚本较回调脚本在实现上更为灵活，例如事件处理脚本可以向一个专门的事件处理器注册事件处理函数，但是回调脚本则可能需要向引擎不同部分注册回调函数。</p>
+<p>（3）以脚本扩展游戏对象类型或定义新类型</p>
+<p>有些脚本语言可以用脚本扩展原来由原生语言实现的游戏对象模型。例如，在Cocos2d中可以使用Lua派生自Node类来实现一个新的类型。</p>
+<p>（4）组件属性脚本</p>
+<p>在基于组件或基于属性的游戏对象模型中，只允许使用脚本或部分脚本创建新组件或属性对象，而不能扩展原生的游戏对象模型。例如在《末日危城》中，允许用C++或者Skrit编写属性对象，在项目结束时约有148个脚本属性和21个C++原生对象属性。</p>
+<p>（5）脚本驱动的引擎系统</p>
+<p>脚本也可以驱动整个引擎系统，例如可以将游戏对象模型完全用脚本编写，仅当需要一些底层引擎组件时才需要调用原生引擎代码。可以想像使用脚本来实现属性模型架构，仅当需要实现渲染、动画、物理等部分的组件时才需要和引擎系统交互。</p>
+<p>（6）脚本驱动的游戏</p>
+<p>有些语言则完全颠倒原生语言各脚本语言的关系，在这些引擎中，脚本代码是游戏运行的主体，原生引擎代码仅作为程序库。例如在Cocos2d-x中，可以完全使用Lua来编写游戏，而C++的Cocos2d-x引擎作为一个引擎库使用。</p>
+<h5 id="1-4-Lua脚本"><a href="#1-4-Lua脚本" class="headerlink" title="1.4 Lua脚本"></a>1.4 Lua脚本</h5><p>Lua是一门轻量级、强大、高效的嵌入式脚本语言。据说嵌入式即意味着它需要嵌入到一个宿主程序中执行。宿主程序可以通过调用函数执行一小段Lua代码，以及读写Lua变量，还可以注入C函数让Lua代码调用。Lua提供了一些C函数接口，宿主程序可以通过这些C函数与Lua代码进行交互，这使得Lua可以应用于各种宿主环境，包括游戏引擎，用来扩展宿主程序定制能力。Lua的特性主要有以下：</p>
+<ul>
+<li>健壮：已经被应用在一些工业程序中、嵌入式系统中。Lua有很好的接口文档。</li>
+<li>高效：Lua以快而著称，在直译的脚本语言中它几乎是最快的。</li>
+<li>可移植：Lua可以运行在所有拥有标准C编译器的平台上，包括所有分支的UNIX和Windows平台上，以及移动平台上。</li>
+<li>可嵌入：Lua是一个嵌入式语言，可以将Lua轻松的嵌入到宿主程序中。</li>
+<li>轻量：简单而强大解析器和Lua库占用空间小。</li>
+<li>免费：Lua是开源的。</li>
+</ul>
+<h3 id="2-Lua脚本语言的功能"><a href="#2-Lua脚本语言的功能" class="headerlink" title="2 Lua脚本语言的功能"></a>2 Lua脚本语言的功能</h3><p>不管选何种架构风格，脚本语言在运行时需要具备的功能是一致的。以Lua为例，运行时脚本语言的功能如下：</p>
+<ul>
+<li>对原生编程语言的接口</li>
+<li>游戏对象句柄</li>
+<li>在脚本中接受及处理事件</li>
+<li>发送事件</li>
+<li>面向对象脚本语言</li>
+</ul>
+<p>在后面章节中将具体介绍Lua和C++的交互以及在游戏引擎中的工作机制。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -11,7 +11,7 @@
 
     <title>
         
-        Hello World - undefined
+        函数和闭包 - undefined
         
     </title>
 
@@ -56,25 +56,25 @@
             <li>
                 <a href="/">
                     <i class="iconfont icon-shouye1"></i>
-                    <span>HOME</span>
+                    <span>主页</span>
                 </a>
             </li>
             <li>
                 <a href="/tags">
                     <i class="iconfont icon-biaoqian1"></i>
-                    <span>TAGS</span>
+                    <span>标签</span>
                 </a>
             </li>
             <li>
                 <a href="/archives">
                     <i class="iconfont icon-guidang2"></i>
-                    <span>ARCHIVES</span>
+                    <span>存档</span>
                 </a>
             </li>
             <li>
                 <a href="/about/">
                     <i class="iconfont icon-guanyu2"></i>
-                    <span>ABOUT</span>
+                    <span>关于</span>
                 </a>
             </li>
             
@@ -82,7 +82,7 @@
     </div>
     
         <div id="toc" class="toc-article">
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#函数"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、函数定义"><span class="toc-text">1、函数定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2、函数参数与返回值"><span class="toc-text">2、函数参数与返回值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3、可变参数"><span class="toc-text">3、可变参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、闭包函数"><span class="toc-text">4、闭包函数</span></a></li></ol></li></ol>
 </div>
     
 </div>
@@ -93,7 +93,7 @@
         <div class="search-input">
             <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
             <input id="search-input">
-            <span id="begin-search">search</span>
+            <span id="begin-search">搜索</span>
         </div>
         <div class="search-result-container" id="search-result-container">
 
@@ -112,28 +112,61 @@
 
 <div class="post-container">
     <div class="post-title">
-        Hello World
+        函数和闭包
     </div>
 
     <div class="post-meta">
-        <span class="attr">Post：<span>2018-11-23 15:27:32</span></span>
+        <span class="attr">发布于：<span>2018-11-24 11:29:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-Lua" title="Cocos-Lua">Cocos-Lua</a>
+        <span>/</span>
         
         
-        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
 </span>
 
     </div>
     <div class="post-content ">
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><h3 id="1、函数定义"><a href="#1、函数定义" class="headerlink" title="1、函数定义"></a>1、函数定义</h3><pre><code>function func()
+end
+--以function开头、end结尾、必须加()
+</code></pre><p>面向对象编程中经常会定义内部方法，在Lua中实现如下：</p>
+<pre><code>class = {}    --一个对象
 
+function class.func1()
+end
+
+function class:func2()
+end
+
+-- 首先定义了一个名为class的table，然后在table上定义了两个函数成员。
+func1()和func2()使用了不同的定义方法，：自动传入一个名为self的变量，self同C++的this一样。
+</code></pre><h3 id="2、函数参数与返回值"><a href="#2、函数参数与返回值" class="headerlink" title="2、函数参数与返回值"></a>2、函数参数与返回值</h3><h3 id="3、可变参数"><a href="#3、可变参数" class="headerlink" title="3、可变参数"></a>3、可变参数</h3><pre><code>function add(...)
+    local s = 0
+    for i, v in ipairs{...} do
+        s = s + v
+    end
+    return s
+end
+
+print(add 1, 2, 3, 4, 5)--&gt;15
+</code></pre><h3 id="4、闭包函数"><a href="#4、闭包函数" class="headerlink" title="4、闭包函数"></a>4、闭包函数</h3><p>闭包函数是指将一个函数写在另一个函数内部，这个内部函数可以访问外部函数中的局部变量。而内部函数一直在使用外部函数的局部变量，从而Lua一直维护外部函数局部变量的生命周期。<br>这个外部函数的局部变量，既不是局部变量，也不是全局变量，称之为外部局部变量或upvalue</p>
+<pre><code>function newCounter()
+    local i = 0
+    return function()
+        i = i + 1
+        return i
+    end
+end
+
+c1 = newCounter()
+
+print(c1())--&gt;1
+print(c1())--&gt;2
+</code></pre>
         
         <br>
         <div id="comment-container">

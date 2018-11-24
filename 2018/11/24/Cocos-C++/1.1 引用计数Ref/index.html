@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1. 内存管理 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-引用计数的实现"><span class="toc-text">2 引用计数的实现</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1. 内存管理
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>在对象内部增加一个计数器，当外资引用增加时，计数器就加一。当外部引用消失时，其计数器就减一。</p>
+<p>Cocos2D-X中任何对象都可以使用引用计数的方式。这主要因为Ref提供了基本引用计数功能。</p>
+<p>Ref是抽象类（包含纯虚函数的类，只能用于被继承不能直接创建对象的类）。</p>
+<ul>
+<li>Ref构造函数是protected保护类型，不能被实例化（即new），只能被继承使用。</li>
+<li>Ref的实现,在构造函数的列表中将他的成员_referenceCount初始化为1了。</li>
+</ul>
+<p>###1 类Ref的声明代码</p>
+<pre><code>class CC_DLL Ref
+{
+public:
+    // 对象id标识
+    unsigned int _ID;
+    // Lua脚本的id
+    int _luaID;
+
+private:
+    // 引用计数
+    unsigned int _referenceCount;
+
+public:
+    Ref(void);
+    virtual ~Ref(void);
+    // 引用释放
+    void release(void);
+    // 增加引用
+    void retain(void);
+    // 自动释放
+    Ref* autoRelease(void);
+    // 返回计数器的数字
+    unsigned int getReferenceCount(void);
+}
+</code></pre><h3 id="2-引用计数的实现"><a href="#2-引用计数的实现" class="headerlink" title="2 引用计数的实现"></a>2 引用计数的实现</h3><p>#####2.1 引用计数的实现函数</p>
+<pre><code>Ref::Ref(void):_referenceCount(1)
+{
+    #if CC_ENABLE_SCRIPT_BINDING
+        static unsigned int uObjectCount = 0;
+        _luaId = 0;
+        _ID = ++uObjectCount;
+        _scriptObject = nullptr;
+    #endif
+
+    #if CC_REF_LEAK_DETECTION
+        trackRef(this);
+    # endif
+}
+
+// 释放对象
+void Ref::release(void)
+{
+    CCASSERT(_referenceCount &gt; 0, &quot;reference count should greater than 0&quot;)
+
+    -- _referenceCount;
+
+    if (_referenceCount == 0)
+    {
+    #if defined(COCOS2D_DEBIG) &amp;&amp; (COCOS2D_DEBUG &gt; 0)
+        auto poolManager = PoolManager::getInstance();
+        if (!poolManager-&gt;getCurrentPool()-&gt;isClearing() &amp;&amp; poolManager-&gt;isObjectInpools(this))
+        {
+            CCASSERT(false, &quot;The reference should not be 0 because it is still in autorelease&quot;)
+        }
+    #endif
+
+    #if CC_REF_LEAK_DETECTION
+        untrackRef(this);
+    #endif
+
+        delete this;
+    }
+}
+
+// 增加引用
+void Ref::retain(void)
+{
+    CCASSERT(_referenceCount &gt; 0, &quot;referece count should greater than 0&quot;);
+    ++ _referenceCount;
+}
+</code></pre><p>#####2.2 引用计数的三条原则</p>
+<p>（1）有开始就要有结束。当在程序创建一个对象，就一定要释放它。通常创建对象的方式有两种new和copy,在对象不再使用的时候一定要用release()来释放。</p>
+<p>（2）有引用就要有释放。当代码调用了对象的retain函数后，引用计数就会加一，所以当对象不再引用之时，调用release来释放。</p>
+<p>（3）参数传递要更替引用。当对象指针作为参数来传递时，在函数内有需要引用对象，则此时首先需要释放旧的引用对象，则此时首先需要释放旧的引用对象，然后再增加新的引用对象。具体代码如下：</p>
+<pre><code>void Node::setGrid(GridBase* pGrid)
+{
+    CC_SAFE_RELEASE(_nodeGrid);
+    CC_SAFE_RETAIN(grid);
+    _nodeGrid = grid;
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        事件分发机制：触摸事件 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        事件分发机制：触摸事件
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:29:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-Lua" title="Cocos-Lua">Cocos-Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>#事件分发机制：触摸事件</p>
+<p>Cocos2d-x原本的触摸机制存在一些限制，Quick提供了一套自己的触摸视你机制。</p>
+<p>###1 显示层级</p>
+<p>Cocos2d中的所有胡游戏画面是由五系列的Node、Scene、Layer、Sprite等对象构成，而所有的这些对象都是从Node继承而来。可以将Node称为显示节点构成一棵树。</p>
+<p>Node所处垂直位置就是它们显示的层级。</p>
+<p>###2 触摸区域</p>
+<p>#####2.1 cocos2d的显示区域</p>
+<p>Cocos2d-x的2.x版本中，只有Layer对象才能接受触摸事件，而Layer总是响应整个屏幕范围的触摸，这就要求开发者拿到触摸事件后需要再做进一步处理。</p>
+<p>#####2.2 Quick的触摸区域</p>
+<p>Quick允许任何一个Node接受一个触摸事件，并且触摸事件一开始只会出现在这个Node的触摸区域内，即一个Node和其所有子Node显示内容占据屏幕空间。</p>
+<p>###3 单点触摸事件</p>
+<p>使用触摸，需要开启Node的触摸功能，然后设置触摸模式为OneByOne：</p>
+<pre><code>node:setTouchEnabled(true)
+
+-- 可以不写，默认为单点触摸
+node:setTouchMode(cc.TOUCHU_MODE_ONE_BY_ONT)
+node:addNodeEventListener(cc.NODE_TOUCH_EVENT, function(event)
+
+    printf(&quot;sprite:%s x, y:%0.2f, %0.2f&quot;, event.name, event.x, event.y)
+
+    if event.name == &quot;begin&quot; then
+        -- 手指开始触摸屏幕。在begin状态时如果要继续接该事件的变化，事件的处理函数必须返回true
+        return true
+    end
+
+end)
+
+--begin:手指开始触摸
+--moved：手指在屏幕上移动
+--ended：手指离开屏幕
+--cancelld：因为其它原因取消触摸操作
+</code></pre><p>###4 多点触摸</p>
+<pre><code>node:setTouchEnabled(true)
+node:setTouchMode(cc.TOUCH_MODE_AT_ONCE)
+node:addEventListener(cc.NODE_TOUCH_EVENT, function(event)
+
+    for id, point inpairs(event.points) do
+        print(&quot;event[%s]%s = %0.2f, %0.2f&quot;, enent.name, id, point.x, point.y)    
+    end
+
+    if(event.name == &quot;began&quot;) then
+        return true
+    end
+
+end)
+
+-- 多点触摸增加了事件的状态added和removed状态
+-- added：开始触摸后，如果有更多的点出现，则出现added状态
+-- removed：如果触摸结束前有触摸点出现，出现removed状态。
+</code></pre><p>###5 触摸事件吞噬</p>
+<p>默认情况下，Node在响应触摸后（begin状态返回true表示要响应触摸），应付阻止事件传递给Node的父对象（更下层的Node），称为触摸事件的吞噬。</p>
+<p>setTouchSwallowEnabled()可以改变这个行为，默认为true吞噬事件。如果设置为false，则Node响应事件后，仍然会将事件继续传递给父类。</p>
+<p>isTouchSwallowEnabled()可以检查Node的吞噬状态。</p>
+<p>###6 禁用事件</p>
+<p>对于一个Node</p>
+<ul>
+<li>setTouchEnabled()是否允许Node响应触摸，默认为false。</li>
+<li>isTouchEnabled()可以检查Node是否触摸</li>
+</ul>
+<p>setTouchNodeEnabled只能阻止这个Node的响应，而不能阻止子Node的响应触摸。setTouchCaptureEnable()同时影响当前Node和所有子Node。</p>
+<ul>
+<li>setTouchCaptureEnable()是否允许Node捕获触摸，默认为true。</li>
+<li>isTouchCaptureEnabled()检查Node是否允许捕获</li>
+</ul>
+<p>###7 触摸事件的三个阶段</p>
+<p>Quick构架中触摸事件分为三个阶段:capturing（捕获）、targeting（触发）、bubbling（冒泡）</p>
+<p>#####7.1 捕获(capturing)</p>
+<ol>
+<li>用户触摸屏幕，产生一个触摸事件。</li>
+<li>遍历所有响应触摸的Node，找出显示层级最高，并且触摸区域包含触摸位置的那个Node，即TargetNode。</li>
+<li>从TargetNode的根Node上开始检查cc.NODE_TOUCHU_CAPTURE_EVENT事件，任何一个Node返回false都会阻止事件TargetNode上传递。并从步骤1开始查找符合其它条件的Node。</li>
+</ol>
+<p>#####7.2 触发(targeting)</p>
+<ol start="4">
+<li>在targetNode上触发事件，如果触发返回结果为false，表示TargetNode不响应该事件，并从捕获步骤一查找其他符合条件的Node.</li>
+</ol>
+<p>#####7.3 冒泡(bubbling)</p>
+<ol start="5">
+<li>完成响应事件后，检查TargetNode:isTouchSwallowEnabled()的返回值。如果是true，则取消bubbling阶段。</li>
+<li>从TargetNode开始往其所有父Node触发事件，直到某个Node返回false或者事件被吞噬。</li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

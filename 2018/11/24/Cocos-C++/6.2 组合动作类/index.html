@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        6.2 组合动作类 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-序列动作类（Sequence）"><span class="toc-text">1.序列动作类（Sequence）</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1序列动作的创建函数"><span class="toc-text">1.1序列动作的创建函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-示例"><span class="toc-text">1.2 示例</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#2-同步动作类（Spawn）"><span class="toc-text">2.同步动作类（Spawn）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-重复动作类（Repeat-amp-RepeatForever）"><span class="toc-text">3.重复动作类（Repeat &amp; RepeatForever）</span></a></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        6.2 组合动作类
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>#组合动作类</p>
+<p>Cocos2D-x提供了一些将其他动作进行组合的类，好比是动作对象的一个容器，在组合类中的对象将会按照一定的规则来执行。</p>
+<h3 id="1-序列动作类（Sequence）"><a href="#1-序列动作类（Sequence）" class="headerlink" title="1.序列动作类（Sequence）"></a>1.序列动作类（Sequence）</h3><p>Sequence是由ActionInterval派生来的，因此它也是一个与时间有关的类。</p>
+<h5 id="1-1序列动作的创建函数"><a href="#1-1序列动作的创建函数" class="headerlink" title="1.1序列动作的创建函数"></a>1.1序列动作的创建函数</h5><pre><code>// 1.根据参数中动作数组指针，来创建序列动作
+static Sequence* create(FiniteTimeAction *action1, ...) CC_REQUIRES_NULL_TERMINATION;
+
+// 2.根据参数中动作数组，来创建序列动作
+static Sequence* create(const Vector&lt;FiniteTimeAction*&gt;&amp; arrayOfActions);
+
+// 3.根据参数中第一个动作对象和第二个动作对象来创建序列动作
+static Sequence* createWithActions(FiniteTimeAction *actionOne, FiniteTimeAction *actionTwo)
+</code></pre><h5 id="1-2-示例"><a href="#1-2-示例" class="headerlink" title="1.2 示例"></a>1.2 示例</h5><pre><code>void ActionSequence2::onEnter()
+{
+    ActionsDemo::onEnter();
+
+    alignSpriteLeft(1);
+
+    m_grossini-&gt;setVisible(false);
+
+    FiniteTimeAction* action = Sequence::create(
+        Place::create(Vec2(200, 200)),
+        Show::create(),
+        MoveBy::create(1, Vec2(100, 0)),
+        CallFunc::create(CC_CALLBACK_0(ActionCallFunc::callback, this)),
+        CallFuncN::create(CC_CALLBACK_1(ActionCallFuncN::callback, this)),
+        CallFuncND::create(CC_CALLBACK_1(ActionCallFuncN::callback, this, true)),
+    );
+
+    m_grossini-&gt;runAction(action);
+}
+
+(1)序列动作中的对象会一个个的被Node对象执行
+</code></pre><h3 id="2-同步动作类（Spawn）"><a href="#2-同步动作类（Spawn）" class="headerlink" title="2.同步动作类（Spawn）"></a>2.同步动作类（Spawn）</h3><p>该类与序列动作的区别是，它使得Node对象可以同时执行若干个动作。</p>
+<p>在同步动作中要求其同步动作对象必须是可以继续执行的，比如：翻转、变色、尺寸、透明度的变化。</p>
+<p>示例代码：</p>
+<pre><code>void ActionSpawn::onEnter()
+{
+    ActionsDemo::onEnter();
+
+    alignSpritesLeft(1);
+    Action* action = Spawn::create(
+         JumpBy::create(2, Vec2(300, 0), 50, 4)，
+        RotateBy::create(2, 720),
+        NULL，
+    );
+
+    m_grossini-&gt;runAction(action);
+}
+</code></pre><h3 id="3-重复动作类（Repeat-amp-RepeatForever）"><a href="#3-重复动作类（Repeat-amp-RepeatForever）" class="headerlink" title="3.重复动作类（Repeat &amp; RepeatForever）"></a>3.重复动作类（Repeat &amp; RepeatForever）</h3><p>Repeat和RepeatForever派生自ActionInterval，且ActionForever不是Repeat的子类，而是由类ActionInterver直接派生的。它可以使用任何对象作为参数，单个的基本动作对象、序列动作、同步动作。创建函数如下：</p>
+<pre><code>static Repeat* create(FiniteTimeAction *action, unsigned int times);
+
+（1）第一个参数为重复的动作对象,第二个参数为重复的次数。如果是RepeatForever则没有第二个参数。
+</code></pre><p>示例：</p>
+<pre><code>void ActionRotateToRepeat::onEnter()
+{
+    ActionDemo::onEnter();
+
+    centerSprites(2);
+
+    ActionInterval* act1 = RotateTo::create(1, 90);
+    ActionInterval* act2 = RotateTo::create(1, 0);
+    ActionInterval* seq = (ActionInterval *)(Sequence::create(act1, act2, NULL));
+
+    Action* rep1 = RepeatForever(seq);
+    ActionIntervel* rep2 = Repeat::create((FiniteTimeAction*)(seq-&gt;copy()-&gt;autorelease()), 10);
+
+    m_tamata-&gt;runAction(rep1);
+    m_kathis-&gt;runAction(rep2);
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

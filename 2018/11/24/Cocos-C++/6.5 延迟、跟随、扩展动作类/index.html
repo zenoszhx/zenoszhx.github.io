@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        6.5 延迟、跟随、扩展动作类 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-延迟动作类"><span class="toc-text">1.延迟动作类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-跟随动作类"><span class="toc-text">2.跟随动作类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-扩展动作类"><span class="toc-text">3.扩展动作类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-翻页动作"><span class="toc-text">3.1 翻页动作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-波纹动作"><span class="toc-text">3.2 波纹动作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-格子动作"><span class="toc-text">3.3 格子动作</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        6.5 延迟、跟随、扩展动作类
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="1-延迟动作类"><a href="#1-延迟动作类" class="headerlink" title="1.延迟动作类"></a>1.延迟动作类</h3><pre><code>void ActionDelayTime::onEnter()
+{
+    ActionDemo::onEnter();
+    alignSpritesLeft(1);
+
+    ActionInterval *move = MoveBy::create(1, Vec2(150, 0));
+    FiniteTimeAction *action = Sequence::create(move, DelayTime:create(2), move-&gt;reverse(), NULL);
+
+    m_grossii-&gt;runAction(action);
+}
+</code></pre><h3 id="2-跟随动作类"><a href="#2-跟随动作类" class="headerlink" title="2.跟随动作类"></a>2.跟随动作类</h3><p>之前类Speed的介绍，类Action的另一个私生子是跟随动作Follow，它不具备反序动作，也不能用于组合动作当中去。执行效果就是使得Node对象能够跟随另一个对象同步运动。</p>
+<pre><code>void ActionFollow::onEnter()
+{
+    ActionsDemo::onEnter();
+
+    centerSprites(1);
+    Size s = Director::getInstance()-&gt;getWinSize();
+    m_grossini-&gt;setPosition(Vec2(-200, s.height/2));
+
+    ActionInterval *move = MoveBy::create(2, Vec2(s.width * 3, 0));
+    ActionInterval *move_back = move-&gt;reverse();
+    FiniteTimeAction *seq = Sequence::create(move, move_back, NULL);
+    Action *rep = RepeatForever::create((ActionInterval*)seq);
+
+    m_grossini-&gt;runAction(rep);
+
+    this-&gt;runAction(Follow::create(m_grossini, Rect(0, 0, s.withth*2 - 100, s.height)))
+    // 当前层的对象执行了一个跟随动作，跟随目标为m_grossini
+}
+</code></pre><h3 id="3-扩展动作类"><a href="#3-扩展动作类" class="headerlink" title="3.扩展动作类"></a>3.扩展动作类</h3><p>在持续动作中还存在一个子类GridAction，且GridAction又派生两个子类：Grid3DAction(基于格子的动作)，TileGrid3DAction（基于网格的动作），风格代表了更小、更多的格子数目。</p>
+<h5 id="3-1-翻页动作"><a href="#3-1-翻页动作" class="headerlink" title="3.1 翻页动作"></a>3.1 翻页动作</h5><pre><code>class PageTurn3DDemo:public PageTurn3D
+{
+    public:
+    static ActionInterval *create(float t);
+    {
+        Director::getInstance()-&gt;setDepthTest(true);
+        return PageTurn3D::create(Size(15, 10), t);
+    }
+}
+</code></pre><h5 id="3-2-波纹动作"><a href="#3-2-波纹动作" class="headerlink" title="3.2 波纹动作"></a>3.2 波纹动作</h5><pre><code>class WaveDemo : public Waves
+{
+    public:
+    static ActionInterval* create()
+    {
+        return Waves:create(4, 20, true, Size(16, 12), t);
+    }
+}
+</code></pre><h5 id="3-3-格子动作"><a href="#3-3-格子动作" class="headerlink" title="3.3 格子动作"></a>3.3 格子动作</h5><pre><code>class Waves3DDemo : public WavesTiles3D
+{
+    public:
+    static ActionInterval *create(float t)
+    {
+        retur WavesTileds3D:create(t, Size(t, Size(15, 10), 5, 40));
+    }
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

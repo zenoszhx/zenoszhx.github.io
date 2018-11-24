@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1.5 Lua bindings - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-生成绑定代码"><span class="toc-text">1 生成绑定代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-使用绑定代码"><span class="toc-text">2 使用绑定代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-自定义绑定"><span class="toc-text">3 自定义绑定</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1.5 Lua bindings
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:25:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>在Cocos2d3.0之前的版本中，使用tolua直接生成供Lua调用的代码，开发者需要对想要生成绑定代码的每个头文件编写一个PKG文件，还要移除那些在头文件中的实现，有此定义还需要针对tolua作一些特殊处理，这样导致代码的维护成本特别的高。</p>
+<p>从Coco2d-x 3.0开始，Cocos2d-x使用一个名为binding-generator的工具来自动生成绑定代码。bindging-generator是基于tolua++来实现的，它使开发者只需要配置一份类的声明，bindings-generator即会对这些类的所有公共方法生成绑定代码。这样，开发者修改了类的结构后，只需要执行命重新生成绑定代码即可。</p>
+<h3 id="1-生成绑定代码"><a href="#1-生成绑定代码" class="headerlink" title="1 生成绑定代码"></a>1 生成绑定代码</h3><p>使用binding-generator生成绑定代码关键是要提供一个INI配置文件，INI文件中定义了许多配置项：</p>
+<ul>
+<li>prefix：指示生成lua_CFunction的方法名称的前缀，通常与文件名相同。</li>
+<li>target_namespace：给库指定独立的名命空间，以防止类型与其他库冲突。</li>
+<li>headers：指定后面将要生成的绑定代码的类型将从哪些头文件中找。</li>
+<li>class：定义那些类型需要生成绑定文件</li>
+<li>skip: 用来独力忽略某些方法</li>
+</ul>
+<p>配置完INI文件之后，还需要向genbinding.py文件的cmd_args参数中加入下面配置：</p>
+<pre><code>&apos;geniuxs.ini&apos; : (&apos;geniusx&apos;, &apos;lua_geniusx_auto&apos;), \
+</code></pre><p>之后需要在cocos2d/tools/bidings-generator/targets/lua目录下的conversions.ymal文件中的ns_map节点中添加以下一行。</p>
+<pre><code>&quot;GX::&quot;:&quot;gx.&quot;
+</code></pre><p>当所有这些配置完毕后，执行tolua目录下的genbingings.py脚本就可以生成绑定代码。</p>
+<h3 id="2-使用绑定代码"><a href="#2-使用绑定代码" class="headerlink" title="2 使用绑定代码"></a>2 使用绑定代码</h3><p>当绑定代码生成后，我们需要将它们手动添加至cocos2d_lua_binding工程下面的aoto文件夹下，然后向cocosd_lua_binding项目添加搜索路径。</p>
+<p>最后需要向LuaEngine注册这些新生成的绑定代码。然后就可以使用了：</p>
+<pre><code>auto engine = LuaEngine::getInstance();
+ScriptEngineManager::getInstance()-&gt;setScriptEngine(engine);
+
+auto state = engine-&gt;getLuaStack()-&gt;getLuaState();
+lua_getglobal(state, &quot;_G&quot;);
+register_all_geniusx(state);
+lua_pop(state, 1);
+</code></pre><h3 id="3-自定义绑定"><a href="#3-自定义绑定" class="headerlink" title="3 自定义绑定"></a>3 自定义绑定</h3><p>bindings-generate虽然简化了生成代码的工作，但是它也裁剪了tolua的一些功能，binding-generate只能用来生成方法的绑定代码。如果需要高级的一些绑定代码，如常量、枚举、模块、全局方法等，仍然可以使用原生的tolua来生成绑定代码。</p>
+<p>对于不是由binding-generator生成的绑定代码，通常可以放在manual目录下。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

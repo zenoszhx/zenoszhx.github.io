@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        3.6 文字与字体 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#文字与字体"><span class="toc-text">文字与字体</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-TTF类型标签"><span class="toc-text">1.TTF类型标签</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-此类标签的优缺点如下："><span class="toc-text">1.1 此类标签的优缺点如下：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-创建函数"><span class="toc-text">1.2 创建函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-BMFont标签"><span class="toc-text">2.BMFont标签</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-BMFont特点"><span class="toc-text">2.1 BMFont特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-BMFont示例项目"><span class="toc-text">2.2 BMFont示例项目</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Atlas标签"><span class="toc-text">3.Atlas标签</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-Atlas类的特点"><span class="toc-text">3.1 Atlas类的特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-示例项目"><span class="toc-text">3.2 示例项目</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-综合类Label标签类"><span class="toc-text">4.综合类Label标签类</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-Label中所有新功能示例"><span class="toc-text">4.1 Label中所有新功能示例</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-TTFConfig结构体"><span class="toc-text">4.2 TTFConfig结构体</span></a></li></ol></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        3.6 文字与字体
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="文字与字体"><a href="#文字与字体" class="headerlink" title="文字与字体"></a>文字与字体</h1><p>通常在游戏中存在两种文字方式：美术字及排版字。既美术人员制作的纹理图片和字体库。</p>
+<p>下图展示了引擎用于处理文字的三个类：LabelAtlas、LabelBMFont、LabelTTF。</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0114%E6%96%87%E5%AD%97%E5%AD%97%E4%BD%93%E7%BB%A7%E6%89%BF.png" alt=""></p>
+<h3 id="1-TTF类型标签"><a href="#1-TTF类型标签" class="headerlink" title="1.TTF类型标签"></a>1.TTF类型标签</h3><p>TTF（True Type Font）从继承关系来看，此类的另一个父类就是Sprite，说明可以把TTF当精灵对象来使用。</p>
+<h5 id="1-1-此类标签的优缺点如下："><a href="#1-1-此类标签的优缺点如下：" class="headerlink" title="1.1 此类标签的优缺点如下："></a>1.1 此类标签的优缺点如下：</h5><p>1).TTF字体中包含了某种语言中所有的字母及符号，可以随意调整大小、颜色。</p>
+<p>2).TTF标准得到了普及，操作系统中已经提供了多种字体，开发者无需提供任何编辑就可使用。</p>
+<p>3).包含内容较多，初始化的时候需要创建纹理图片，所以创建和更新的过程会比较缓慢。</p>
+<h5 id="1-2-创建函数"><a href="#1-2-创建函数" class="headerlink" title="1.2 创建函数"></a>1.2 创建函数</h5><pre><code>// 参数为文字内容、字体名称、字体尺寸
+static Label create(const std::string&amp; string, const std::string&amp; fontNane, float fontSize);
+
+// 参数为文字内容、字体名称、字体尺寸、标签尺寸、对齐方式
+static Label create(const std::string&amp; string, const std::string&amp; fontName, float fontSize, const Size&amp; dimension, CCTextAlignment hAlignment);
+
+// 参数为文字内容、字体名称、字体尺寸、标签尺寸、对齐方式、文字竖直对齐方式
+static Label create(const std::string&amp; string, const std::string&amp; fontName, float fontSize, const Size&amp; dimension, CCTextAlignment hAlignment， CCVerticalTextAligment vAlignment);
+</code></pre><h3 id="2-BMFont标签"><a href="#2-BMFont标签" class="headerlink" title="2.BMFont标签"></a>2.BMFont标签</h3><p>从继承关系看，BMFont继承自类CCSpriteBatchNode。</p>
+<h5 id="2-1-BMFont特点"><a href="#2-1-BMFont特点" class="headerlink" title="2.1 BMFont特点"></a>2.1 BMFont特点</h5><p>1).需要一个图片编辑器， 用于编辑文字的纹理图集。</p>
+<p>2).具备了很快的创建以及更新速度。</p>
+<p>3).自由度非常的高，每一个字母和符号都是单独的精灵。</p>
+<p>4).自制字体的方式，开发者可以自定义其中的字母以及符号，甚至包含阴影。外框及花纹。</p>
+<h5 id="2-2-BMFont示例项目"><a href="#2-2-BMFont示例项目" class="headerlink" title="2.2 BMFont示例项目"></a>2.2 BMFont示例项目</h5><pre><code>Atlas3::Atlas3()
+{
+    m_time = 0;
+    // 创建一个颜色图层
+    LayerColor* col = LayerColor::create(ccc4(128, 128, 128, 255));
+    addChild(col, -1);
+
+    // 使用字体资源文件，创建一个LabelBMFont对象
+    LoabelBMFont* label1 = LabelBMFont::create(&quot;Test&quot;, &quot;fonts/bitMapFontTest2.fnt&quot;);
+    // 设置字体锚点，以及执行一个淡进淡出的动作效果
+    label1-&gt;setAnchorPoint(Vec2(0, 0));
+    addChild(lable1, 0, kTagBitmapAtlas1);
+    ActionInterval *fade = FadeOut::create(1.0f);
+    ActionInterval *fad_in = fade-&gt;reverse();
+    FiniteTimeAction *seq = Sequence::create(fade, fade_in, NULL);
+    Action *repeat = RepeatForever::create((ActionInterval *)seq);
+    label1-&gt;runAction(repeat);
+
+    // 设置位置
+    Size s = Director::getInstance()-&gt;getWinSize();
+    label1-&gt;setPositon(VisibleRect::leftBottom());
+
+    // 开启定时器回调函数
+    schedule(schedule_selector(Atlas3::step))
+}
+
+// 更新显示文字
+void Atlas3::step(float dt)
+{
+    m_time += dt;
+    char string[15] = {0};
+
+    LabelBMFont *label1 = (LabelBMFont*) getChildByTag(kTagBitmapAtlas1);
+    label1-&gt;setString(string);
+}
+</code></pre><h3 id="3-Atlas标签"><a href="#3-Atlas标签" class="headerlink" title="3.Atlas标签"></a>3.Atlas标签</h3><p>Atlas 标签类的父类是AtlasNode，这是一个纹理图集的类，可以将纹理图片按照矩形区域分隔显示。</p>
+<h5 id="3-1-Atlas类的特点"><a href="#3-1-Atlas类的特点" class="headerlink" title="3.1 Atlas类的特点"></a>3.1 Atlas类的特点</h5><p>1).Atlas与TTF类相似，只不过TTF标签会创建一张绘制着文字的图片。而Atlas不会创建任何纹理图片。</p>
+<p>2).Atlas标签只会使用源纹理图片进行创建，Atlas创建速度要远远超过TTF。</p>
+<p>3).LabelAtlas类中每一个字母或符号都是独特的，它们可以有灵活可变的样式各尺寸。</p>
+<p>4).LabelAtlas中字母和符号也是可以由开发者制定。</p>
+<pre><code>// 全参数创建函数
+static LabelAtlas* create(const std::string&amp; label, const std::string&amp; charMapFile, ssize_t itemWidth, ssize_t itemHeight, ssize_t startCharMap);
+</code></pre><h5 id="3-2-示例项目"><a href="#3-2-示例项目" class="headerlink" title="3.2 示例项目"></a>3.2 示例项目</h5><pre><code>LabelAtlasTest::LabelAtlasTest()
+{
+    m_time = 0;
+
+    // 创建Atlas标签对象
+    LabelAtlas *label = LabelAtlas::create(&quot;123 Test&quot;, &quot;fonts/tuffy_bold_italic-charmap.plist&quot;);
+    addChild(label, 0, kTagSprite1);
+    label-&gt;setPosition(Vec(10, 100));
+    // 设置透明度
+    label-&gt;SetOpacity(200);
+
+    schedule(schedule_selecotr(LabelAtlasTest::step));
+}
+</code></pre><h3 id="4-综合类Label标签类"><a href="#4-综合类Label标签类" class="headerlink" title="4.综合类Label标签类"></a>4.综合类Label标签类</h3><p>3.x中新加了Label类，这个类量上面所介绍的LabelTTF、LabelBMFont、LabelAtlas的一个综合类，提供了创建这三个类的新方法，并增加了字体描边、添加阴影、字体外发光的方法。</p>
+<h5 id="4-1-Label中所有新功能示例"><a href="#4-1-Label中所有新功能示例" class="headerlink" title="4.1 Label中所有新功能示例"></a>4.1 Label中所有新功能示例</h5><pre><code>LabelTTFDynamicAlignment::LabelTTFDynamicAligment()
+{
+    auto size = Director::getInstance()-&gt;getWinSize();
+    TTFConfig ttfConfig(&quot;font/arial.ttf&quot;, 23);
+    _label = Label::createWithTTF(ttfConfig, LongSentencesExample, TextHAligment::CENTER, size.width);
+    _label-&gt;setPosition(Vec2(size.width/2, size.height/2));
+
+    addChild(_label);
+    this-&gt;addChild(menu);
+}
+</code></pre><h5 id="4-2-TTFConfig结构体"><a href="#4-2-TTFConfig结构体" class="headerlink" title="4.2 TTFConfig结构体"></a>4.2 TTFConfig结构体</h5><p>TTFConfig是一个结构体，其中定义了TTFlabel所需的几个参数，如下面代码所示。</p>
+<pre><code>typedef struct _ttfConfig
+{
+    std::string fontFilePath;
+    int fontSize;
+    GlyphCollection glyphs;
+    const char *customGlyphs;
+    bool distanceFieldEnabled;
+    int outlineSize;
+
+    _ttfConfig(const char* filePath = &quot;&quot;, int size = 12, const GlypnCollection&amp; glyphCollection = GlypnCollection::DYNAMIC);
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        3.1 根节点 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Node"><span class="toc-text">Node</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Node类和子类的特点"><span class="toc-text">1.Node类和子类的特点</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-Node类和它的子类有三个明显的特点"><span class="toc-text">1.1 Node类和它的子类有三个明显的特点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-Node子类需要改变3个内容"><span class="toc-text">1.2 Node子类需要改变3个内容</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Node类的函数"><span class="toc-text">2.Node类的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-Node类与节点有关的函数"><span class="toc-text">2.1 Node类与节点有关的函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-Node类的节点操作"><span class="toc-text">2.2 Node类的节点操作</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-Node中与定时器有关函数"><span class="toc-text">2.3 Node中与定时器有关函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-Node中与动作有关的函数"><span class="toc-text">2.4 Node中与动作有关的函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-5-与场景转换有关的函数"><span class="toc-text">2.5 与场景转换有关的函数</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        3.1 根节点
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="Node"><a href="#Node" class="headerlink" title="Node"></a>Node</h1><p>几乎所有与渲染有关的类都继承自Node类。</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0102Node%E7%B1%BB%E5%B1%9E%E6%80%A7.png" alt=""></p>
+<h3 id="1-Node类和子类的特点"><a href="#1-Node类和子类的特点" class="headerlink" title="1.Node类和子类的特点"></a>1.Node类和子类的特点</h3><h5 id="1-1-Node类和它的子类有三个明显的特点"><a href="#1-1-Node类和它的子类有三个明显的特点" class="headerlink" title="1.1 Node类和它的子类有三个明显的特点"></a>1.1 Node类和它的子类有三个明显的特点</h5><p>1). 可以包含Node类对象作为子节点。对应方法为addChild、getChildByTag、removeChild。</p>
+<p>2). Node类及子类都可以使用定时器。对应方法为schedule、unschedule。</p>
+<p>3). Node类及子类都可以执行动作。对应方法为runAction、stopAction。</p>
+<h5 id="1-2-Node子类需要改变3个内容"><a href="#1-2-Node子类需要改变3个内容" class="headerlink" title="1.2 Node子类需要改变3个内容"></a>1.2 Node子类需要改变3个内容</h5><p>1）.类对象初始化的方式和内容。</p>
+<p>2）.编写时间回调函数。</p>
+<p>3）.重载绘制函数。</p>
+<h3 id="2-Node类的函数"><a href="#2-Node类的函数" class="headerlink" title="2.Node类的函数"></a>2.Node类的函数</h3><h5 id="2-1-Node类与节点有关的函数"><a href="#2-1-Node类与节点有关的函数" class="headerlink" title="2.1 Node类与节点有关的函数"></a>2.1 Node类与节点有关的函数</h5><pre><code>// 将参数中的节点对象添加至当前节点
+virturl void addChild(Node *child);
+virturl void addChild(Node *child, int localZOrder);
+virturl void addChild(Node *child, int localZOrder, int tag)
+
+// 将当前节点从父节点移除，并设置是否清除
+void removeFromParentAndCleanup (bool cleanup)
+// 移除参数中的指定的节点，并设置是否清除
+virtual void removeChild (Node *child, bool cleanup)
+// 通过参数标识移除子节点，并设置是否清除
+void removeChildByTag(int tag, bool cleanup)
+// 移除全部子节点，并设置是否清除
+virtual void removeAllChildrenWithCleanup (bool cleanup)
+
+// 返回参数值指定的标志的子节点
+virtual Node *getChildByTag(int tag)
+// 返回所有的子节点
+virtual Vector&lt;Node *&gt;&amp; getChildren (void)
+
+// 重新设置子节点的坐标值
+virtual void reorderChild(Node *child, int localZOrder)
+
+// 通过排序所有子节点，提供渲染性能。不要随意调用，除非要在当前帧移除新加入的节点
+virtual void sortAllChildren()
+
+// 获得子节点的数目
+virtual ssize_t getChildrenCount(void)
+
+注意：
+1. 在执行添加子节点的函数时，如果当前节点处于运行中状态，则会立即调用另外函数“onEnter”和“onEnterTransitionDidFinish”。
+2. 如果存在多个相同标志的Node对象，则会返回第一个被添加的对象。如果不存丰则返回NULL
+3. removeChild函数中，cleanup参数为是否停止移除子节点当前定时器和动作。如果要移除的子节点还在使用，那么传入true。
+</code></pre><h5 id="2-2-Node类的节点操作"><a href="#2-2-Node类的节点操作" class="headerlink" title="2.2 Node类的节点操作"></a>2.2 Node类的节点操作</h5><pre><code>// 生成一个新节点
+Node *childNode = Node::create();
+// 将新节点添加为子节点
+myNode-&gt;addChild(childNode, 0, 100);
+// 获取子节点
+Node *retrievedNode = myNode-&gt;getChildByTag(100);
+// 通过tag移除子节点，cleanup会停止任何运行中的动作
+myNode-&gt;removeChildByTag(100, true);
+// 通过节点指针删除节点
+myNode-&gt;removeChild(retrieveNode);
+
+注意：
+1.在代码后面使用了两次移除节点的方法。这是只做展示。在节点移除后再一次移除会报错。
+</code></pre><h5 id="2-3-Node中与定时器有关函数"><a href="#2-3-Node中与定时器有关函数" class="headerlink" title="2.3 Node中与定时器有关函数"></a>2.3 Node中与定时器有关函数</h5><p>类Node中第二个特性就是定时器。</p>
+<p>1）.类Node中定时器的功能，开发者需要设定一定的时间间隔，它会自动执行起来，每当达到预定时间，它会自动执行起来。</p>
+<p>2）.一旦开发者开启了定时器，就会持续地执行循环，直到通过代码来控制。</p>
+<p>3）.类Node中的定时器量循环执行的。类似于游戏中的循环周期，只不过定时器是按照固定的时间节奏来调用一个函数。其实在游戏当中，开发者确实通过定时器回调机制来实现游戏逻辑循环的。</p>
+<pre><code>// 检查当前函数是否为定时器回调
+bool isSchedule (SEL_SCHEDULE selector);
+
+// 启动定时器更新函数
+void scheduleUpdate (void);
+// 根据参数中的优先级来控制回调函数
+void scheduleUpdateWithPriority(int priority);
+// 取消回调函数
+void unscheduleUpdate(void)
+
+// 启动定时器，参数为回调函数句柄、以毫秒为单位的循环周期、循环次数、延迟启动时间
+void schedule(SEL_SCHEDULE selector);
+void schedule(SEL_SCHEDULE selector, folat interval);
+void schedule(SEL_SCHEDULE selector, float interval, ssize_t repeat, float delay);
+// 启动一次定时器，参数为回调函数以及延迟启动时间
+void scheduleOne(SEL_SCHEDULE selector, float delay);
+
+// 取消参数所指定回调函数的定时器
+void unschedule(SEL_SCHEDULE selector);
+// 取消所有定时器，包括了回调（更新）函数
+void unscheduleAllCallbacks (void)
+
+// 恢复所有定时器及动作
+void resume (void)
+// 暂停所有定时器及动作
+void pose (void)
+
+注意：
+1.在一个类Node对象中只能存在一个更新回调函数upate()，因为引擎运算消耗，所以函数的回调间隔并不为零。
+</code></pre><p>说明：</p>
+<p>1）.类Node中包含了一个默认的计时器，其优先级为0，优先权是最高的。当多个定时器都在同一个时间点触发的，首先调用优先级高的。secheduleUpdateWithPriority就是通过参数来更新定时器的优先级。</p>
+<p>2).除了默认的更新定时器，开发者还可以通过使用函数。它的级别通常会低于引擎默认的定时器。</p>
+<p>3).</p>
+<h5 id="2-4-Node中与动作有关的函数"><a href="#2-4-Node中与动作有关的函数" class="headerlink" title="2.4 Node中与动作有关的函数"></a>2.4 Node中与动作有关的函数</h5><pre><code>// 执行动作，返回执行动作
+Action *runAction (Action *action);
+// 停止所有动作
+void stopAllActions (void);
+// 停止指定参数动作
+void stopActionByTag (int tag);
+// 根据标志获取动作对象
+Action *getActionByTag (int tag);
+// 获取当前对象执行动作数目
+ssize_t getNumberOfRunningActions();
+
+注意：
+1.并不是所有的动作都适合Node对象。比如，让一个图层对象来播放动画，不就成了播放视频了吗？
+2.当销毁一个对象的时候，引擎会首先停止它所有的动作及定时器。
+</code></pre><h5 id="2-5-与场景转换有关的函数"><a href="#2-5-与场景转换有关的函数" class="headerlink" title="2.5 与场景转换有关的函数"></a>2.5 与场景转换有关的函数</h5><p>Node的对象作为游戏中的元素，通常需要一个载体。载体负责管理众多的节点对象。在引擎结构中场景类就是众多类Node的载体。</p>
+<pre><code>// 当前对象进入场景时调用函数
+virtual void onEnter ();
+// 当场景转换完成时调用的函数
+virtual void onEnterTransitionDidFinish();
+// 当前对象退出场景时调用的函数
+virtual void onExit ();
+// 当前场景边转换开始时调用的函数
+virtual void onExitTransitionDidStart ();
+
+注意：
+1.onEnterTransitionDidFinish和onExitTransitionDidStart是否被调用，取决于是否使用了场景TransitionScene。
+2.onEnter和onExit则必然会在场景转换过程中的某个时间点调用。
+3.在每个方法中必须要调用它们父类中相同的方法，以避免丢失用户触碰信息以及内存泄漏问题
+
+与场景转换有关的函数示例：
+
+void testLayer1::onEnter()
+{
+    // 节点调用了init方法后将会调用此方法
+    // 如果使用了TransitionScene，将会在过渡效果开始以后调用此方法
+    Layer::onEnter();
+    CCLog(&quot;Scene 1 onEnter&quot;);
+}
+
+void TestLayer1::onEnterTransitionDidFinish()
+{
+    // 在使用了Transition方法时，将会在过渡效果结束以后调用此方法
+    layer::onEnterTransitionDidFinish();
+    CCLog(&quot;Scene 1: onEnterTransitionDidFinish&quot;);
+}
+
+void testLayer1::onExitTransitionDidStart()
+{
+    // 在使用了TransitonScene方法后，将会在过渡效果开始以后调用此方法
+    layer::onExitTransitionDidStart();
+    CCLog(&quot;Scene 1: onExitTransitionDidStart&quot;);
+}
+
+void testLayer1:onExit()
+{
+    // 节点调用dealloc方法之前将会调用此方法
+    // 如果使用了TransitionScene将会在过渡效果结束以后调用此方法
+    layer:onExit();
+    CCLog(&quot;Scene 1 onExit&quot;);
+}
+
+注意：
+1.如果不在onEnter方法里调用super方法，在新的场景里可能就无法对触摸或者加速计的输入有任何的反应;如果不在onExit方法里调用它的super方法，当前场景可能不会从内存中释放。
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

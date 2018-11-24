@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        6.6 动画动作类 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#动画类动作"><span class="toc-text">动画类动作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-精灵帧"><span class="toc-text">1.精灵帧</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-精灵帧缓冲"><span class="toc-text">2.精灵帧缓冲</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-动画类"><span class="toc-text">3.动画类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-动画动作"><span class="toc-text">4.动画动作</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        6.6 动画动作类
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="动画类动作"><a href="#动画类动作" class="headerlink" title="动画类动作"></a>动画类动作</h1><p>动画类动作同样继承自ActionInterval。</p>
+<h3 id="1-精灵帧"><a href="#1-精灵帧" class="headerlink" title="1.精灵帧"></a>1.精灵帧</h3><p>引擎新版本中专门设计了AnimationFrame为动画帧对象，旧版本中开发者更习惯使用类精灵帧SpriteFrame。<br>新版本中，明确了类AnimationFrame的作用就是作为动画帧，精灵帧被看作是附属于精灵对象的属性。</p>
+<pre><code>// 纹理及矩形区域创建
+static SpriteFrame* createWithTexture(Texture2D *pobTexture, const Rect&amp; rect);
+// 纹理、矩形区域、旋转、偏移、源尺寸创建
+static SpriteFrame* createWithTexture(Texture2D *pobTexture, const Rect&amp; rect, bool rotated, const Vec2&amp; offset, const Size&amp; originalSize);
+
+// 纹理名称和矩形区域创建
+static SpriteFrame* create(const std::string&amp; filename, const Rect&amp; rect);
+// 纹理名称、矩形区域、旋转、偏移、源尺寸创建
+static SpriteFrame* create(const std::string&amp; fileName, const Rect&amp; rect, bool rotate, const Vec2&amp; offset, const Size&amp; originalSize);
+</code></pre><h3 id="2-精灵帧缓冲"><a href="#2-精灵帧缓冲" class="headerlink" title="2.精灵帧缓冲"></a>2.精灵帧缓冲</h3><p>SpriteFrameCache，存放精灵帧对象的缓冲池，为一个单例对象。</p>
+<pre><code>// 通过plist文件来添加精灵帧
+void addSpriteFrameWithFile(const std::string&amp; plist);
+// 通过plist文件和纹理图片名称来添加精灵帧
+void addSpriteFramesWithFile(const std::string&amp; plist, const std::string&amp; textureFileName);
+// 通过plist文件和纹理图片来添加精灵帧
+void addSpriteFramesWithFile(const std::string&amp; plist, Texture2D *texture);
+// 使用参数中的名字来添加精灵帧
+void addSpriteFrame(SpriteFrame *frame, const std::string&amp; frameName);
+
+// 移除所有的精灵帧
+void removeSpriteFrames(void);
+// 移除未使用的精灵帧
+void removeUnusedSpriteFrames (void);
+// 移除参数名精灵帧
+void removeSpriteFrameByName(const std::string&amp; name);
+// 通过plist文件移除
+void removeSpriteFrameFromFile(const std::string&amp; plist);
+// 通过纹理文件来移除
+void removeSpriteFramesFromTexture(Texture2D *texture);
+// 清空所有对象
+static void destroyInstance();
+</code></pre><h3 id="3-动画类"><a href="#3-动画类" class="headerlink" title="3.动画类"></a>3.动画类</h3><p>动画类,包含了一系列的动画帧以及动画帧之间播放的间隔，是将动画帧元素组织起来、准备播放的集合对象。它决定了动画帧的播放顺序以及时间间隔。</p>
+<pre><code>//// 精灵帧创建函数
+// 创建一个空的动画对象
+static Animation *create(void);
+// 使用精灵帧对象的名字数组，来创建一个动画对象，第二个为动画间隔时间
+static Animation * createWithSpriteFrames(const Vector&lt;SpriteFrames*&gt;&amp; arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loops = 1);
+// 使用动画帧对象的名字数组，来创建一个动画对象。二个参数为间隔时间，第三个参数为循环次数（-1为无限循环）
+static Animation* create(const Vector&lt;AnimationFrame*&gt;&amp; arrayOfAnimationFrameNames, float delayPerUnit, unsigned int loops = 1);
+
+//// 精灵帧成员函数
+// 在动画中添加一个精灵帧
+void addSpriteFrame(SpriteFrame *frame);
+// 通过图片名字在动画中添加一个精灵帧
+void addSpriteFrameWithFile(const std::string&amp; fileName);
+// 通过纹理图片和矩形区域在动画中添加一个精灵帧
+void addSpriteFrameWithTexture(Texture2D *pobTexture, const Rect &amp;rect);
+</code></pre><h3 id="4-动画动作"><a href="#4-动画动作" class="headerlink" title="4.动画动作"></a>4.动画动作</h3><p>Animation并不能执行动作，只是作为一个精灵的有序集合。引擎专门提供了一个用来执行动画的持续动作类——Animate。</p>
+<pre><code>static Animate * create(Animation *animation);
+</code></pre><p>样例和：</p>
+<pre><code>void ActionAnimate::onEnter()
+{
+    ActionsDemo::onEnter();
+    centerSprites(3);
+
+    //// （1）根据单张图片来创建
+    Animation *animation = Animation::create();
+    for (int i = 1, i &lt; 15, i++)
+    {
+        char szName[100] = {0};
+        sprintf(szName, &quot;Images/grossini_dance_%2d.png&quot;, i);
+        animation-&gt;addSpriteFrameWihtFile(szName);
+    }
+    // 设置动画播放的属性，2.8秒/14帧
+    animation-&gt;setDelayPerUnit(2.8f, 14.0f);
+    // 设置精灵帧的使用方式
+    animation-&gt;setRestoreOriginalFrame(true);
+
+    // 创建动画动作
+    Animate *action = Animate::create(animation);
+    m_grossini-&gt;runAction(Sequence::create(action, action-&gt;ververse(), NULL));        
+
+
+    //// （2）利用动画文件来创建
+    // 创建动画帧缓冲
+    AnimationCache *cache = AnimationCache::getInstance();
+    // 根据文件向缓冲区中添加动画帧
+    cache-&gt;addAnimationWithFile(&quot;animations/animations-2.plist&quot;);
+    Animation *animation = cache-&gt;getAnimation(&quot;dance_1&quot;);
+
+    Action *action2 = Animate::create(animation2);
+    m_tamata-&gt;runAction(Sequence::create(action2, action2-&gt;reverse, NULL));
+
+    //// （3）利用动画文件的创建方式
+    Animation animation3 = (Animation *)animation2-&gt;copy()-&gt;autorelease();
+    animation3-&gt;setLoop(4);
+
+    Animate *action3 = Animate::create(animation3);
+    m_kathia-&gt;runAction(action3);
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

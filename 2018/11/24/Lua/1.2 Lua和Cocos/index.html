@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1.2 Lua和Cocos - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-对原生编程语言的接口"><span class="toc-text">1 对原生编程语言的接口</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-Lua的C函数语言接口"><span class="toc-text">1.1 Lua的C函数语言接口</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#2-游戏对象句柄"><span class="toc-text">2 游戏对象句柄</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-Lua函数调用与定义"><span class="toc-text">2.1 Lua函数调用与定义</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-类对象及注册表"><span class="toc-text">2.2 类对象及注册表</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-tolua构造对象"><span class="toc-text">2.3 tolua构造对象</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-调用游戏对象方法"><span class="toc-text">2.4 调用游戏对象方法</span></a></li></ol></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1.2 Lua和Cocos
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:25:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>上两篇解释了什么是脚本，及常见的脚本架构思想，以及Lua脚本和C++的交互。在不同的脚本架构中，脚本语言与游戏引擎的关系都是相似的：游戏引擎必须能够执行脚本代码，脚本也要能够发起引擎中的操作。接下来将详细整理Lua在Cocos引擎中的工作机制。</p>
+<h3 id="1-对原生编程语言的接口"><a href="#1-对原生编程语言的接口" class="headerlink" title="1 对原生编程语言的接口"></a>1 对原生编程语言的接口</h3><p>通常，运行时脚本语言都提供一个虚拟机，以及原生语言与虚拟机交互的接口。虚拟机被嵌入到游戏引擎中，由游戏引擎启动虚拟机。虚拟机使得原生语言可以执行脚本代码，同时也可以向虚拟机注册一个C函数，供脚本调用。虚拟机执行脚本的单位根据具体语言和游戏实现有所不同，通常有同种执行单位。</p>
+<p>（1）在函数式脚本语言中，函数通常是脚本执行的主要单位。调用一个脚本函数，需要按函数名称找到对应的字节码，然后生成一个或者命令一个现存的虚拟机去执行。</p>
+<p>（2）在面向对象脚本语言中，类通常是脚本执行的主要单位。这种系统通常可以创建和销毁对象，以及对个别实例调用其方法。</p>
+<p>下面以Lua脚本语言举例原生语言各脚本语言之间的通信。</p>
+<h5 id="1-1-Lua的C函数语言接口"><a href="#1-1-Lua的C函数语言接口" class="headerlink" title="1.1 Lua的C函数语言接口"></a>1.1 Lua的C函数语言接口</h5><p>Lua提供了一组宿主程序与Lua通信的C函数（参考上节），Lua使用一个虚拟栈来和C传递值。</p>
+<p>Lua如果要调用C函数，首先宿主程序向Lua注册一个C函数的地址，当C函数被调用的时候该函数会得到一个新的栈，这个栈独立于C函数本身，也独立于其函数调用的栈（Lua为每一次C函数调用分配一个独立的栈），它里面包含了所有Lua传递给C函数的参数，而C函数则要将返回的结果也放入堆栈以返还给调用者。</p>
+<p>如果要调用一个Lua函数，首先将要被调用的函数压入栈，接着把需要传递给这个函数的参数按正序压入栈，最调用lua_call()方法，并指明参数个数，当函数调用完毕之后，所有参数及函数本身都会出栈，而函数的返回值则被压入栈。由于Lua有多个返回值，Lua会保证所有返回值都放入栈中，并按正序压栈。</p>
+<p>Lua语言就是通过变个一组C函数接口，以及一个传递函数地址及参数的堆栈来使宿主程序和Lua函数进行通信的，这建立起了脚本被用在宿主程序的基础设施。在这之上可以使用前面讲述的不同脚本架构风格，灵活地将Lua作用在任何游戏的引擎之上。</p>
+<h3 id="2-游戏对象句柄"><a href="#2-游戏对象句柄" class="headerlink" title="2 游戏对象句柄"></a>2 游戏对象句柄</h3><p>脚本函数需要与游戏对象互动，而游戏对象本身可能是部分或者全部由游戏引擎原生语言实现的。脚本语言可以用方法取得游戏对象句柄。如通过引擎传递过来，当一个C函数调用lua_call()并以一个对象作为参数；也可以通过查询所得，例如在Cocos2d-x中查询某个Node元素的子元素，或者是以特定的对象名字查找游戏对象句柄。</p>
+<p>不同的脚本语言有不同表示游戏对象句柄的方式，例如有些脚本语言使用不透明的数值型句柄来引用游戏对象；例如在《顽皮狗》的脚本语言使用对象的名字，即以字符串来表示游戏对象句柄，这非常的易读而且直觉地使用，并保留名字”self”来代表执行中脚本现实绑定至的游戏对象。</p>
+<p>而通过C/C++分配的内存在Lua中表现为一个userdata类型，userdate类型和tabel在很多方面都类似的，例如都拥有自己的metatable。但是userdata不能在Lua中被创建出来，也不能在Lua中被修改。这样的操作只能通过C函数接口来实现，这保证了宿主程序完全掌握其中的数据。此外，userdata也不受Lua垃圾回收机制的管理。</p>
+<p>因此，引擎传递过来的游戏对象也是一个userdata，userdata即代表一个游戏对象的句柄。下面将讲述引擎向Lua传递游戏对象，以及Lua怎样通过游戏对象调用C/C++实现的方法。</p>
+<h5 id="2-1-Lua函数调用与定义"><a href="#2-1-Lua函数调用与定义" class="headerlink" title="2.1 Lua函数调用与定义"></a>2.1 Lua函数调用与定义</h5><p>脚本函数拿到游戏对象之后最重要的是要调用其中的方法。</p>
+<p>（1）在Lua中函数的调用方法如下：</p>
+<pre><code>functioncall ::= prefixexp args
+</code></pre><p>函数调用时，首先prefixexp被求值，如果prefixexp值的类型为function，那么这个函数就被给出的参数调用；否则prefixexp的元方法“call”被调用第个参数就是prefixexp的值，接下来依次是原来的参数args。</p>
+<p>Lua支持的一种语法糖，可以通过下面形式来调用“方法”：</p>
+<pre><code>function ::= prefixexp&apos;:&apos;Name args
+</code></pre><p>像v:name(args)会被解释为v.name(v, args)，其中v只会被求值一次，这有点像调用对象v的实例方法name.</p>
+<p>（2）Lua中函数定义如下：</p>
+<pre><code>functiondef ::= function funcbody
+funcbody ::= &apos;(&apos;[parlist]&apos;)&apos; block end
+</code></pre><p>另外定义的一些语法糖简化了函数定义的写法。</p>
+<pre><code>stat ::= function funcname funcbody
+stat ::= local function Name funcbody
+funcname :: Name {&apos;.&apos; Name} [&apos;:&apos; Name]
+</code></pre><p>例如如下定义：</p>
+<pre><code>function f () body end
+</code></pre><p>被转换为：</p>
+<pre><code>f = function () body end
+</code></pre><p>函数定义:</p>
+<pre><code>local function f () body end
+</code></pre><p>被转换成：</p>
+<pre><code>local f; f = function () body end
+</code></pre><p>而不是：</p>
+<pre><code>local f = function () body end
+</code></pre><p>一个函数的定义是一个可执行的表达式，执行结果是一个类型为function的值。当一个Lua预编译一个chunk的时候，chunk被作为一个函数，整个函数体也就被预编译了，无论何时Lua执行了函数定义，这个函数本身本身就被实例化了（或者说是关闭了）。这个函数的实例，或者说闭包（Closur），就是表达式的最终值。相同函数的不同实例有可能引用不同的外部局部变量，也可能拥有不同的环境表。</p>
+<p>冒号语法可以用来定义方法，也就是说函数可以有一个隐式的形参self，示例如下：</p>
+<pre><code>function t.a.b.c:f (params) body end
+</code></pre><p>是下面这种写法的语法糖：</p>
+<pre><code>t.a.b.c.f = function (self, params) body end
+</code></pre><h5 id="2-2-类对象及注册表"><a href="#2-2-类对象及注册表" class="headerlink" title="2.2 类对象及注册表"></a>2.2 类对象及注册表</h5><p>通过Lua函数的调用及定义不难发现，只要能够在Lua脚本中获取到一个表示原生语言类的对象，就可以在Lua中调用其方法。</p>
+<p>例如，原生语言定义的类型ClassA:</p>
+<pre><code>class ClassA
+{
+public:
+    static ClassA* create();
+    string getName();
+}
+</code></pre><p>如果在Lua中有一个全局对象ClassA表示原生语言定义的ClassA类型，那么就可以通过“Class.create()”来调用原生语言类型静态方法，而一个Class的实例a可以通过“a:getName()”来调用原生语言类型ClassA的实例方法，这等效于“ClassA.getName(self)”。</p>
+<p>所以，Lua类对象最重要的事情就是怎样向Lua注册一个类对象，用来供Lua调用原生语言定义的方法。</p>
+<p>Lua提供了一张注册表，这是一张预定义表，可以用来存储任意C代码想要保存的Lua值，这张表使用伪索引LUA_REGISTERYINDEX来定位，任何C库都可以在这张表里保存数据。为了防止冲突，需要特别小心地选择键名。一般的做法是使用库的名字或者userdata的地址来作为键。</p>
+<p>有了注册表，那么我们怎么根据每个类的定义来构造一个表示类型的对象呢？这就要用到tolua。</p>
+<h5 id="2-3-tolua构造对象"><a href="#2-3-tolua构造对象" class="headerlink" title="2.3 tolua构造对象"></a>2.3 tolua构造对象</h5><p>tolua是一个用来简化C/C++与Lua之间进行集成的工具，基于一个不包含实现的头文件。tolua可以帮助生成从Lua中访问C/C++功能的绑定代码，通过这些绑定代码，tolua将C/C++的常量、变量、函数、类及方法映射到Lua中去。我们通常使用的是tolua++，它是tolua的扩展，支持模板方法、string基本类型。</p>
+<p>由于宿主程序可以通过向Lua注册表中添加Lua对象来存储C/C++数据，那么tolua的主要功能就是构造各种对象，并将其存储在注册表中，例如常量及函数将存储在全局表中，而每个类及实例方法则定义为一个类对象。</p>
+<p>对于一个类对象进行绑定的代码大体结构如下：</p>
+<pre><code>int lua_register_geniusx_Entity(lua_State* tolua_S)
+{
+    tolua_usertype(tolua_S, &quot;gx.Entity&quot;);
+    tolua_classs(tolua_S, &quot;Entity&quot;, &quot;gx.Entity&quot;, &quot;cc.Ref&quot;, nullptr);
+
+    tolua_beginmodule(tolua_S, &quot;Entity&quot;);
+
+    tolua_function(tolua_S, &quot;setBucket&quot;, lua_geniusx_Entiy_setBucket);
+    tolua_function(tolua_S, &quot;getComByTpe&quot;, lua_geniusx_Entiy_getComByTpe);
+    tolua_function(tolua_S, &quot;getParent&quot;, lua_geniusx_Entiy_getParent);
+    tolua_function(tolua_S, &quot;removeAllComs&quot;, lua_geniusx_Entiy_removeAllComs);
+    tolua_function(tolua_S, &quot;getId&quot;, lua_geniusx_Entiy_getId);
+    tolua_function(tolua_S, &quot;removeCom&quot;, lua_geniusx_Entiy_removeCom);
+    tolua_function(tolua_S, &quot;getNode&quot;, lua_geniusx_Entiy_getNode);
+
+    tolua_endmodule(tolua_S);
+    std::string typeName = typeid(GX:Entity).name()
+    g_luaType[typeName] = &quot;gx.Entity&quot;;
+    g_typeCase[&quot;Entity&quot;] = &quot;gx.Entity&quot;;
+
+    return 1;
+}
+
+上述示例会创建一个名为gx.Entity的全局对象，该对象包含每个C++中定义的方法的指针，这实际上被转换为一个lua_CFunction类型。这个对象被注册到Lua的注册表，前功并以类型的名称作为键，所以在Lua中使用gx.Entity就可以获取到Entity类对象。而对于类Entity的实例entity管理，可以通过下面的方法来查询ID。
+
+ local id = gx.Entity.getId(entity);
+</code></pre><p>那么什么时候调用绑定代码向Lua虚拟机注册这些类对象？当然是启动引擎的时候。可以直接使用当前的Lua栈作为参数来调用上述方法进行初始化。在Cocos2d-x中，Lua虚拟机由LuaEngin管理，可以通过下面的方式来注册类对象。</p>
+<pre><code>auto engine = LuaEngine::getInstance();
+ScriptEngineManager::getInstance-&gt;setScriptEngine(engine);
+
+auto state = engine-&gt;getLuaStack()-&gt;getLuaState();
+lua_getglobal(state, &quot;_G&quot;);
+lua_register_geniux_Entity(state);
+lua_pop(State, 1);
+</code></pre><p>当程序启动的时候，LuaEngine就会调用lua_register_geniusx_Entiy方法，将Entity类对象注册到Lua虚拟机中，这样在Lua中就能调用Entity类对象中的方法。</p>
+<h5 id="2-4-调用游戏对象方法"><a href="#2-4-调用游戏对象方法" class="headerlink" title="2.4 调用游戏对象方法"></a>2.4 调用游戏对象方法</h5><p>类对象和游戏对象是有区别的，游戏对象是一个C/C++分配的内存，所以它是一个userdata类型的对象。而类对象并不是C/C++中的一段内存，也不是一个普通的table，而是一个metatable。</p>
+<pre><code>TULUA_API void tolua_usertype(lua_State* L, const char* type)
+{
+    char ctype[128] = &quot;const&quot;;
+    strncat(ctype, type, 120);
+
+    if (tolua_newmetatable(L, ctype) &amp;&amp; tolua_newmetatable(L, type))
+        mapsuper(L, type, ctype);
+}
+</code></pre><p>Lua中每一个值都可以拥有一个metatable，这个metatable就是一个原始的Lua table，它用来定义原始值在特定操作下的行为。可以通过在metatable中的特定域设一些值来改变拥有这个metatable的值的指定操作行为。例如，当一个非数字的值做加法操作的时候，Lua会检查它的metatable的”_add”域中是否有一个函数，如果有这么一个函数，Lua会调用这个函数来执行一次加法。我们称metatable中的键名为事件（Event），把其中的值叫作元方法。在上面的例子中，事件是add，而元方法是执行那个加法操作的函数。</p>
+<p>在Lua中，每个table和userdata拥有独立的matatable，多个table和userdata可以共享五个相同的表作为它们的matatable；而其类型的值，每种类型分别共享唯一一个matatable。因此所有的数字共享一个matatable，所有的字符串也一起共享一个metatable。</p>
+<p>通过以类型名称如gx.Entity注册了全局变量之后，该matatable包含了Entity定义的所有方法。每个实例共享方类所对应的matatable，与每个数字共享一个matatable是一样的。在C/C++中创建一个对象的时候，tulua会找到该实例的类型对应的matatable，然后将其作为该实例对象的matatable。</p>
+<p>这个过程量怎么实现的呢？可以看Cocos2d中的Node类的create方法。</p>
+<pre><code>lua lua_cocos2dx_node_create(lua_State* tolua_S)
+{
+    int argc = 0;
+    bool ok = true;
+
+    argc = lua_gettop(tolus_S) - 1;
+    if (argc == 0)
+    {
+        if(ok)
+            return 0;
+        Node* ret = Node::create();
+        object_to_luaval&lt;Node&gt;(tulus_S, &quot;cc.Node&quot;, (Node*)rec);
+        return 1
+    }
+    return 0;
+}
+</code></pre><p>这是一个lua_CFunction，在Lua中调用cc.Node.creat的时候将会执行此方法。该方法首先调用原生的Node:create()方法创建一个Node对象，然后使用刚刚创建的实例ret及一个类型参数cc.Node调用了一个object_toluaval()方法，该方法调用的最终结果是调用了toluafix_pushusertype_ccobject()方法。</p>
+<pre><code>TOLUA_API int toluafix_pushusertype_ccobject(lua_State* L, int refid, int* p_refid, void* ptr, const char* type)
+{
+    if (ptr == NULL || p_refid == NULL)
+    {
+        lua_pushnil(L);
+        return -1;
+    }
+
+    Ref* vptr = static_cast&lt;Ref*&gt;(ptr);
+    const char* vType = getLuaTypeName(vPtr, type);
+
+    if(*p_retid == 0)
+    {
+        *p_refid = refid;
+
+        lua_pushstring(L, TOLUA_ETFID_PTR_MAPPING);
+        lua_rewget(L, LUA_REGISTRYINDEX);
+        lua_pushinteger(L, refid);
+        lua_pushlightuserdata(L, vPtr);
+
+        lua_rawset(L, -3);
+        lua_pop(L, 1);
+
+        lua_pushstring(L, TOLUA_REFID_TYPE_MAPPING);
+        lua_rewget(L, LUA_REGISTRYINDEX);
+        lua_pushinteger(L, refid);
+        lua_pushstring(L, vType);
+        lua_rawset(L, -3);
+        lua_pop(L, 1);
+    }
+    tolua_pushusertype_and_addtoroot(L, vPtr, bType);
+    return 0;
+}
+</code></pre><p>该方法使用ptr为ref实例构建了一个userdata对象来在Lua中引用其内存地址，并从注册表中查找该类型的matatabel，让该对象拥有其表示类型的matatable。这样，通过类实例对象就可以该类的所有方法了。</p>
+<p>例如，在Lua中有类型Node的实例node变量，则可以通过node:setName(“Hero”)这等效于：</p>
+<pre><code>node.setName(node, &quot;Hexo&quot;);
+</code></pre><p>或者：</p>
+<pre><code>cc.Node.setName(node, &quot;Hexo&quot;);
+</code></pre><p>因为最终它们都会从类型cc.Node对应的metatable中查找setName操作。</p>
+<p>在Cocos2D-X引擎中嵌入了C语言版本解释器，保证了性能。</p>
+<p>作为</p>
+<p>###1.Lua和C++交互</p>
+<p>Lua在各Ｃ++交与时，Lua运行环境维护着一份堆栈。这不是传统意义上的堆栈，而是Lua模拟出来的。Lua与C/C++数据传递、函数调用都通过这份堆栈来完成。</p>
+<p>这份堆栈代表的就是lua_State*所指的结构数据。所有Lua语言中的类型在C和C++中都存在一种应对方式。开发者通过lua_push系列函数向堆栈中压入值，通过luaL_check系列从堆栈中获取值。</p>
+<p>具体过程如图12-4所示的方式。</p>
+<p>###2.tolua++</p>
+<p>tolua++是第三方的开源库，它可以为Lua提供面向对象的特性，这样开发者就可以通过Lua来编写使用C++语言库的脚本文件。</p>
+<p>tolua++使用的方法为编写一个.pkg，然后生成对应的.c或.cpp文件，然后把这个和对应的C\C++文件一起编译生成可执行程序，这样就可以对对应的lua文件进行读取操作。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

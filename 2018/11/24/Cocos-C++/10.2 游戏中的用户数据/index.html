@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        10.2 游戏中的用户数据 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#10-2-游戏中的用户数据"><span class="toc-text">10.2 游戏中的用户数据</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        10.2 游戏中的用户数据
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="10-2-游戏中的用户数据"><a href="#10-2-游戏中的用户数据" class="headerlink" title="10.2 游戏中的用户数据"></a>10.2 游戏中的用户数据</h1><p>###1. RenderTexture</p>
+<p>RenderTexture中文件保存函数。</p>
+<pre><code>bool RenderTexture::saveToFile(const std::string&amp; fileName, Image::Format formate, bool isRGBA, std::function&lt;void (RenderTexture*, const std::string&amp;)&gt; callback)
+{
+    CCASSERT(formate == Image::Formate::JPG || formate == Image::Formate::JPG, &quot;the image can only be save as JPG or PNG format&quot;);
+
+    if(isARGBA &amp;&amp; format == Image::Formate::JPG) CCLOG(&quot;RGBA is not support for JPG format&quot;);
+
+    _saveFileCallback = callback;
+
+    std::string fullPath = FileUtils::getInstance()-&gt;getWritablePath() + fileName;
+
+    _saveToFileCommand.init(_globalZorder);
+    _saveToFileCommand.func = CC_CALLBACK_0(RenderTexture::onSaveToFile, this, fullpath, isRGBA);
+
+    Director::getInstance()-&gt;getRenderer()-&gt;addCommand(&amp;_saveToFileCommand);
+
+    return true;
+}
+
+void RenderTexture::onSaveToFile(const std::string&amp; fileName, bool isRGBA)
+{
+    Image *image = newImage(true);
+
+    if (image)
+    {
+        image-&gt;saveToFile(filename.c_str(), !isRGBA);
+    }
+
+    if (_saveFileCallback)
+    {
+        _saveFileCallback(this, fileName);
+    }
+
+    CC_SAFE_DELETE(image);
+}
+</code></pre><p>###2. UserDefaule</p>
+<p>在实际操作中，类UserDefault会将所有的用户数据保存在一个XML格式的文档中，不同的平台XML存放的位置不一样，使用getWriteblePath()来获得具体路径。</p>
+<p>#####2.1 用户数据的操作函数</p>
+<pre><code>//// 获得数值的函数
+// 根据键值，返回布尔值
+bool getBoolForkey(const char* pKey, bool defaultValue);
+
+// 根据键值返回整数数值
+int getIntergerForKey(const char* pKey, int defaultValue);
+
+// 根据键值返回浮点数值
+float getFloatForKey(const char* pKey, int defaultValue);
+
+// 根据键值返回双精度浮点数值
+double getDoubleForKey(const char* pKey, int defaultValue);
+
+// 根据键值返回额数值
+std::string getStringForKey(const char* pKey, int defaultValue);
+
+
+//// 设置数值的函数
+// 设置布尔数值及其键值
+void setBoolForKey(const char* pKey, bool defaultValue);
+
+// 设置整数数值及其键值
+void setIntegerForKey(const char* pKey, int defaultValue);
+
+// 设置浮点数值及其键值
+void setFloatForKey(const char* pKey, float defaultValue);
+
+// 设置双精度数值及其键值
+void setDoubleForKey(const char* pKey, double defaultValue);
+
+// 设置字符串数值及其键值
+void setSteingForKey(const std::string, bool defaultValue);
+</code></pre><ul>
+<li>技巧：读者最好使用固定的时间间隔来保存用户数据。一旦发生问题，也能恢复到前一个时间点的数据。</li>
+<li>注意：在引擎中所有用户数据都会写入同一个文件，这也意味着每次写入操作都将会重写存档文件。</li>
+</ul>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

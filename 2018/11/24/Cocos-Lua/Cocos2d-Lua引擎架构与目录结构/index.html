@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        Cocos2d-Lua引擎架构与目录结构 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-引擎根目录"><span class="toc-text">2.1 引擎根目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-Quic框架"><span class="toc-text">2.2 Quic框架</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-framework目录结构"><span class="toc-text">2.3 framework目录结构</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        Cocos2d-Lua引擎架构与目录结构
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:29:18</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-Lua" title="Cocos-Lua">Cocos-Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>#Cocos2d-Lua引擎架构与目录结构</p>
+<p>###1.引擎架构<br>Cocos2d-Lua是由Cocos2d-x衍生出来的，他们之间的关系如下图所示：<br><img src="http://7xqzxs.com1.z0.glb.clouddn.com/160808Cocos2d-Lua%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84.jpg" alt=""></p>
+<ol>
+<li>橙色区域的模块与具体平台相关，引擎渲染基于跨平台的OpenGL ES。</li>
+<li>OpenGL ES之上是Cocos2d-x引擎架构，Cocos2d-x与ThirdPartLibrary对外暴露C++API</li>
+<li>Lua Binding把C++ API映射为Lua API， 而Quick Framework基于Lua API二次封装并拓展了接口</li>
+<li>游戏最上层，可以同时使用Lua API和Quick框架</li>
+<li>Coco2d-x内部又可以细分为多个模块<br><img src="http://7xqzxs.com1.z0.glb.clouddn.com/160808Cocos2d-x%E6%A8%A1%E5%9D%97.jpg" alt=""></li>
+</ol>
+<p>###2.引擎文件结构</p>
+<h5 id="2-1-引擎根目录"><a href="#2-1-引擎根目录" class="headerlink" title="2.1 引擎根目录"></a>2.1 引擎根目录</h5><p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0821Quick-Cocos2d-Lua%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt=""></p>
+<ol>
+<li>build：编译Cocos2d-x库的各平工具</li>
+<li>cocos：Cocos2d-x引擎C++代码</li>
+<li>docs：Cocos2d-Lua的文档</li>
+<li>extension：GUI、物理引擎等扩展模块</li>
+<li>external：第三方库</li>
+<li>licenses：引擎以及第三方库的说明文件</li>
+<li>quick：Quick框架代码</li>
+<li>tools：项目生成工具</li>
+<li>player3.bate：启动Cocos2d-Lua模拟器的工具</li>
+<li>setup_mac.sh：Mac下设置Cocos2d-Lua环境变量的脚本文件</li>
+<li>setup_win.bate：Win下设置Cocos2d-Lua环境变量的脚本文件</li>
+<li>unins0000.dat、unins.exe：Windwos下引擎卸载程序</li>
+</ol>
+<h5 id="2-2-Quic框架"><a href="#2-2-Quic框架" class="headerlink" title="2.2 Quic框架"></a>2.2 Quic框架</h5><p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0821Quick%E6%A1%86%E6%9E%B6%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt=""></p>
+<ol>
+<li>bin：Quick框架相关可执行脚本</li>
+<li>cocos：Cocos2d-Lua binding接口</li>
+<li>framework：Quick框架的Lua源码</li>
+<li>lib：Quick框架的C++源码</li>
+<li>player：模拟器的源码</li>
+<li>samples：Quick框架测试案例</li>
+<li>templetes：项目创建模板</li>
+<li>welcome：项目启动欢迎模板</li>
+</ol>
+<h5 id="2-3-framework目录结构"><a href="#2-3-framework目录结构" class="headerlink" title="2.3 framework目录结构"></a>2.3 framework目录结构</h5><p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0821Quick-Framework%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84.png" alt=""></p>
+<ol>
+<li>cc:扩展Cocos2d-x Lua API，提供Quick基本模块（符合脚本风格的事件模块、组件架构）</li>
+<li>cocos：Quick对Cocos2d-Lua模块的加强</li>
+<li>deprected：废弃的接口</li>
+<li>plantform：Quick平台相关的接口</li>
+<li>anysdkConst.Lua：AnySDK中常量的定义</li>
+<li>audio.lua：音乐、音效管理</li>
+<li>cocos2dx.lua：用来导入Cocos2d-x Lua API</li>
+<li>crypto.lua：加解密、数据编码库</li>
+<li>debug.lua：提供调试接口</li>
+<li>device.lua：提供设备相关属性的查询以及设备功能的访问</li>
+<li>display.lua：与显示图像、场景相关的功能</li>
+<li>filter.lua：滤镜功能</li>
+<li>function.lua：提供一组常用函数，以及对Lua标准库的拓展</li>
+<li>init.lua：quick框架的初始化</li>
+<li>json.lua：JSON的编码与解码</li>
+<li>luaj.lua：Lua与Java之间的交互接口</li>
+<li>luaoc.lua：Lua与Objective-C之间的交互接口</li>
+<li>network.lua：网络接口封装。检查WIFI、3G网络接口情况等</li>
+<li>schduler.lua：全局计时器、计划任务，该模块在框架初始化时不会自动载入</li>
+<li>shortcode.lua：一些经常使用的短代码，比如设置旋转角度。</li>
+<li>transition.lua：为动作和驱动对象添加效果。</li>
+<li>ui.lua：创建和管理用户界面</li>
+</ol>
+<p>###3.项目文件结构<br><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0821Cocos2d-Lua%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84.png" alt=""></p>
+<ol>
+<li>frameworks：iOS、Android等平台的工程文件。</li>
+<li>res：项目资源文件</li>
+<li>src：项目源码存放文件夹</li>
+<li>.project：Cocos Code IDE项目文件</li>
+<li>config.json：项目信息配置文件</li>
+<li>debug.log：最后一次log信息存档</li>
+</ol>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0821Cocos2d-Lua%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84-src.png" alt=""></p>
+<ol>
+<li>app：游戏界面及逻辑<ul>
+<li>app/MyApp.lua：游戏实例</li>
+<li>app/scenes：游戏场景文件夹</li>
+<li>app/scenes/MainScene：游戏的第一个场景</li>
+</ul>
+</li>
+<li>cocos：cocos2d-Lua/quick/cocos的复制，将随项目一起打包</li>
+<li>config.lua：工程的配置文件，包括分辨率</li>
+<li>main.lua：游戏入口</li>
+</ol>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

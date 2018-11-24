@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        网络通信 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-HTTP请求"><span class="toc-text">1 HTTP请求</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-网络状态"><span class="toc-text">1.1 网络状态</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-HTTP请求"><span class="toc-text">1.2 HTTP请求</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#2-SocketTCP"><span class="toc-text">2 SocketTCP</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1基本用法"><span class="toc-text">2.1基本用法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2完整示例"><span class="toc-text">2.2完整示例</span></a></li></ol></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        网络通信
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:29:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-Lua" title="Cocos-Lua">Cocos-Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>#网络通信</p>
+<p>Cocos2d-Lua一共提供了以下三个通信模块</p>
+<ul>
+<li>network，http协议的客户端解决方案</li>
+<li>SocketTCP，基于LuaSocket封装的tcp客户端解决方案</li>
+<li>WebSocket，WebSocket协议客户端解决方案</li>
+</ul>
+<h3 id="1-HTTP请求"><a href="#1-HTTP请求" class="headerlink" title="1 HTTP请求"></a>1 HTTP请求</h3><p>Cocos2d-Lua的network模块封装了与网络相关的高层接口，可以方便地检测当前网络连接状态、网络类型、进行http网络请求。</p>
+<h5 id="1-1-网络状态"><a href="#1-1-网络状态" class="headerlink" title="1.1 网络状态"></a>1.1 网络状态</h5><ol>
+<li>network.isLocalWiFiAvailable()：本地WIFI网络是否可用，返回boolean类型。</li>
+<li>network.isInternetConnectionAvailable()：用于检查互联连接是否可用，通常返回3G状态，具体情况和设备、操作系统有关。</li>
+<li>network.isHostNameReachable()：用于检查是否可以解析指定的主机，返回boolean类型。</li>
+<li><p>network.getInternetConnectionStatus()：返回互联网的状态值</p>
+<p> cc.kCCNetworkStatusNotReachable：无法访问互联网<br> cc.kCCNetworkStatusReachableViaWiFi：通过WIFI<br> cc.kCCNetworkStatusReachableViaWAN：通过3G网络</p>
+</li>
+</ol>
+<p>示例：</p>
+<pre><code>print(&quot;WiFi status:&quot;..tostring(network.isLocalWiFiAvailable()))
+
+pring(&quot;3G status:&quot;..toString(network.isInternetConnectionAvailable()))
+
+pring(&quot;HomeName:&quot;..tostring(network.isHostNameReachable(&quot;cn.cocos2d-x.org&quot;)))
+
+
+local netStatus = network.getInternetConnectionStatus()
+if netStatus == cc.kCCNetworkStatusNotReachable then
+
+    print(&quot;kCCNetworkStatusNotReachable&quot;)
+
+elseif netStatus == cc.kCCNetworkStatusReachableViaWiFi then
+
+    print(&quot;kCCNetworkStatusReachableViaWiFi&quot;)
+
+elseif netStatus == cc.kCCNetworkStatusReachableViaWAN then
+
+    print(&quot;kCCNetworkStatusReachableViaWAN&quot;)
+
+else 
+
+    print(&quot;Error&quot;)
+
+end
+</code></pre><h5 id="1-2-HTTP请求"><a href="#1-2-HTTP请求" class="headerlink" title="1.2 HTTP请求"></a>1.2 HTTP请求</h5><p>Quick中使用下面的接口向服务器发起HTTP请求。</p>
+<pre><code>network.createHTTPRequest(callback, url, method)
+参数：
+1 callback：HTTP请求状态回调函数。一次请求会有多次状态回调。
+2 url：请求的网络地址
+3 method：GER和POST
+</code></pre><p>示例：</p>
+<p>GET：用于信息获取</p>
+<pre><code>local function onRequestCallback(event)
+
+    local request = event.request
+
+    if event.name == &quot;completed&quot; then
+
+        print(request:getResponseHeadersString())
+
+        local code = request:getResponseStatusCode()
+        if code ~= &quot;200&quot; then
+            --请求结束，没有返回200响应代码
+            print(code)
+            return
+        end
+
+        --请求成功，显示内容
+        print(&quot;response length&quot;..request:getResponseDataLength())
+        local response = request:getResponseString()
+        print(response)
+
+    elseif event.name == &quot;progress&quot; then
+
+        -- 获取当前进度
+        print(&quot;progress&quot;..event.dltotal)
+
+    else
+
+        --请求失败，显示错误代码和错误信息
+        print(event.name)
+        print(request:getErrorCode(), request:getErrorMessage())
+        return
+
+    end
+
+end
+
+local request = network.createHTTPRequest(onRequestCallBack, &quot;http://www.baidu.com&quot;, &quot;GET&quot;)
+request:start()
+</code></pre><p>POST:用于更新数据</p>
+<pre><code>local request = network.createHTTPRequest(onRequestCallback, &quot;http://127.0.0.1:1234/hello&quot;, &quot;POST&quot;)
+request:addPOSTValue(&quot;name&quot;, &quot;laoliu&quot;)
+request:start()
+
+-- 回调方法和GET一致
+-- 如果要传递自定义数据，使用以下接口
+request:setPOSTData(&quot;this is&quot;)
+</code></pre><h3 id="2-SocketTCP"><a href="#2-SocketTCP" class="headerlink" title="2 SocketTCP"></a>2 SocketTCP</h3><p> Cocos2d-Lua中集成了LuaSocket，但是使用略微复杂。SocketTCP后被Cocos2d-Lua所采纳，SocketTCP充分利用了Cocos2d-Lua中的事件机制。</p>
+<h5 id="2-1基本用法"><a href="#2-1基本用法" class="headerlink" title="2.1基本用法"></a>2.1基本用法</h5><pre><code>--加载进内存
+SocketTCP = require(&quot;FrameWork.cc.net.SocketTCP&quot;)
+local socket = SocketTCP.new(&quot;127.0.0.1&quot;, 1234, false)
+    1.参数1：服务器地址
+    2.参数2：服务器端口号
+    3.参数3：链接失败是否重连
+-- 创建连接实例后，向实例中添加状态处理接口，以响应网络状态变化
+socket:addEventListener(SockerTCP.EVENT_CONNECTED, onState)
+-- 向服务器发送请求包
+socket:connect()
+</code></pre><h5 id="2-2完整示例"><a href="#2-2完整示例" class="headerlink" title="2.2完整示例"></a>2.2完整示例</h5><pre><code>SocketTCP = require(&quot;Framework.cc.net.SocketTCP&quot;)
+
+local socket = SocketTCP.new(&quot;172.0.0.1&quot;, 1234, false)
+
+local function onStatus(event)
+
+    print(&quot;Socket status: %s&quot;, event.name)
+
+    if event.name == SocketTCP.EVENT_CONNECTED then
+        --向服务器发送数据，格式需要用Quick提供的ByteArray来转换
+        socket:send(ByteArray.new():writeStirng(&quot;Hello server, i`m SocketTCP&quot;):getPack())
+    end
+
+    if event.name == SocketTCP.EVENT_DATA then
+        -- 接受到服务器发送的数据保存在event.data中
+        print(&quot;Socket Receive data : %s&quot;, event.data)
+    end
+
+    if event.name == SocketTCP.EVENT_CLOSE then
+        print(&quot;Socket Close&quot;)
+    end
+
+    if event.name == SocketTCP.EVENT_CLOSED then
+        socket = nil
+    end
+
+end
+
+socket:addEventListener(SocketTCP.EVENT_CONNECTED, onState)
+socket:addEventListener(SocketTCP.EVENT_CLOSE, onStatus)
+socket:addEventListener(SocketTCP.EVENT_CLOSED, onStatus)
+socket:addEventListener(SocketTCP.EVENT_CONNECT_FAILURE, onStatus)
+socket:addEventListener(SocketTCP.EVENT_DATA, onStatus)
+
+socker:connect()
+
+上述把所有的事件都绑定在onStatus回调函数中，内部通过判断event.name来区分各个事件，也可以分开实现每个事件的回调函
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

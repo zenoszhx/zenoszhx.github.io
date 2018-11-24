@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        2 cocos2d-x 引擎架构 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-开源库"><span class="toc-text">1 开源库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-跨平台"><span class="toc-text">2 跨平台</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-数据"><span class="toc-text">3 数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-渲染"><span class="toc-text">3 渲染</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-动画"><span class="toc-text">4 动画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-工具"><span class="toc-text">5 工具</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        2 cocos2d-x 引擎架构
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>大多数游戏引擎都是按照其使用方式构建的，各个系统之间可能交叉在一起。下面是一般游戏引擎的大概架构。</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0728Coco2d%E5%BC%95%E6%93%8E%E6%9E%B6%E6%9E%84.PNG" alt=""></p>
+<p>了解Cocos2d-x可以从以下几个方面来看：</p>
+<h3 id="1-开源库"><a href="#1-开源库" class="headerlink" title="1 开源库"></a>1 开源库</h3><p>Cocos2d使用了许多第三方开源库，如下图。用于支持文件解压、图片解析、网络支持、物理引擎、音频等功能。从而使Cocos2d能够更专注于引擎的开发。</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0728Cocos2d%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BC%80%E6%BA%90%E5%BA%93.JPG" alt=""></p>
+<h3 id="2-跨平台"><a href="#2-跨平台" class="headerlink" title="2 跨平台"></a>2 跨平台</h3><p>Cocos2d-x封装了一些与平台无关的接口，如文件的加载、纹理的解析、线程的操作，这使得渲染与其系统的设计与平台无关。此外，Cocos2d-x封装了基础的啊功能模块，这些供上层所有游戏系统使用，包括内存管理模式、纹理资源的加载各缓存。</p>
+<h3 id="3-数据"><a href="#3-数据" class="headerlink" title="3 数据"></a>3 数据</h3><p>Cocos2d还提供了一组数据容器，使STL中的容器可以与Cocos2d内存管理模式相结合。</p>
+<h3 id="3-渲染"><a href="#3-渲染" class="headerlink" title="3 渲染"></a>3 渲染</h3><p>渲染系统是Cocos2d-x系统的核心部分，它包含了场景中元素的层级结构、关系。还有元素的管理、遍历、绘制等。这些元素包括Node、Sprite、Layer、TileMap、Particle等。这一层也是与OpenGL ES交互的部分。</p>
+<h3 id="4-动画"><a href="#4-动画" class="headerlink" title="4 动画"></a>4 动画</h3><p>Cocos2d-x有一套优秀的动画系统，它不仅支持第三方设计工具，使用起来非常简单。Cocos2d将一些非动画的特性（如回调函数）与动画结合起来，简化了游戏开发工作，这是Cocos2d在2D领域非常出色的重要原因。</p>
+<h3 id="5-工具"><a href="#5-工具" class="headerlink" title="5 工具"></a>5 工具</h3><p>Cocos2d支持非常丰富的第三方工具，如TexturePacker、SpriteHelper、Tiled、zwoptx、ParticleDesigner、GlyphDesigner、CocosBuiler，而且Cocos也有自己的工具CocosStudio，它集成的场景编辑、动画设计、粒子特效。骨骼等功能。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        2.3 事件机制 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-概述"><span class="toc-text">1 概述</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-什么是事件？"><span class="toc-text">1.1 什么是事件？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-事件的工作机制"><span class="toc-text">1.2 事件的工作机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-事件系统的特点"><span class="toc-text">1.3 事件系统的特点</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#2-订阅者"><span class="toc-text">2 订阅者</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-事件"><span class="toc-text">2.1 事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-注册与管理订阅者"><span class="toc-text">2.2 注册与管理订阅者</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-事件分发"><span class="toc-text">3 事件分发</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-订阅者的排序"><span class="toc-text">3.1 订阅者的排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-嵌套事件"><span class="toc-text">3.2 嵌套事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-在事件分发中修改订阅者"><span class="toc-text">3.3 在事件分发中修改订阅者</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-4-停止分发事件"><span class="toc-text">3.4 停止分发事件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-事件与Node"><span class="toc-text">4 事件与Node</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#4-1-暂停与恢复"><span class="toc-text">4.1 暂停与恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-2-删除订阅者"><span class="toc-text">4.2 删除订阅者</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-触摸事件"><span class="toc-text">5 触摸事件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-多点触摸"><span class="toc-text">5.1 多点触摸</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-单点触摸"><span class="toc-text">5.2 单点触摸</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-单点和多点之间的联系"><span class="toc-text">5.3 单点和多点之间的联系</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-触摸点的位置判断"><span class="toc-text">5.4 触摸点的位置判断</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-5-可见性与触摸事件"><span class="toc-text">5.5 可见性与触摸事件</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-其他"><span class="toc-text">6 其他</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#6-1-其他操作系统事件"><span class="toc-text">6.1 其他操作系统事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-2-自定义事件"><span class="toc-text">6.2 自定义事件</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-3-内存管理"><span class="toc-text">6.3 内存管理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-4-回调与返回值"><span class="toc-text">6.4 回调与返回值</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-6-其他事件"><span class="toc-text">6.6 其他事件</span></a></li></ol></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        2.3 事件机制
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>Cocos2d-x3.0，较2.0较版本仅用来处理触摸、键盘、加速计等系统事件，3.0的EventDispatcher演变成一个更通用的事件分发器。它不仅用来分发系统事件，还可以分发开发者自定义事件，另外，EventDispatcher的事件分发可以根据某个元素的绘制顺序来决定其处理顺序的优先级，厦大提高了管理事件的效率。</p>
+<h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h3><p>大部分事件系统是基于订阅者设计模式来实现的，针对不同软件系统的特点，它们在使用上会有一些差别，但是其核心机制都是一致的。</p>
+<h5 id="1-1-什么是事件？"><a href="#1-1-什么是事件？" class="headerlink" title="1.1 什么是事件？"></a>1.1 什么是事件？</h5><p>玩家的输入、程序内部某个处理逻辑完成，其他模块针对该行为进行一些响应操作。例如用户点击了屏幕、角色血量低于0时触发死亡事件等。</p>
+<p>与其模块相比，事件可以不用依赖事件响应者的实现而预先定义一组事件类型，事件的响应者可以甚至可以在运行时动态地添加各移除，从而增加了事件分发的灵活性。例如玩家点击了屏幕，游戏中任何元素或者逻辑可以对其作出响应。</p>
+<h5 id="1-2-事件的工作机制"><a href="#1-2-事件的工作机制" class="headerlink" title="1.2 事件的工作机制"></a>1.2 事件的工作机制</h5><p>事件是用来处理模块之间通信的模型。在传统实现中，模块A触发某个事件时，直接调用B的某个方法进行处理，如图所示，模块A直接调用b-&gt;method()方法进行处理。但是这使得模块A的实现依赖于模块B的实现。</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0814%E4%BC%A0%E7%BB%9F%E7%9A%84%E4%BA%8B%E4%BB%B6%E7%B3%BB%E7%BB%9F.JPG" alt=""></p>
+<p>订阅者模式将事件的触发者和响应者分开，事件触发向一个公共的事件的分发器发送一个消息，而事件的响应者向事件订阅一个类型的消息。如上图，在运行时，模块B首先向事件分发器注册了一个订阅者listenerb，表明自己需要处理某个类型typeA的事件消息，listenerb中带有处理事件的一个回调方法地址func；然后模块A在事件发生时向事件分发器发出类型为typeA的事件消息通知，并传入一些事件参数args；事件颁发器在接受到事件消息之后，从订阅者列表中查找到订阅者listernerb，触发listenerb回调func，并传入事件参数args。</p>
+<h5 id="1-3-事件系统的特点"><a href="#1-3-事件系统的特点" class="headerlink" title="1.3 事件系统的特点"></a>1.3 事件系统的特点</h5><p>（1）事件系统使得系统或者中间件可以提前预定义一些事件。</p>
+<p>如上图，由于模块A不依赖于模块B的实现，所以可以提前定义一些事件类型，在运行时动态加入一些订阅者也会响应这些事件。例如Cocos2d-x提供触摸、加速计等系统事件，游戏在运行时可以决定时是否需要处理这些事件。</p>
+<p>（2）解除了模块之间的耦合</p>
+<p>事件系统使得模块之间更加独立，这对于单元测试更加重要，因为B模块可能是一个UI模块，引入UI元素会给模块A的单元测试带来困难。</p>
+<p>（3）一个事件对应多个订阅者</p>
+<p>多个订阅者可以对一个事件进行响应，以执行不同职能上的逻辑处理。例如一个物理碰撞事件发生时，物理引擎需要计算碰撞后的位置，AI系统需要做一些数值计算，而动画系统可能会播放一些动画特效。</p>
+<p>（4）有局限，不是通用的。</p>
+<p>比如对于性能要求高的部分，一个AI算法可能要在每帧时时更新上百个角色游戏状态，这就不适合使用事件来分发，因为事件分发会做一些查询、排序先等操作，会影响实时性；另外，事件机制不能很好的处理回调，虽然可以在事件参数中加入回调的方法地址，但是直接调用会更加直观得多。</p>
+<h3 id="2-订阅者"><a href="#2-订阅者" class="headerlink" title="2 订阅者"></a>2 订阅者</h3><p>一个订阅者是一个EventListener的子类，如果某个修理程序关心某个事件，则创建一个对应的EventListener子类的实例，例如EventListenerTouch用来响应触摸事件。</p>
+<p>每个EventListener由一个回调函数、一个订阅者类型type、一个listenerID组成。当然，有些事件对应多个处理函数，例如EventListenerKeyboard就根据其键按下（Pressd）和释放（Released）状态提供两个回调函数。</p>
+<pre><code>class EventListener : public Ref
+{
+publick:
+    enum class Type
+    {
+        UNKNOWN,
+        TOUCH_ONT_BY_ONE,
+        TOUCH_ALL_AT_ONECE,
+        KEYBOARD,
+        MOUSE,
+        ACCELERATION,
+        FOCUS,
+        CUSTOM,
+    }
+    typedef std::string ListenerID;
+        inline Type getType() const {return _type;};
+        inline const ListenerID&amp; getListenerID() const {return _listenerID; };
+        std::function&lt;void(Event*)&gt; _onEvent;
+}
+</code></pre><p>EventDispatcher能够根据事件的类型找到对应的listenerID，进而找到所有处理该事件的订阅者。这是有两种类型：type和listenerID。</p>
+<p>（1）listnerID是在订阅事件的类里初始化的，即EventListener的子类。在Dispatcher里面，可以通过事件的类型EventType，获取到对应事件监听者类，并访问它的LISTENER_ID，然后通过该LISTENER_ID查找所有离经订阅者，调用回调。</p>
+<p>（2）type是EventDispatcher来区分使用哪个EventListener的，根据type获取该类后访问获取该类的LISTENER_ID。</p>
+<p>listernerID对应一个事件源，它可以根据一个事件源的类型找到一个对应的listernerID；而type是Cocos2d-x用来区分EventListener类型的，主要体现在开发者定义的所有事件类型的type都是EventListener::Type::CUSTOM。订阅者类型及listenerId如下：</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0814%E8%AE%A2%E9%98%85%E8%80%85%E7%B1%BB%E5%9E%8B%E5%8F%8AlistenerID.JPG" alt=""></p>
+<h5 id="2-1-事件"><a href="#2-1-事件" class="headerlink" title="2.1 事件"></a>2.1 事件</h5><p>一个事件用一个Event的子类描述，它也是事件分发到订阅者时事件源传递绘订阅者的参数，里面包含了一些处理该事件相关的信息，例如EventAcceleration就包含了x、y、z三个方向的加速度数据。</p>
+<p>Event的子类由一个类型Event::Type和一些整体数据组成，示例如下：</p>
+<pre><code>class Event : public Ref
+{
+public:
+    enum class Type{
+        TOUCH,
+        KEYBOARD,
+        ACCELERATION,
+        MOUSE,
+        FOCUS,
+        CUSTOM
+    }
+
+protected:
+    Event(Type type);
+
+public:
+    inline Type getType() const {return _type};
+}
+</code></pre><p>EVENTTYPE可以用来查找listenerID，从而将事件分发到正确的订阅者进行处理。Event::Type与listenerID对应关系如下：</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0814%E4%BA%8B%E4%BB%B6%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%90%84%E8%AE%A2%E9%98%85%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB.JPG" alt=""></p>
+<p>对于触摸事件，它对应TOUCH_ONE_BY_ONE和TOUCH_ALL_AT_ONCE两个订阅者，这是经过EventDispatcher特殊处理的。</p>
+<p>对于自定义事件，参数EventName作为listenerID，对应EventListener::Type::CUSTOM中的eventName，所以每个不同eventName的自定义事件都是一个新的事件类型，但他们共享一个type名称。</p>
+<h5 id="2-2-注册与管理订阅者"><a href="#2-2-注册与管理订阅者" class="headerlink" title="2.2 注册与管理订阅者"></a>2.2 注册与管理订阅者</h5><p>开发者需要向EventDispatcher注册以接受事件通知。EventDispatcher提供了一些注册注册和管理订阅者的接口，大概分为：注册、删除、修改3组。</p>
+<p>（1）注册订阅者</p>
+<pre><code>// 注册场景图（主要为UI）的一个订阅者，优先级默认为0
+void addEventListenerWithSceneGraphPriority(EventListener* listener, Node* node);
+
+// 注册一个指定优先级的订阅者
+void addEventListenerWithFixedPriority(EventListner* listener, int fixedPriority);
+
+// 注册一个自定义事件的订阅者，最后会调用addEventListenerWithFixedPriority
+EventListenerCustom* EventDispatcher::addCustomEventListener(const std::string &amp;eventName, const std::function&lt;void(EventCustom*)&gt;&amp; callback)
+</code></pre><p>除了传入listener参数，还有指定一个关联的Node或者一个整数的优先级，这些用来决定同一个事件源的多个订阅者应该按照怎样的顺序分发事件。</p>
+<p>给订阅者指定处理优先级，可以让某些元素优先处理触摸事件，这样它可以使此事件不再向后面的订阅者传递，但是开发者也可怜使用它来处理逻辑上的优先级。</p>
+<p>对于UI元素，如果指定整数的优先级，通常要求开发者记住大量的优先级数字，如果一个更下层的UI元素被错误地指定了一个更高的优先级，会给触摸带来麻烦。因此，Cocos2d-x3.0新增加了一种将分发优先级与一个Node元素关联的方式：EventDispatcher将自动根据该Node元素绘制的相反顺序来决定分发优先级，所以，即使该UI元素层级发生变更，它也能正确处理，这样就简化了对触摸优先级的管理。</p>
+<p>EventDispatcher分发事件的优先级如下：</p>
+<ul>
+<li>prority &lt; 0</li>
+<li>prority = 0 (scene graph)</li>
+<li>prority &gt; 0</li>
+</ul>
+<p>所有的与Node关联的订阅者优先级都被设置为0，而且开发者无法注册一个指定优先级为0的订阅者。</p>
+<p>（2） 删除订阅者</p>
+<pre><code>void removeEventListener(EventListener* listener);
+void removeEventListenerForType(EventListener::Type listenerType);
+void removeEventListenerForTarget(Node* target, bool recursive = false);
+void removeCustomEventListeners(std::string&amp; customEventName);
+void removeAllEventListeners();
+</code></pre><p>另外，对于与一个Node元素关联的订阅者，它会在该Node元素被移除的时候自动删除与该Node关联的所有订阅者，但是也可以提前手动删除某个Node关联的所有订阅者。</p>
+<p>（3）修改订阅者</p>
+<p>当Node元素的onEnter方法和onExit方法被调用时，它将恢复和暂停所有的动画。计时更新，以及所有与之关联的事件订阅者。对于事件订阅者，它使用以下两个方法来关闭和开启订阅者是否接受事件通知。</p>
+<pre><code>void pauseEventListenersForTarget(Node* target, bool recursive = false);
+void resumeEventListenersForTarget(Node* target, bool recursive = false);
+</code></pre><p>上述方法只用于Node事件，对于使用优先级定义的订阅者，则需要使用setEnabled</p>
+<pre><code>class EventListener : public Ref
+{
+    public:
+    inline void setEnabled(bool enabled) {_isEnabled = enabled; };
+    inline bool isEnabled() const { return _isEnabled };
+}
+</code></pre><p>然而遗憾的是，我们无法动态判断一个订阅者是通过优先级定义的还是通过与Node元素关联定义的，因为getAssociateNode是私有方法。</p>
+<p>我们可以通过setPriority()方法来修改订阅者的优先级。但这是也要确保该订阅者是一个通过优先级定义的订阅者。</p>
+<pre><code>void setPrority(EventListener* listener, int fixedPriority);
+</code></pre><h3 id="3-事件分发"><a href="#3-事件分发" class="headerlink" title="3 事件分发"></a>3 事件分发</h3><p>Event定义了一个事件类型，以及处理该事件相关的一些数据，EventDispatcher能够根据Event的类型找到与之相匹配的订阅者进行事件分发。示例如下：</p>
+<pre><code>void dispatchEvent(Event* event);
+void dispatchCustomEvent(const std::string &amp;eventName, void *optionalUserData = nullptr);
+</code></pre><p>对于一个自定义事件也可以直接传递一个事件名称及一个数据对象，由EventDispatcher帮助构造一个EventCustom对象。并通过getUserData来获取事件参数进行处理。EventCustom的定义如下：</p>
+<pre><code>class EventCustom : public Event
+{
+public:
+    EventCustom(const std::string&amp; eventName);
+    inline void setUserData(void* data) { _userData = data; };
+    inline void* getUsetData const (return _userData);
+    inline const std::string&amp; getEventName() const {return _eventName; };
+
+protected:
+    void* _userData;
+    std::string _eventName;
+}
+</code></pre><p>触发一个事件，在使用上很简单，但是却经过了很多处理。例如怎样保证分发的顺序，一个事件分发过程中触发一个循环事件会发生什么，以及注册、删除一个订阅者会发生什么，高优先级的订阅者怎样停止向低优先级的订阅者继续传递。diapatchEvent方法如下：</p>
+<pre><code>void EventDispatcher::dispatchEvent(Event* event)
+{
+    if (!_isEnabled)
+        return;
+
+    updateDirtyFlagForSceneGraph();
+
+    DispatchGuard guard(_inDispatche);
+
+    if (event-&gt;getType() == Event::Type::TOUCH)
+    {
+        dispatchTouchEvent(static_cast&lt;EventTouch*&gt;(event));
+        return;
+    }
+
+    auto listenerID = __getListenerID(event);
+    sortEventListeners(listenerID);
+
+    auto iter = _listenerMap.find(listenerID);
+    if (iter != _listenerMap.end())
+    {
+        auto listeners = iter-&gt;second;
+        auto onEvent = [&amp;event](EventListener* listener) -&gt; bool{
+            event-&gt;setCurrentTarget(listener-&gt;getAssociatedNode());
+            listener-&gt;_onEvent(event);
+            return event-&gt;isStopped();
+        }
+        dispatchEventToListeners(listeners, onEvent);
+    }
+    updateListeners(event);
+}
+</code></pre><h5 id="3-1-订阅者的排序"><a href="#3-1-订阅者的排序" class="headerlink" title="3.1 订阅者的排序"></a>3.1 订阅者的排序</h5><p>EventDispatcher在什么时候及怎样保证订阅者的顺序呢？</p>
+<p>订阅者的优先级或者相关联的Node的层级可能随时发生变动，为了保证事件分发能够按正确的顺序进行，并且尽量避免频繁的重新排序带来分发的性能问题，EventDispatcher采取了一种策略来对订阅者进行排序：在变动时标记，在分发前重新排序，并且只对当前事件类型对应的listenerID订阅者进行排序。</p>
+<p>下图是影响排序的一些操作，这些操作包括对Node和Priority订阅者的影响。一旦这些操作发生，EventDispatcher会将这些订阅者保存到一个dirty表，在事件分发前对其进行重新排序。如当改变Node的Zorder时会调用如下方法：</p>
+<pre><code>void EventDispatcher::setDirtyForNode(Node* node)
+{
+    // 当该Node是一个已存在的订阅者的时候添加
+    if (_nodeListenersMap.find(node) != _nodeListenersMap.end())
+    {
+        _dirtyNodes.insert(node);
+    }
+
+    // 递归将其所有子类也标记
+    const auto&amp; children = node-&gt;getChildren();
+    for (const auto&amp; child : children)
+    {
+        setDirtyForNode(child);
+    }
+}
+</code></pre><p>影响订阅者排序的操作并调用setDirtyForNode方法如下：</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0814%E5%BD%B1%E5%93%8D%E8%AE%A2%E9%98%85%E8%80%85%E4%B9%8B%E9%97%B4%E7%9A%84%E6%8E%92%E5%BA%8F%E6%93%8D%E4%BD%9C.JPG" alt=""></p>
+<p>需要注意的是EventDispatcher只对当前正在处理的事件类型对应的订阅者进行排序，参见如下sortEventListener()方法：</p>
+<pre><code>void EventDispatcher::sortEventListeners(const EventListener::ListenerID&amp; listenerID)
+{
+    DirtyFlag dirtyFlag = DirtyFlag::NONE;
+
+    auto dirtyIter = _priorityDirtyFlagMap.find(listenerID);
+    if (dirtyIter != _priorityDirtyFlagMap.end()){
+        dirtyFlag = dirtyIter-&gt;second;
+    }
+
+    if (dirtyFlag != DirtyFlag::NONE)
+    {
+        dirtyIter-&gt;second = DirtyFlag::NONE;
+
+        if ((int)dirtyFlag &amp; (int)DirtyFlag::FIXED_PRIORITY)
+        {
+            sortEventListenersOfFixedPriority(listenerID);
+        }
+
+        if ((int)dirtyFlag &amp; (int)DirtyFlag::SCENE_GRAPH_PRIORITY)
+        {
+            auto rootNode = Director::getInstance()-&gt;getRunningScene();
+            if (rootNode)
+            {
+                sortEventListenersOfSceneGraphPriority(listenerID, rootNode);
+            } else {
+                dirtyIter-&gt;sceond = DirtyFlag::SCENE_GRAPH_PRIORITY;
+            }
+        }            
+    }
+}
+</code></pre><p>Node订阅者排序需要遍历整个UI树，具体参考EventDispatcher::visitTarget方法。这样的操作是十分昂贵的操作，所以Cocos2d-x只对那些被用作关联订阅者的Node的绘制进行顺序发生变更时才进行标记以重新排序，这也包括Node的某一级子元素被用作关联订阅者的情形。</p>
+<p>所以，对于应用程序中被用作关联订阅者的Node，应该尽量修改其绘制顺序，以此来增加事件分发的性能。</p>
+<h5 id="3-2-嵌套事件"><a href="#3-2-嵌套事件" class="headerlink" title="3.2 嵌套事件"></a>3.2 嵌套事件</h5><p>事件分发是可以嵌套的，即可以在一个事件中触发另一个事件，Cocos2d-x使用一个_inDispatch来保存当前嵌套的深度，其值为0时表示没有事件分发。</p>
+<p>每次调用分发事件，dispatchEvent方法会使用一个自动变量DispatchGuard来记录当前分发的深度，DispatchGuard会对_inDispatch执行加1，并在变量生命周期结束时减1.</p>
+<pre><code>class DispatchGuard
+{
+public:
+    DispatchGuard(int&amp; count):_count(count){
+        ++_count;
+    }
+
+    ~DispatchGuard(){
+        --_count;
+    }
+private:
+int&amp; _count;
+}
+</code></pre><p>在一个嵌套事件中执行一个相同的事件会导致死循环，如下：</p>
+<pre><code>auto dispatcher = getEventDispatcher();
+auto eventFunc = [dispatcher](EventCustom* custom){
+    dispatcher-&gt;dispatchCustomEvent(&quot;test&quot;);
+}
+dispatcher-&gt;addCustomEventListener(&quot;test&quot;, eventFunc);
+dispatcher-&gt;dispatchCustomEvent(&quot;test&quot;);
+</code></pre><h5 id="3-3-在事件分发中修改订阅者"><a href="#3-3-在事件分发中修改订阅者" class="headerlink" title="3.3 在事件分发中修改订阅者"></a>3.3 在事件分发中修改订阅者</h5><p>如果在事件分发过程中对订阅者列表进行修改，例如修改订阅者优先级、添加和删除订阅者等，会发生什么？</p>
+<p>首先，在当前嵌套深度内，任何导致订阅者优先级的变更不会影响到后面订阅者的分发顺序。因为对于订阅者重新排序是在dispatchEvent中开始分发前执行的，对于优先级的修改将在下一个嵌套深度内生效，因为新事件的分发会重新对订阅者排序。</p>
+<p>其次，修改后序订阅者使得其不可处理事件时，将会立即生效，这包括通过setEnabled()、setPaused()、setRegisterd()方法修改订阅者。参见如下：</p>
+<pre><code>void EventDispatcher::dispatchEventToListeners(EventListenerVectors* listeners, const std::function&lt;bool(EventListener*)&gt;&amp; onEvent)
+{
+    bool shouldStopPropagation = false;
+    auto fixedPriorityListeners = listeners-&gt;getFixedPriorityListeners();
+    auto sceneGraphPriorityListeners = listeners-&gt;getSceneGraphPriorityListeners();
+
+    ssize_t i = 0;
+    // priority &lt; 0
+    if (fixedPriorityListeners)
+    {
+        if(!fixedPriorityListeners-&gt;empty())
+        {
+            for (; i &lt; listeners-&gt;getGtoIndex(); ++i)
+            {
+                auto l = fixedPriorityListeners-&gt;at(i);
+                if (l-&gt;isEnabled() &amp;&amp; !l-&gt;isPaused() &amp;&amp; l-&gt;isRegistered() &amp;&amp; onEvent(1))
+                {
+                    shouldStopPropagetion = true;
+                    break;
+                }
+            }
+        }
+    }
+}
+</code></pre><p>其中，在分发过程中移除一个订阅者时并不会直接从订阅者列表移除，而是将其标记为setRegistered(false)，使得该订阅者在分发的过程中不再生效，而在分发结束时将其移除。</p>
+<p>最后，如果在事件分发过程中添加了一个订阅者，则它不会立即生效，而量添加到一个临时的_toRegistered(false)，在所有事件分发结束后才加入订阅者列表。这意味着在一次分发中，不管在哪个嵌套级别新加入订阅者，在_inDispatch变为0之前都不会生效。</p>
+<p>当所有嵌套事件的事件分发结束，以及_inDispatch变为0时，EventDispatcher开始更新事件分发过程中对订阅者列表的修改，移除那些registered被标记为false的订阅者，添加_toAddListeners数组的订阅者到_listenerMap，以使其在后面发生的事件中生效。具体参阅updateListener()方法。</p>
+<h5 id="3-4-停止分发事件"><a href="#3-4-停止分发事件" class="headerlink" title="3.4 停止分发事件"></a>3.4 停止分发事件</h5><p>在一个事件分发过程中，优先级较高的订阅者可以选择让事件停止继续传播，这可以通过Event的stopPropagation()方法来实现。</p>
+<pre><code>class Event : public Ref
+{
+public:
+    inline void stopPropagation() {_isStopped = true;};
+}
+</code></pre><p>这可能适用来实现如有些任务只能被一个角色执行，但是可能有多个候选的角色，开发者只需要根据需设置它们的优先级即可。</p>
+<h3 id="4-事件与Node"><a href="#4-事件与Node" class="headerlink" title="4 事件与Node"></a>4 事件与Node</h3><p>在Cocos2d-x3.0中，Node可以用来和订阅者建立联系，使订阅者的颁发顺序与该Node元素在屏幕上的层级保持一致。上面讲述了Node怎样影响EventDispatcher对订阅者的分发进行排序。除此之外，Node类还从另外两个方面影响着开发者对事件分发人使用。</p>
+<h4 id="4-1-暂停与恢复"><a href="#4-1-暂停与恢复" class="headerlink" title="4.1 暂停与恢复"></a>4.1 暂停与恢复</h4><p>到目前，Cocos2d中Node除了用来显示场景，还用来执行3种逻辑相关的操作：动画（Action）、更新回调(Scheduler)、事件(Event)。</p>
+<p>这些操作在Node从场景中移除之后变得毫无意义。而在另外一些情况下，开发者可能也需要让一个Node元素停止这些操作，即使它依然显示在场景中。</p>
+<p>Cocos2d-x中提供了两个方法用来暂停与恢复这些操作的执行，分别是pause()方法各resume()方法，示例如下：</p>
+<pre><code>void Node::pause()
+{
+    _scheduler-&gt;pauseTarget(this);
+    _actionManager-&gt;pauseTarget(this);
+    _eventDispatcher-&gt;pauseEventListenersForTarget(this);
+}
+
+ void Node::resume()
+ {
+    _scheduler-&gt;resumeTaget(this);
+    _actionManager-&gt;resumeTarget(this);
+    _eventDispatcher-&gt;resumeEventListenersForTarget(this);
+ }
+</code></pre><p>这可以在任何时间阻止或允许与该Node相关联的订阅者接受事件通知，但是这会同时影响更新回调和动画的执行。如果只是想控制事件相关的逻辑，则可以直接调用resumeEventListenerForTarget()和pauseEventListenerForTarget()方法。</p>
+<p>在Node元素内部，当onEnter()和onExit()方法被调用时，会分别自动调用resume()和pause()方法。这也会导致所有子元素的动画、更新回调及事件订阅者都会被恢复与暂停。</p>
+<h4 id="4-2-删除订阅者"><a href="#4-2-删除订阅者" class="headerlink" title="4.2 删除订阅者"></a>4.2 删除订阅者</h4><p>当一个订阅者不再被使用，或者被销毁时，需要向EventDispatcher移除该订阅者。但是使用Node订阅者则可以简化这步操作，Node元素在被释放的时候会自动移除所有与该Node关联的订阅者。</p>
+<pre><code>Node::~Node()
+{
+    _eventDispatcher-&gt;removeEventListenersForTarget(this);
+}
+</code></pre><p>所以，除非需要提前移除所有订阅者，否则可以不用管理订阅者的移除。</p>
+<h3 id="5-触摸事件"><a href="#5-触摸事件" class="headerlink" title="5 触摸事件"></a>5 触摸事件</h3><h5 id="5-1-多点触摸"><a href="#5-1-多点触摸" class="headerlink" title="5.1 多点触摸"></a>5.1 多点触摸</h5><h5 id="5-2-单点触摸"><a href="#5-2-单点触摸" class="headerlink" title="5.2 单点触摸"></a>5.2 单点触摸</h5><h5 id="5-3-单点和多点之间的联系"><a href="#5-3-单点和多点之间的联系" class="headerlink" title="5.3 单点和多点之间的联系"></a>5.3 单点和多点之间的联系</h5><h5 id="5-4-触摸点的位置判断"><a href="#5-4-触摸点的位置判断" class="headerlink" title="5.4 触摸点的位置判断"></a>5.4 触摸点的位置判断</h5><h5 id="5-5-可见性与触摸事件"><a href="#5-5-可见性与触摸事件" class="headerlink" title="5.5 可见性与触摸事件"></a>5.5 可见性与触摸事件</h5><p>在后面单独小结里面总。</p>
+<h3 id="6-其他"><a href="#6-其他" class="headerlink" title="6 其他"></a>6 其他</h3><h5 id="6-1-其他操作系统事件"><a href="#6-1-其他操作系统事件" class="headerlink" title="6.1 其他操作系统事件"></a>6.1 其他操作系统事件</h5><p>除了EventTouch以外，Cococs2d-x还提供了其他一些事件，如EventMouse、EventAcceleration、EventKeyboard、EventFocus等事件，分别用来处理鼠标、重力加速度、键盘、焦点事件。</p>
+<h5 id="6-2-自定义事件"><a href="#6-2-自定义事件" class="headerlink" title="6.2 自定义事件"></a>6.2 自定义事件</h5><p>Cocos2d-x提供了一个EventCustom用来方便使用自定义事件，开发者不需要自己去定义一种订阅者类型和事件参数就可以使用自定义事件。</p>
+<p>EventCustom指定一个名字字符串名字作为listenerID创建一种类型的事件，它同时接受一个指针用来传递事件数据；而EventListenerCustom作为自定义事件的统一订阅者，每个实例的listenerID是由eventName来决定的。例如，创建一个名为“test”的自定义事件的订阅者：</p>
+<pre><code>auto listener = EventListenerCustom::create(&quot;test&quot;, [](EventCustom* event){});
+getEventDispatcher()-&gt;addEventListenerWithSceneGraphPriority(listener, this);
+</code></pre><p>然后就可以在其他地方触发test自定义事件来传消息给EventListenerCustom。</p>
+<pre><code>EventCustom event(&quot;test&quot;);
+event.setUserData(this);
+getEventDispatcher()-&gt;dispatcherEvent(&amp;event);
+</code></pre><h5 id="6-3-内存管理"><a href="#6-3-内存管理" class="headerlink" title="6.3 内存管理"></a>6.3 内存管理</h5><p>dispatchEvent方法接受一个Event子类的指针，当事件分发完毕之后，是需要手动释放其内存的。为了简化内存管理，这里常用的做法是将其声明为自动变量而非指针。</p>
+<pre><code>EventCustom event(&quot;test&quot;)
+</code></pre><p>这样事件结束后，当其生命周期结束时会被自动释放。</p>
+<p>如果因为某些原因，例如需要保存Event实例供多次事件使用，这里有一个问题需要注意：事件订阅者可以通过调用stopPropagation来停止事件的继续分发，但是这样直接修改Event实例，如果下一次还使用同一个实例，就会导致分发失败，而通过Event类无法还原其初始状态。</p>
+<h5 id="6-4-回调与返回值"><a href="#6-4-回调与返回值" class="headerlink" title="6.4 回调与返回值"></a>6.4 回调与返回值</h5><p>如果某个事件需要返回值，则可以将这些数据保存在Event实例中，这需要自定义Event子类来保存数据；同时可以避免疏漏，可以自定义带有返回值的回调函数EventListener业强制订阅者返回数据。</p>
+<p>如果事件的处理是异步的，则可以传入一个回调函数指针给订阅者，当订阅者处理完毕再回调这个函数。</p>
+<p>但是，事件枫丹白露通常用来发出一种通知，大多数时候是不关心结果的。</p>
+<h5 id="6-6-其他事件"><a href="#6-6-其他事件" class="headerlink" title="6.6 其他事件"></a>6.6 其他事件</h5><p>Cocos2d-x还提供了一些系统事件，它们大都通过EventCustom来实现，表12.5列出了这些事件的名称及描述。</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/0814Cocos2d%E4%B8%AD%E7%9A%84%E7%B3%BB%E7%BB%9F%E4%BA%8B%E4%BB%B6.JPG" alt=""></p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

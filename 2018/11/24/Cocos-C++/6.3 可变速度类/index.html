@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        6.3 可变速度类 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#可变速度类"><span class="toc-text">可变速度类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-EaseIn、EaseOut、EaseInOut"><span class="toc-text">1.EaseIn、EaseOut、EaseInOut</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-示例"><span class="toc-text">1.1 示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-EaseSineIn、EaseSineOut、EaseSineInOut"><span class="toc-text">2.EaseSineIn、EaseSineOut、EaseSineInOut</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-EaseBackIn、EaseBackOut、EaseBackInOut"><span class="toc-text">3.EaseBackIn、EaseBackOut、EaseBackInOut</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-EaseExponentialln、EaseExponentialOut、EaseExponentiallnOut"><span class="toc-text">4.EaseExponentialln、EaseExponentialOut、EaseExponentiallnOut</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-EaseBouncelIn、EaseBouncelOut、EaseBouncelInOut"><span class="toc-text">5.EaseBouncelIn、EaseBouncelOut、EaseBouncelInOut</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-EaseElasticIn、EaseElasticOut、EaseElasticInOut"><span class="toc-text">6.EaseElasticIn、EaseElasticOut、EaseElasticInOut</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        6.3 可变速度类
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="可变速度类"><a href="#可变速度类" class="headerlink" title="可变速度类"></a>可变速度类</h1><p>ActionEase是ActionInterval的派生子类，这种继承关系使得任何一个可变速动作类的对象才能参与到组合动作当中。</p>
+<p>速度变化动作不是指改变动作目标的速度，而是指动作本身的执行速度。</p>
+<h3 id="1-EaseIn、EaseOut、EaseInOut"><a href="#1-EaseIn、EaseOut、EaseInOut" class="headerlink" title="1.EaseIn、EaseOut、EaseInOut"></a>1.EaseIn、EaseOut、EaseInOut</h3><p>1).EaseIn表示的一个由慢至快的过程。</p>
+<p>2).EaseOut表示一个由快至慢的过程。</p>
+<p>3).EaseInOut表示一个由慢至快再由快至慢的过程。</p>
+<pre><code>static EaseRateAction * create(ActionInterval *action, float rate);
+// 第一个参数为其他类对象，第二个是速度变化类参数。
+</code></pre><h5 id="1-1-示例"><a href="#1-1-示例" class="headerlink" title="1.1 示例"></a>1.1 示例</h5><pre><code>void SpriteEase::onEnter()
+{
+    EaseSpriteDemo::onEnter();
+
+    Size s = Director::getInstance()-&gt;getWinSize();
+
+    // 基本动作
+    ActionInterval *move = MoveBy::create(3, Vec2(s.width-130, 0));
+    ActionInterval *move_back = move-&gt;reverse();
+
+    // 加速动作
+    ActionInterval *move_ease_in = EaseIn::create((ActionInterval *)(move-&gt;copy()-&gt;autorelease()), 2.5f);
+    ActionInterval *move_ease_in_back = move_ease_in-&gt;reverse();
+
+    // 减速动作
+    ActionInterval *move_ease_out = EaseOut::create((ActionInterval *)(move-&gt;copy()-&gt;autorelease()), 2.5f);
+    ActionInterval *move_ease_out_back = move_ease_out-&gt;reverse()
+
+    // 延时动作
+    DelayTime *delay = DelayTime::crete(0.25f);
+
+    // 序列动作
+    FiniteTimeAction* seq1 = Sequence::create(move, delay, move_back, CCCA(delay), NULL);
+    FiniteTimeAction* seq2 = Sequence::create(move_eses_in, CCCA(delay), move_ease_in_back, CCCA(delay), NULL);
+    FiniteTimeAction* seq3 = Sequence::create(move_ease_out, CCCA(delay), move_ease_out_back, CCCA(delay), NULL);
+
+    Action *a2 = m_grossini-&gt;runAction(RepeatForever::create((ActionInterval *)seq1));
+    Action *a1 = m_tamara-&gt;runAction(RepeatForever::create((ActionInterval *)seq2));
+    Action *a  = m_kathia-&gt;runAction(RepeatForever::create((ActionINterval *)weq3));
+
+    schedule(schedule_selector(SpriteEase::testStopAction), 6.25f);
+}
+</code></pre><h3 id="2-EaseSineIn、EaseSineOut、EaseSineInOut"><a href="#2-EaseSineIn、EaseSineOut、EaseSineInOut" class="headerlink" title="2.EaseSineIn、EaseSineOut、EaseSineInOut"></a>2.EaseSineIn、EaseSineOut、EaseSineInOut</h3><p>此动作组的变化速率不再是依据加速度的方式，而是依据正弦函数来进行的。</p>
+<h3 id="3-EaseBackIn、EaseBackOut、EaseBackInOut"><a href="#3-EaseBackIn、EaseBackOut、EaseBackInOut" class="headerlink" title="3.EaseBackIn、EaseBackOut、EaseBackInOut"></a>3.EaseBackIn、EaseBackOut、EaseBackInOut</h3><p>此类动作的变化速率量反向的，在基动作变化之前首先报告一下反向动作，然后才会继续执行原本动作。</p>
+<h3 id="4-EaseExponentialln、EaseExponentialOut、EaseExponentiallnOut"><a href="#4-EaseExponentialln、EaseExponentialOut、EaseExponentiallnOut" class="headerlink" title="4.EaseExponentialln、EaseExponentialOut、EaseExponentiallnOut"></a>4.EaseExponentialln、EaseExponentialOut、EaseExponentiallnOut</h3><p>此可变动作速率的变化将会按照指数增量的方式来增长。</p>
+<h3 id="5-EaseBouncelIn、EaseBouncelOut、EaseBouncelInOut"><a href="#5-EaseBouncelIn、EaseBouncelOut、EaseBouncelInOut" class="headerlink" title="5.EaseBouncelIn、EaseBouncelOut、EaseBouncelInOut"></a>5.EaseBouncelIn、EaseBouncelOut、EaseBouncelInOut</h3><p>此可变动作的方式是反弹变化。</p>
+<h3 id="6-EaseElasticIn、EaseElasticOut、EaseElasticInOut"><a href="#6-EaseElasticIn、EaseElasticOut、EaseElasticInOut" class="headerlink" title="6.EaseElasticIn、EaseElasticOut、EaseElasticInOut"></a>6.EaseElasticIn、EaseElasticOut、EaseElasticInOut</h3><p>伸缩方式</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

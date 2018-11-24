@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        9 声音 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#游戏中的声音"><span class="toc-text">游戏中的声音</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-声音与特效"><span class="toc-text">1.声音与特效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-声音格式"><span class="toc-text">2.声音格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-CocosDenshion声音模块"><span class="toc-text">3.CocosDenshion声音模块</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        9 声音
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="游戏中的声音"><a href="#游戏中的声音" class="headerlink" title="游戏中的声音"></a>游戏中的声音</h1><h3 id="1-声音与特效"><a href="#1-声音与特效" class="headerlink" title="1.声音与特效"></a>1.声音与特效</h3><p>1）从内容角度：背景音乐是用来烘托游戏气氛的。音效是作为一种特效辅助游戏内容的，如打斗、砍杀的声音。</p>
+<p>2）从格式角度：背景音乐播放时间长，频率低。而音效则是播放时间短、频率高。背景音乐通常会采用mp3格式，音效则会采用wav格式。</p>
+<p>3）从制作手法：背景音乐由专业的音乐团队来完成。而声音效果则是来自配音、原声采集。</p>
+<h3 id="2-声音格式"><a href="#2-声音格式" class="headerlink" title="2.声音格式"></a>2.声音格式</h3><ul>
+<li>有损压缩（MP3）：破坏性压缩，是指通过压缩、解压的数据与原始数据不同。</li>
+<li>硬解码：通过固定的硬件芯片来完成对音格式的解码方式，比如iOS中对MP3格式的解码。</li>
+<li>软解码：借助CPU运算能力计算来解码的方式，比如Android设备中对MIDI格式的解码。</li>
+</ul>
+<h3 id="3-CocosDenshion声音模块"><a href="#3-CocosDenshion声音模块" class="headerlink" title="3.CocosDenshion声音模块"></a>3.CocosDenshion声音模块</h3><p>CocosDenshion声音模块采用了外观模式和单例模式，在Cocos2D-X引擎中是一个非常独立的内容，方便维护升级，也更容易被替换。代码结构如下：</p>
+<p>SimpleAudioEngin是一个典型的外观模式，而SimpleAudioEngin、CDAudioManager和CDSoundManager则使用了单例模式。</p>
+<p>作为开发者只需要熟悉SimpleAudioEngin函数方法，无需关注CDAudioManager和CDSoundManager。</p>
+<p>外观模式的好处就是提供了简单的上层接口，隐藏了具体的底层实现方式，不同平台采用了不同的实现技术，比如在iOS平台中使用了OpenAL声音库，而Android则使用了OpenSL声音库。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

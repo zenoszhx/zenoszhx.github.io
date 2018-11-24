@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1. Lua脚本中的事件 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-接受及处理事件"><span class="toc-text">1 接受及处理事件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-通信机制"><span class="toc-text">1.1 通信机制</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-向宿主程序注册一个Lua函数地址"><span class="toc-text">1.2 向宿主程序注册一个Lua函数地址</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-3-在宿主程序中调用Lua函数"><span class="toc-text">1.3 在宿主程序中调用Lua函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-4-更好地组建脚本架构"><span class="toc-text">1.4 更好地组建脚本架构</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#2-发送事件"><span class="toc-text">2 发送事件</span></a></li>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1. Lua脚本中的事件
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:25:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h3 id="1-接受及处理事件"><a href="#1-接受及处理事件" class="headerlink" title="1 接受及处理事件"></a>1 接受及处理事件</h3><p>tolua解决了C/C++方法到Lua的绑定，使得Lua可以访问原生语言中定义的方法。然而在实际开发中，除了调用原生语言中定义的方法，脚本还需要响应原生语言中的事件，这通常表现为原生语言向脚本语言发起一个方法调用。</p>
+<p>这种事件响应的能力及机制对脚本来说更加重要，例如游戏设计师可以在脚本中对各种事件作出定制，深入控制游戏逻辑，对于那些完全由脚本构成的游戏，其脚本中的游戏循环则是需要引擎来驱动的。</p>
+<h5 id="1-1-通信机制"><a href="#1-1-通信机制" class="headerlink" title="1.1 通信机制"></a>1.1 通信机制</h5><p>Lua的C函数接口在宿主程序和Lua之间建立了双向通信的机制，使得Lua脚本可以访问原生语言的方法，原生语言也可以调用Lua中的函数。但是在Lua之上，我们需要建立自己的架构来让他们之间真正的通信。</p>
+<p>如同之间所讲过的，Lua访问原生语言的游戏对象方法的情境中，其操作步骤可以分为以下两步：</p>
+<ol>
+<li>宿主程序向Lua注册lua_CFunction的地址</li>
+<li>在Lua中调用lua_CFunction函数，从而调用C/C++中定义的方法。</li>
+</ol>
+<p>类似地，在原生语言中调用Lua的函数，也需要经历两步：</p>
+<ol>
+<li>Lua向原生语言注册Lua函数的地址。</li>
+<li>原生语言通过Lua的C函数接口调用Lua函数。</li>
+</ol>
+<p>在具体应用中，前者通常可以以类对象来包装文类所有方法，使用比较一致的方式进行处理，tolua就是用来帮助简化这件事情。</p>
+<p>对于Lua向原生语言注册函数地址则不容易使用一致的方法来完成。这是因为除了注册和调用还需要解决另外一个问题：在什么地方需要调用一个Lua函数？这可以是在类方法、实例方法或者全局方法中。这种不同的调用Lua函数的时机各地方可能导致不同的脚本架构，，但是2他们实现通信的机制却是相同的。</p>
+<h5 id="1-2-向宿主程序注册一个Lua函数地址"><a href="#1-2-向宿主程序注册一个Lua函数地址" class="headerlink" title="1.2 向宿主程序注册一个Lua函数地址"></a>1.2 向宿主程序注册一个Lua函数地址</h5><p>要向宿主程序注册一个Lua函数，首先应该由脚本程序调用原生语言方法，并将一个Lua函数地址作为一个参数传入lua_CFunction中。</p>
+<p>例如在Geniux-x中，System对象需要调用脚本提供的update等方法来对游戏对象进行状态更新，那么System首先向Lua提供了一个注册方法。</p>
+<pre><code>class System:public cocos2d:Ref
+{
+public:
+# if CC_ENABLE_SCRIPT_BINDING
+    void registerScriptHandler(int handler);
+    void unregisterScriptHandler(void);
+    int getScriptHandler(void) {return _scriptHandler};
+# endif
+}
+</code></pre><p>在原生语言的System类定义中，registerScriptHandler和其他普通方法一样，只是这里参数handler表示的是一个Lua函数的地址，System实例会将它保存起来，以便当事件发生时，调用该地址指向的Lua函数。</p>
+<pre><code>void System:registerScriptHandler(int handler)
+{
+    unregisterScriptHandler();
+    _scriptHandler = handler;
+}
+</code></pre><p>当在脚本中创建一个System的实例时，调用registerScriptHandler来注册一个Lua函数，并传入一个Lua函数的地址作为参数，示例如下：</p>
+<pre><code>ChapterSystem = class(&quot;gx.System&quot;,
+    function ()
+        local sys = sg.System:create(&quot;ChapterSystem&quot;, &quot;ChapterCom&quot;, 0)
+
+        local function comfunc(eventName, pSender)
+            if eventName == &quot;init&quot; then
+            if eventName == &quot;clone&quot; then
+            if eventName == &quot;attached&quot; then
+            if eventName == &quot;deattached&quot; then
+            if eventName == &quot;update&quot; then
+            if eventName == &quot;changed&quot; then
+            end
+        end
+    end
+
+    sys:registerScriptHandler(comfunc);
+    return sys
+end)
+</code></pre><p>在上述的脚本中，我们构造了一个gx.System的实例，并向其注册了一个Lua函数地址confunc。comfunc用来处理原生语言向该对象发起的各种事件调用，例如attached、update等事件，这样使得脚本对象能够执行真正的逻辑更新操作。</p>
+<p>需要注意的是在C/C++中并没有对应的类型，所以tolua并不能处理registerScripterHander方法的绑定，这一部分需要我们手动维护。在cocos2d_lua_bindings项目中有两个文件夹。分别是auto和manual，其中auto文件夹里存放的是tolua生成的绑定文件，而manual文件夹则用来存储我们自己维护的绑定方法。例如namual目录下的lua_geniusx_manual中就包含了上述System类的registerScriptHandler方法的绑定。</p>
+<pre><code>static void extendSystem(lua_State* L)
+{
+    lua_pushstring(L, &quot;gx.System&quot;);
+    lua_rawget(L, LUA_REGISTRYINDEX);
+    if (lua_istable(L, -1))
+    {
+        tolua_function(L, &quot;registerScriptHandler&quot;, tolua_geniusx_System_registerScriptHandler);
+        tolua_function(L, &quot;unregisterScriptHandler&quot;, tolua_geniusx_System_unregisterScriptHandler);
+    }
+    lua_pop(L, 1);
+}
+</code></pre><p>同样，我们需要在应用程序启动的时候向LuaEngine来注册这些方法绑定，以使其生效。</p>
+<h5 id="1-3-在宿主程序中调用Lua函数"><a href="#1-3-在宿主程序中调用Lua函数" class="headerlink" title="1.3 在宿主程序中调用Lua函数"></a>1.3 在宿主程序中调用Lua函数</h5><p>当某个事件发生的时候我们需要调用的是绑定的Lua函数而不是C/C++中自身的方法。下面以System的updata()方法进行分析。</p>
+<pre><code>void System::update(float dt)
+{
+#if CC_ENABLE_SCRIPT_BINDING
+    if (_scriptType == kScriptTypeLua)
+    {
+        SystemScriptData* custom = new SystemScriptData(dt);
+        CommonScriptData data(_scriptHandler, &quot;updata&quot;, custom);
+        ScriptEvent event(kCommonEvent, (void*)&amp;data);
+        ScriptEngineManager::getInstance()-&gt;getScriptEngine-()-&gt;sendEvent(&amp;event);
+        custom-&gt;release();
+    }
+#endif
+}
+</code></pre><p>当ECSManager调用System实例的update方法时，如果该实例包含一个Lua函数的地址，它将直接调用Lua函数进行操作。</p>
+<p>其中LuaEngine实现了sendEvent方法，它将负责调用指定地址的Lua函数，这里我们还可以传入一个CommScriptData，它可以用来传入一个继承自Ref的对象作为Lua函数的参数。在sendEvent的方法链中，最终使用Lua的C函数接口lua_pcall来发起对Lua函数的调用。</p>
+<p>如果一个事件处理需要返回值，由于sendEvent并没有处理返回值的机制，所以可以使用CommonScriptData中传递的Ref参数来作为数据传递的对象。由于该参数是一个指针，并且在原生语言中构造，在Lua中是一个userData对象，可以通过前面讲述的方式对其绑定一些set方法来存储返回值，然后在事件Lua函数调用完毕之后使用对应的get方法来获取返回值。最后，需要注意的是，这里需要手动释放自己构造的custom对象。否则将导致其内存不被释放。</p>
+<p>通过变两个过程，我们可以处理任何类型的事件，可以在原生语言的任何地方发起Lua函数调用。</p>
+<h5 id="1-4-更好地组建脚本架构"><a href="#1-4-更好地组建脚本架构" class="headerlink" title="1.4 更好地组建脚本架构"></a>1.4 更好地组建脚本架构</h5><p>在前面的讲述的方法中，处理原生语言对一个Lua函数的调用其实非常不灵活，可以总结如下：</p>
+<p>（1）首先原生对象需要对每一个事件写一个注册函数。<br>（2）然后需要手动建立并初始化注册方法的绑定。<br>（3）接下来在Lua中需要调用注册方法向原生语言注册Lua函数。<br>（4）最后在事件发生的时候调用lua_pcall来调用Lua函数。</p>
+<p>上面繁琐的过程这几乎成了使用Lua开发Cocos2d-x游戏比较头疼的事情，然而针对组件模型，每个组件脚本就是固定地处理组件的几个事件，这可能大大简化这个过程。</p>
+<p>在Lua中，每个chunk代码段都是一个对象，所以可以使用数据驱动的方式把一个Lua脚本文件配置到Component，然后System就可以直接使用它来执行一些事件调用，这几乎省去了上述所有开发者手动处理Lua和原生语言通信相关的工作。</p>
+<p>当然，这需要System对其他做特定的支持。但是将一个脚本文件看作一个脚本对象，然后直接对其执行这种方式，比起需要通过注册的方式来获取脚本对象能够很大提升使用上的体验。</p>
+<h3 id="2-发送事件"><a href="#2-发送事件" class="headerlink" title="2 发送事件"></a>2 发送事件</h3><p>在脚本中产生的事件能够被其他脚本处理或者被原始语言处理，这种能力对脚本架构来说非常重要。这可能需要建立一些公共的数据结构用来处理方法、函数指针的注册。但是在Cocos2d-x中提供了一个事件分发器，只需要将事件分发器本身支持被LUa函数调用，则Lua函数就可以通过其来注册和响应事件。</p>
+<p>在脚本中向EventDisPatcher注册一个事件订阅者。</p>
+<pre><code>local function onLevelSelected(event)
+end
+
+local dispatcher = self:getEventDispatcher()
+listenter = cc.EventListenerCustom:create(&quot;LevelSelected&quot;, onLevelSelected)
+dispatcher:addEventListenerWithSceneGraphPriority(selectedListener, self)
+</code></pre><p>也可以在脚本中发起一个事件：</p>
+<pre><code>local event = cc.EventCustom:new(&quot;LevelSelected&quot;)
+event.status = 2
+event.chapterId = self.chapterData.chapterId
+event.levelId = second.index
+self:getEventDispatcher():dispatchEvent(event)
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

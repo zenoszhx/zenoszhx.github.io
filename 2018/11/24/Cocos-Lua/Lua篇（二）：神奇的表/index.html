@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        神奇的表 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#神奇的表"><span class="toc-text">神奇的表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1、table构造式"><span class="toc-text">1、table构造式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-元表"><span class="toc-text">2.元表</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-元表概念"><span class="toc-text">2.1 元表概念</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-重要元方法"><span class="toc-text">2.2 重要元方法</span></a></li></ol></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        神奇的表
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:29:19</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-Lua" title="Cocos-Lua">Cocos-Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="神奇的表"><a href="#神奇的表" class="headerlink" title="神奇的表"></a>神奇的表</h1><h3 id="1、table构造式"><a href="#1、table构造式" class="headerlink" title="1、table构造式"></a>1、table构造式</h3><p>（1）构造一个table的时候，如果不给key，则key默认从1开始。如要声明一个有关星期的table：</p>
+<pre><code>t = {&quot;Sunday&quot;, &quot;Monday&quot;, &quot;Tuesday&quot;...}
+--这样一个table构造应该如下
+t = {}
+t[1] = &quot;Sunday&quot;
+t[2] == &quot;Monday&quot;
+</code></pre><p>（2）使用混合的方式给table赋值，未设置key的项，key会自动从1开始编号。</p>
+<p>（3）删除一个table时直接给他赋值为nil就可以了。</p>
+<h3 id="2-元表"><a href="#2-元表" class="headerlink" title="2.元表"></a>2.元表</h3><h5 id="2-1-元表概念"><a href="#2-1-元表概念" class="headerlink" title="2.1 元表概念"></a>2.1 元表概念</h5><p>metatable 是 table预定的一系列操作。比如把两个table相加，那么Lua就会先去检查table是否有metatable，然后检查metatable中是否有add方法。如果有就按照add中的方法来执行，如果没有则报错。</p>
+<p>在Lua中的每一个值都有或者可以有一个元表。table和userdata可以拥有独立的元表。其他类型的值只能共享所属类型的元表，比如字符串就是使用的string的元表。</p>
+<p>Lua丰创建table的时候是不会创建metatable的，需要使用setmetatable来设置元表。setmetatable的参数可以量任意table，包括要赋值的table本身。</p>
+<p>例：实现一个table，能让它实现“+”运算</p>
+<pre><code>Set = {}
+
+function Set.new(t)
+    local set = {}
+    for i, v in ipairs(t) do
+        set[v] = true
+    end
+end
+
+function Set.union(a. b)
+    local res = Set.new()
+    for k in ipairs(a) do
+        res[k] = true
+    end
+    for k in ipairs(b) do
+        res[k] = true
+    end
+    return res
+end
+
+function Set.tostring(st)
+    locas s = &quot;{&quot;
+    local sep = &quot;&quot;
+    for e in pairs(set) do
+        s = s .. sep .. e,
+        sep = &quot;,&quot;
+    end
+    return s..&quot;}&quot;
+end
+
+function Set.print(2)
+    print(Set.tostring(s))
+end
+
+--定义metatable
+Set.mt = {}
+Set.mt.__add = Set.union
+
+s1 = Set.new{10, 20, 30, 50}
+s2 = Set.new{30, Set.mt}
+s3 = s1 + s2
+Set.print(s3)
+</code></pre><h5 id="2-2-重要元方法"><a href="#2-2-重要元方法" class="headerlink" title="2.2 重要元方法"></a>2.2 重要元方法</h5><p>table的其他预定义元方法如图：</p>
+<p><img src="http://7xqzxs.com1.z0.glb.clouddn.com/Metamethods.png" alt=""></p>
+<p>（1）_  _ index元方法<br>Lua中访问table的元素量先通过__index元方法来查找是否有这个函数，如果没有则返回nil。<br>通过改变 _  _index元方法，能够改变检索之后的结果。 _  _index的值可以直接是一个table，也可以是一个函数。若是table，则会以该table作为索引进行查询。若是函数，Lua则将table和缺少的域作为参数调用这个函数。</p>
+<pre><code>--改变 _ _ index元方法，用函数来检索
+Window = {}
+Window.mt = {}
+Window.prototype = {x = 0, y = 0, width = 100, height = 100}
+Window.mt.__index = function(table, key)
+    return Window.prototype[key]
+end
+
+function Window.new(t)
+    setmetatable(t, Window.mt)
+    return t
+end    
+
+-- 测试
+w = Window.new{x = 10, y = 20}
+print(w.height)
+--输出100
+</code></pre><p>（2）__newindex元方法</p>
+<p>_  _ newindex和 _ _ index的使用基本一样。区别在于 _ _ newindex的作用量用于table更新， _ _ index量用于table的查询操作。当table中不存在的索引赋值是，就会调用 _ _ newindex元方法。组合使用 _ _ index和 _ _ newIndex可以实现很多功能。</p>
+<pre><code>Window = {}
+Window.mt = {}
+Window.prototype = {x = 0, y = 0, width = 100, height = 100}
+Window.mt.__newindex = function(table, key, value)
+    print(&quot;update of element&quot;..tostring(key)..tostring(value))
+    rewset(table, key, value)
+end
+
+function Window.new(t)
+    setmetatable(t, Window.mt)
+    return t
+end    
+
+-- 测试
+w = Window.new{x = 10, y = 20}
+w.a = 10
+print(w.a)
+--输出10
+</code></pre><p>（3） _ _ index在get表中未定义元素时触发，对应有rawget(table, key)来避免调用 _ _ index;  _ _ newindex在set表中未定义元素时触发，对应有rawset(table, key)来避免调用 _ _ newindex方法。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

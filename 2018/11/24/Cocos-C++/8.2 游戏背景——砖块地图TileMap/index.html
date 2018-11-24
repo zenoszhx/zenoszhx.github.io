@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        8.2 游戏背景——砖块地图TileMap - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Tile-Map"><span class="toc-text">Tile Map</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-支持的砖块类型"><span class="toc-text">1.1 支持的砖块类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-地图类型"><span class="toc-text">1.2 地图类型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-地图类-TMXTileMap"><span class="toc-text">3.1 地图类:TMXTileMap</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-地图层类：TMXLayer"><span class="toc-text">3.2 地图层类：TMXLayer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-3-地图物体层TMXObjectGroup"><span class="toc-text">3.3 地图物体层TMXObjectGroup</span></a></li></ol></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        8.2 游戏背景——砖块地图TileMap
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <h1 id="Tile-Map"><a href="#Tile-Map" class="headerlink" title="Tile Map"></a>Tile Map</h1><p>###1 概念</p>
+<h5 id="1-1-支持的砖块类型"><a href="#1-1-支持的砖块类型" class="headerlink" title="1.1 支持的砖块类型"></a>1.1 支持的砖块类型</h5><ul>
+<li>正方形</li>
+<li>菱形</li>
+<li>正六边形</li>
+</ul>
+<h5 id="1-2-地图类型"><a href="#1-2-地图类型" class="headerlink" title="1.2 地图类型"></a>1.2 地图类型</h5><ul>
+<li>俯视角度</li>
+<li>斜45°</li>
+</ul>
+<p>###2 数据格式</p>
+<p>#####2.1 导出文件格式</p>
+<ul>
+<li>Droidcraft map 文件：*.dat</li>
+<li>Lua文件:*.lua</li>
+<li>T-Engine4 地图文件： *.lua</li>
+<li>TMW-eAthena 碰撞文件：*.wlk</li>
+</ul>
+<p>编辑器提供了基于base64的zlib和gzip数据压缩格式。这两种都是被Cocos2D-X所支持。配置数据保存格式后，将工程文件保存，就会得到一个按照XML文件保存的TMX项目文件。</p>
+<p>#####2.2 文件分析</p>
+<ul>
+<li>在map属性中，iosmetric表示是一个45°拼接的地图，orthogonal表示正常的视角;width,heignt表示地图创建时的尺寸，tileWidth、tileHeigh砖块元素。</li>
+<li><tileset>保存了图片信息</tileset></li>
+<li><layer>中保存了图层信息，</layer></li>
+</ul>
+<p>###3 砖块地图的实现</p>
+<h5 id="3-1-地图类-TMXTileMap"><a href="#3-1-地图类-TMXTileMap" class="headerlink" title="3.1 地图类:TMXTileMap"></a>3.1 地图类:TMXTileMap</h5><p>Cocos2D-X引擎专门设计了读取和解析TMX文件的类，TMXTiledMap，继承自Node基类。</p>
+<pre><code>// 根据一个TMX文件来创建一个背景地图
+static TMXTiledMap * create(const std::string &amp; tmxFile);
+
+// 根据一个TMX文件和资源路径来创建一个背景地图
+static TMXTiledMap * createWithXML(const std::string &amp; tmxString, const std::string &amp; resourcePath)
+</code></pre><p>成员函数：</p>
+<pre><code>// 构造函数
+TMXTileMap()
+
+// 析构函数
+virtual ~TMXTileMap()
+
+// 初始化函数1
+bool initWithTMXFile (const std::string &amp; tmxFile);
+
+// 初始化函数2
+bool initWithXML (const std::string &amp; tmxString, const std::string &amp; resourcePath)
+
+//得到地图背景的尺寸
+virtual const Size &amp; getMapSize (void);
+
+// 设置地图背景的尺寸
+virtual void setMapSize(const Size &amp; mapSize);
+
+// 得到地图背景中的砖块元素
+virtual const Size &amp; getTileSize(void);
+
+// 设置地图中的砖块元素
+virtual void setTileSize(const Size &amp; tileSize);
+
+// 获得物体层中所有的对象
+virtual Vector&lt;TMXObjectGroup *&gt; &amp; getObjectGroups (void) const; 
+
+// 设置物体层的容器
+virtual void setObjectGroups (const Vector&lt;TMXObjectGroup *&gt; &amp; groups);
+
+// 获得地图属性
+ValueMap &amp; getProperties (void)
+
+// 设置地图的属性
+virtual void setProperties (const ValueMap &amp; properties);
+
+// 根据名字获得图层
+TMXLayer * getLayer(const std::string &amp; layerName);
+
+// 根据名字获得物体层
+TMXObjectGroup * getObjectGroup (const std::string &amp; groupName);
+
+// 根据属性的名字获得属性值
+Value getProperty (const std::string &amp; propertyName);
+
+// 根据GID获取属性字典
+Value getPropertiesForGID(int GID);
+</code></pre><p>注意:</p>
+<ul>
+<li>TMXLayer继承自SpriteBatchNode,只能使用一张图片作为精灵图集。</li>
+<li>可以通过图层的名字或标签获取对象，图层的标签值是按照创建的先后顺序赋值的。</li>
+<li>被设置为不可见图层，在创建地图时，将不会被创建为对象</li>
+</ul>
+<h5 id="3-2-地图层类：TMXLayer"><a href="#3-2-地图层类：TMXLayer" class="headerlink" title="3.2 地图层类：TMXLayer"></a>3.2 地图层类：TMXLayer</h5><p>Tile Map Editor 中提供了两种图层，一个为砖块拼接的图层，一个为物体层。在Cocos2d-X同样提供了两个独立的类来对应这两种层次 。</p>
+<p>TMXLayer成员方法：</p>
+<pre><code>// 构造函数
+TMXLayer ();
+
+// 析构函数
+virtual ~TMXLayer();
+
+// 初始化函数（参数为：砖块配置对象、图形配置对象、地图配置对象）
+bool initWithTilesetInfo(TMXTilesetInfo *tilesetInfo, TMXLayerInfo * layerInfo, TMXMapInfo *mapInfo);
+
+// 返回图层的大小
+virtual const Size &amp; getLayerSize(void);
+
+// 设置图层尺寸的大小
+virtula void setLayerSize (const Size &amp;var);
+
+// 返回砖块图层的大小
+virtual const Size &amp; getMapTileSize (void);
+
+// 设置砖块图层的大小
+virtual void setMapTileSize (const Size &amp;var);
+
+// 返回砖块属性信息
+virtual TMXTileSetInfo * getTileSet(void);
+
+// 设置砖块属性
+virtual void setTileSet (TXMTileSetInfo *info);
+
+// 返回图层信息字典
+virtual ValueMap &amp; getProperties(void);
+
+// 设置图层信息
+virtual void setProperties (ValueMap &amp; var);
+
+// 释放图层中砖块拼接信息
+void releaseMap ();
+
+// 返回指定位置的砖块对象
+Sprite * getTileAt(const Vec2&amp; tileCoordinate);
+
+// 返回指定位置砖块对象的ID
+unit32_t getTileGIDAt (const Vec2&amp; tileCoordinate);
+
+// 返回指定位置砖块对象的ID
+unsigned int tileGIDAt (const Vec2 &amp; tileCoordinate, TMXTileFlags *flags);
+
+// 设置指定位置砖块对象的ID
+void setTileGID (unit32_t gid, const Vec2 &amp; tileCoordinate);
+
+// 设置指定位置砖块对象的ID
+void setTileGID (unit32_t gid, const Vec2 &amp; tileCoordinate, TMXTileFlags flags);
+
+// 移除指定位置砖块对象
+void removeTileAt (const Vec&amp;2 tileCoordinate);
+
+// 返回指定坐标的地图位置
+Vec2 getPositionAt(const Vec&amp; tileCoordinate)
+
+// 返回指属性数值
+Value getProperty(const std::string&amp; propertyName)
+
+// 创建图层中的砖块
+void setupTiles ()
+
+// 得到图层的名字
+const std::string &amp; getLayerName()
+
+// 设置图层的名字
+void setLayerName(const std::string &amp; layerName)
+</code></pre><h5 id="3-3-地图物体层TMXObjectGroup"><a href="#3-3-地图物体层TMXObjectGroup" class="headerlink" title="3.3 地图物体层TMXObjectGroup"></a>3.3 地图物体层TMXObjectGroup</h5><pre><code>// 构造函数
+TMXObjectGroup ();
+
+// 析构函数 
+virtual ~TMXObjectGroup();
+
+// 得到物体层的偏移量
+virtual cont Vec2&amp; getPositionOffset (void);
+
+// 设置物体层偏移量
+virtual void setPositionOffset (cons Vec2&amp; var);
+
+// 获得物体层的属性字典
+ValueMap &amp; getProperties (void);
+
+// 设置物体层的物体对象
+void setProperties (const ValueMap &amp; properties);
+
+// 获得物体层中的物体对象
+virtual ValueVector &amp; getObjects (void);
+
+// 设置物体层中的物体对象
+virtual void setObjects (const ValueVector &amp; var);
+
+// 返回物体层的名字
+const std::string &amp; getGroupName ()
+
+// 设置物体层的名字
+void setGroupName (const std::string &amp; groupName)
+
+// 获得指定属性的数值
+Value getProperty (const std::string &amp; projectName)
+
+// 根据属性名字，返回属性字典
+ValueMap &amp; getObject(const std::string &amp; objectName)
+</code></pre><p>例：</p>
+<pre><code>TMXIsoObjectsTest::TMXIsoObjectsTest()
+{
+    auto map = TMXTileMap::create(&quot;TileMaps/iso-test-objectgroup.tmx&quot;);    // 创建地图地图中所使用的纹理图片则一同加载到内存中
+    addChild(map, -1, kTagTileMap);        
+
+    Size CC_UNUSED s = map-&gt;getContentSize();
+    CCLOG(&quot;Constent:%f, %f&quot;, s.width, s.height);
+
+    auto group = map-&gt;getObjectGroup(&quot;Object Group 1&quot;)    // 获得地图物体层
+
+    auto&amp; objects = group-&gt;getObjects();
+
+    Value objectsVal = Value(objects);
+    CCLOG(&quot;%s&quot;, objectsVal.getDescription().c_str());
+
+    auto drawNode = DrawNode::create();
+
+    for (auto &amp; obj : objcts)
+    {
+        ValueMap&amp; dict = obj.asValueMap();
+
+        float x = dict[&quot;x&quot;].asFloat();
+        float y = dict[&quot;y&quot;].asFloat();
+        float width =  dict[&quot;width&quot;].asFloat();
+        float heignt = dict[&quot;height&quot;].asFloat();
+
+        Color4f color(1.0, 1.0, 1.0, 1.0);
+
+        drawNode-&gt;drawLine(Vec2(x, y), Vec2((x + width), y), color);
+        drawNode-&gt;drawLine(Vec2((x + width), y), Vec2((x + width), (y + height)), color);
+        drawNode-&gt;drawLine(Vec2((x + width), y + (height)), Vec2(x, (y + height)), color);
+        drawNode-&gt;drawLine(Vec2(x, (y + height)), Vec2(x +, y), color);
+    }
+    map-&gt;addChild(drawNode, 10);
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

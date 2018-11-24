@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        2.5 Cocos2d-x主线程 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-在主线程中执行异步处理"><span class="toc-text">1 在主线程中执行异步处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-纹理的异步的加载"><span class="toc-text">2 纹理的异步的加载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-异步处理的单元测试"><span class="toc-text">3 异步处理的单元测试</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        2.5 Cocos2d-x主线程
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:37:30</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Cocos-C++" title="Cocos-C++">Cocos-C++</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>在游戏开发中，为游戏对象设计并行系统往往是困难的。一方面，游戏对象之间会存在大量的相互依赖，游戏对象也可能和多个引擎子系统所产生的数据相互依赖；另一方面，游戏对象会与其游戏对象交流，有时在更新循环中会多次交流，而交流的模式是不可预期且受玩家输入影响的。这些都使游戏对象在多线程中的更新变得困难。</p>
+<p>所以大多数的引擎都是以单线程为主。更底层的引擎子系统中，可以做到部分并行化，使其不影响上层的游戏对象模型。例如，目前很多游戏引擎都将绘制从游戏引擎分离。使之可以再不同的线程中绘制。</p>
+<p>Cocos2d-x目前仍是一个单线程的游戏引擎，这使我们几乎不需要考虑游戏对象更新的线程安全性。然而，我们仍然需要关注一些情形，如网络请求，异步加载文件或者异步处理一些逻辑算法。</p>
+<h3 id="1-在主线程中执行异步处理"><a href="#1-在主线程中执行异步处理" class="headerlink" title="1 在主线程中执行异步处理"></a>1 在主线程中执行异步处理</h3><p>有一些方法必须在主线程中执行，如与GL相关的方法。另一些时候，为了保证如Ref对象引用计数的线程安全，我们也应该在主线程中执行这些操作。Scheduler提供了一种简单的机制，使我们可以在主线程中执行一个方法。</p>
+<pre><code>void Scheduler::performFunctionInCocosThread(const std::function&lt;voidv()&gt; &amp;function)
+{
+    _performMutex.lock();
+    _functionToPerform.push_back(function);
+    _performMutex.unlock();
+}
+</code></pre><p>向Scheduler注册一个方法指针。Scheduler中存储了一个需要在主线程执行的方法的指针数组，在当前帧所有的系统或自定义的scheduler执行完成后，Scheduler就会检查该数组并执行其中方法。</p>
+<pre><code>void Scheduler::update(float dt)
+{
+    if(!_functionsToPerform.empty())
+    {
+        _performMutex.lock();
+        auto temp = _functionsToperform;
+        _functionToperform.clear();
+        _performMutex.unlock();
+        for (const auto &amp;function : temp)
+        {
+            function();
+        }
+    }
+}
+</code></pre><p>通过上面这种方法，我们可以将一个方法转移到主线程中执行。这里需要注意的是：这些方法在主线程中被执行的时机是所有系统和自定义Scheduler之后，即在UI树遍历之前。</p>
+<h3 id="2-纹理的异步的加载"><a href="#2-纹理的异步的加载" class="headerlink" title="2 纹理的异步的加载"></a>2 纹理的异步的加载</h3><p>对于一些耗时的操作，为了不影响游戏的性能，我们需要将一系列耗时的方法分布在每一帧中去执行。</p>
+<p>Cocos2d-x纹理的异步加载完成之后，需要将纹理上传至GL内存中，因此，这个传输的过程必须要在主线程中执行。但是，上传纹理使用的glTexture2D命令是一个耗时的操作，试想如果有多个图片同时完成加载，这些纹理需要在同一帧上传到GL内存，这可能会使UI界面出现卡顿。</p>
+<p>因此，Cocos2d-x纹理的加载回调使用了一个自定义的Schedule，在该Scheduele内部，检查已经完成加载的纹理每一帧处理一个纹理，直至所有纹理被处理完毕，则注销该Schedule。</p>
+<p>TextureCacha异步加载纹理：</p>
+<pre><code>void TextureCache:addImageAsync(const std::string &amp;path, const std::function&lt;void(Texture2D*)&gt;&amp; callback)
+{
+    // 创建一个纹理对象指针
+    Texture2D *texture = nullptr;
+
+    // 获取资源路径
+    std::string fullPath = FileUtils::getInstance()-&gt;fullPathForFilename(path);
+
+    // 如果这个纹理已经加载，则返回
+    auto it = _textures.find(fullpath);
+    if(it != _textures.end())
+        texture = it-&gt;second;    // second为key-value中的value
+
+    if (texture != nullptr)
+    {
+        // 纹理加载过了直接执行回调函数并返回
+        callback(texture);
+        return;
+    }
+
+    if (fullpath.empty() || !FileUtils::getInstance()-&gt;isFileExist(fullpath)) {
+        if (callback) callback(nullptr);
+        return;
+    }
+
+
+    // 第一次执行异步加载的函数需要对保存消息结构体的队列初始化
+    if (_loadingThread == nullptr)
+    {
+        // 创建一个新线程加载纹理
+        _loadingThread = new std::thread(&amp;TextureCache::loadImage, this);
+
+        // 是否退出变量
+        _needQuit = false;
+    }
+
+    if (0 == _asyncRefCount)
+    {
+        /** 
+        向Scheculer注册一个更新回调函数
+        Cocos2d-x会在这个更新函数中检查已经加载完成的纹理
+        然后每一帧对一个纹理进行处理，将这里纹理的信息缓存到TextureCache中
+        */
+        Director::getInstance()-&gt;getScheduler()-&gt;schedule(schedule_selector(TextureCache::addImageAsyncCallBack), this, 0, false);
+    }
+
+    // 异步加载纹理的数量
+    ++_asyncRefCount;
+
+    // 生成异步加载纹理信息的消息结构体
+    AysncStruct *data = new (std::nothrow) AsyncStruct(fullPaht, callback);
+
+    // 将生成的结构体加入到队列中
+    _asyncStructQueue.push_back(data);
+    _requestMutex.lock();
+    _requestQueue.push_back(data);
+    _requestMutex.unlock();
+
+    // 将线程移除阻塞。表示已有空位置
+    _sleepCondition.notify_one();
+}
+</code></pre><p>TextureCacha向Scheduler注册一个更新回调addImagesAsyncCallBack，该方法用来检查异步加载完成后的纹理的，第一次调用addImageAsync时便会开启。如下：</p>
+<pre><code>void TextureCache::addImageAsyncCallBack(float dt)
+{
+    // 创建一个纹理对象指针
+    Texture2D *texture = nullptr;
+    // 创建一个异步加载消息结构体
+    AsyncStruct *asyncStruct = nullptr;
+    while (true)
+    {
+        // 锁定互斥锁
+        _responseMutex.lock();
+        if (_responseQueue.empty())
+        {
+            asyncStruct = nullptr;
+        }
+        else
+        {
+            // 获取消息结构体
+            asyncStruct = _responseQueue.front();
+            _responseQueue.pop_front();
+
+            CC_ASSERT(asyncStruct == _asyncStructQueue.front());
+            _asyncStructQueue.pop_front();
+        }
+        _responseMutex.unlock();
+
+        if (nullptr == asyncStruct) {
+            break;
+        }
+
+        // check the image has been convert to texture or not
+        auto it = _textures.find(asyncStruct-&gt;filename);
+        if (it != _textures.end())
+        {
+            texture = it-&gt;second;
+        }
+        else
+        {
+            if (asyncStruct-&gt;loadSuccess)
+            {
+                Image* image = &amp;(asyncStruct-&gt;image);
+                texture = new (std::nothrow) Texture2D();
+
+                texture-&gt;initWithImage(image, asyncStruct-&gt;pixelFormat);
+                this-&gt;parseNinePatchImage(image, texture, asyncStruct-&gt;filename);
+#if CC_ENABLE_CACHE_TEXTURE_DATA
+                // cache the texture file name
+                VolatileTextureMgr::addImageTexture(texture, asyncStruct-&gt;filename);
+#endif
+                // cache the texture. retain it, since it is added in the map
+                _textures.emplace(asyncStruct-&gt;filename, texture);
+                texture-&gt;retain();
+
+                texture-&gt;autorelease();
+                // ETC1 ALPHA supports.
+                if (asyncStruct-&gt;imageAlpha.getFileType() == Image::Format::ETC) {
+                    auto alphaTexture = new(std::nothrow) Texture2D();
+                    if(alphaTexture != nullptr &amp;&amp; alphaTexture-&gt;initWithImage(&amp;asyncStruct-&gt;imageAlpha, asyncStruct-&gt;pixelFormat)) {
+                        texture-&gt;setAlphaTexture(alphaTexture);
+                    }
+                    CC_SAFE_RELEASE(alphaTexture);
+                }
+            }
+            else {
+                texture = nullptr;
+                CCLOG(&quot;cocos2d: failed to call TextureCache::addImageAsync(%s)&quot;, asyncStruct-&gt;filename.c_str());
+            }
+        }
+
+        if (asyncStruct-&gt;callback)
+        {
+            (asyncStruct-&gt;callback)(texture);
+        }
+
+        // release the asyncStruct
+        delete asyncStruct;
+        --_asyncRefCount;
+    }
+
+    if (0 == _asyncRefCount)
+    {
+        Director::getInstance()-&gt;getScheduler()-&gt;unschedule(CC_SCHEDULE_SELECTOR(TextureCache::addImageAsyncCallBack), this);
+    }
+}
+</code></pre><p>在向TextureCache发起一个异步文件加载请求时，TextureCache会向Scheduler注册一个更新回调addImageAdyncCallback，然后示开启一个新的线异步加载文件。在新的线程中，文件加载完毕时将其纹理存储在_imageInfoQueue中，主线程每帧被更新回调时检查其是否有数据，如果有，则将其纹理数据缓存到TextureCache中，然后删除_imageInfoQueue中的数据。最后，当所有文件都加载完毕，则注册更新回调。</p>
+<h3 id="3-异步处理的单元测试"><a href="#3-异步处理的单元测试" class="headerlink" title="3 异步处理的单元测试"></a>3 异步处理的单元测试</h3><p>在主线程上执行所有的逻辑算法，可以使程序的复杂度大大将低，并且可以经比较自由的在某些方面使用多线程。然而，Cocos2d-x的这种回调枫丹白露也使单元测试变得困难，因为它依赖于主循环。</p>
+<p>单元测试通常来测试一个同步的方法，只要执行该方法，就能知道其运行结果。单元测试甚至不依赖太多的上下文，实际上太多的上下文会使单元测试变得困难。</p>
+<p>对于异步方法，人们通过单元测试加入一个等待时间监听回调函数对某个布尔变量值的修改，并告知回调完成，从而完成其单元测试方法。通过这样的访问就可以测试异步方法。</p>
+<p>Cocos2d-x中的回调需要通过游戏循环来驱动。单元测试除了监听异步回调，还需要驱动游戏循环才能执行Schedule，这使单元测试变得困难。</p>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>

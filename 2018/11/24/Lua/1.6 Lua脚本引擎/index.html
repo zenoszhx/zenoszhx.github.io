@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword" content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+        1.5 Lua脚本引擎 - undefined
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/img/avatar.png">
+        </div>
+        <div class="name">
+            <i>Zenos</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-LuaEngin"><span class="toc-text">1.LuaEngin</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-LuaCocos2d"><span class="toc-text">2.LuaCocos2d</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-初始化脚本引擎"><span class="toc-text">3.初始化脚本引擎</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> 一些个人的总结，辩证来看，不保证完全正确。 </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        1.5 Lua脚本引擎
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2018-11-24 11:25:54</span></span>
+        
+        <span class="attr">标签：/
+        
+        <a class="tag" href="/tags/#Lua" title="Lua">Lua</a>
+        <span>/</span>
+        
+        
+        </span>
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p>在引擎中提供了两种脚本的支持Lua与JavaScript。</p>
+<p>引擎中存在一个Lua脚本引擎，在Cocos2D-X\scripting\lua中，读者将会看到Lua解释器以及tolua++的源代码。在目录cocos2dx_support中源代码文件才是重点。</p>
+<h3 id="1-LuaEngin"><a href="#1-LuaEngin" class="headerlink" title="1.LuaEngin"></a>1.LuaEngin</h3><p>此文件为类LuaEngine的实现源代码，就是在Cocos2D-X引擎中的脚本引擎，它也采用了外观模式与管理模式的结合，提供了一些统一函数接口，方便开发者执行Lua脚本。</p>
+<pre><code>// 脚本引擎接口协议
+class CC_DLL ScriptEngineProtocol
+{
+public:
+    virtual ccScriptType getScriptType() { return kScriptTypeNone;};
+
+    virtual void removeScriptObjectByObject(Ref* obj) = 0;
+
+    virtual void removeScriptHandler (int handler) {};
+
+    virtual int reallocateScriptHandler(int handler){return 0};
+
+    virtual int excuteString(const char* codes) = 0;
+
+    virtual int executeScpripFile(const char* fileName) = 0;
+
+    virtual int executeGlobalFunction(const char* functionName) = 0;
+
+    virtual int sendEvent(ScriptEvent *evt) = 0;
+
+    virtual bool handleAssert(const char *msg) = 0;
+
+    virtual void setCalledFormScript(bool callFormScript){CC_UNUSED_PARAM(callFormScript);};
+
+    virtual void setCalledFormScript() {return false};
+
+    enum class ConfigType
+    {
+        NONE,
+        COCOSTUDIO
+    };
+
+    virtual bool parseConfig(ConfigType type, const std::string&amp; str) = 0;
+}
+</code></pre><h3 id="2-LuaCocos2d"><a href="#2-LuaCocos2d" class="headerlink" title="2.LuaCocos2d"></a>2.LuaCocos2d</h3><p>这是脚本引擎的具体实现代码。在此文件中，几乎所有Cocos2D-X引擎的类都可以找到。由此可见，这个文件的容量也相当庞大，有近4万行的代码。下面展示部分代码：</p>
+<p>此文件代码的作用就是建立Cocos2D-X引擎与脚本之间的联系，将引擎中的类、函数、数据类型压入栈，只有这样Lua才能使用引擎各个功能。</p>
+<p>示例1：</p>
+<pre><code>// 类Speed的函数setSpeed实现
+#ifndef TOLUA_DISABLE_tolua_Cocos2d_Speed_setSpeed00
+
+static int tolua_Cocos2d_setSpeed00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+
+tolua_Error tolua_err;
+if(
+    !tolua_isusertype(tolua_S, 1, &quot;Speed&quot;, 0, &amp;tolua_err) ||
+    !tolua_isnumber(tolua_S, 2, 0, &amp;tolua_err)||
+    !tolua_isnoobj(tolua_S, 3, &amp;tolua_err)
+)
+goto tolua_lerror;
+else
+#endif
+{
+    // 创建引擎中Speed类对象
+    Speed* self = (Speed*) tolua_tousertype(tolua_S, 1, 0);
+    // 从栈中获取参数值
+    float fSpeed = ((float) tolua_tonumber(tolua_S, 2, 0));
+#ifndef TOLUA_RELEASE
+
+    if (!self) tolua_error(tolua_S, &quot;invalid &apos;self&apos; in function &apos;setSpeed&apos;&quot;, NULL);
+
+#endif
+    {
+        // 调用引擎中setSpeed函数，并非传递参数
+        self-&gt;setSpeed(fSpeed);
+    }
+}
+
+return 0;
+
+#ifnef TOLUA_RELEASE
+
+    tolua_lerror;
+    tolua_error(tolua_S, &quot;#ferror in function &apos;setSpeed&apos;.&quot;, &amp;tolua_err)
+    return 0
+
+#endif
+
+}
+
+#endif
+</code></pre><p>示例2：</p>
+<pre><code>// 引擎中类及函数声明
+
+tolua_class(tolua_S, &quot;Speed &quot;, &quot;Action &quot;, NULL);
+tolua_beginmodule(tolua_S, &quot;Speed&quot;);
+tolua_function(tolua_S, &quot;getSpeed&quot;, tolua_Cocos2d_Speed _getSpeed00);
+tolua_function(tolua_S, &quot;setSpeed&quot;, tolua_Cocos2d_Speed _setSpeed00);
+tolua_function(tolua_S, &quot;reverse&quot;, tolua_Cocos2d_Speed _setSpeed00);
+tolua_function(tolua_S, &quot;create&quot;, tolua_Cocos2d_Speed _create00);
+tolua_endmodule(rolua_S);
+
+// 数据类型声明
+static int tolua_collect_Size (lua_State* rolua_S)
+{
+    Size* self = (Size *) tolua_tousertype(tolua_S, 1, 0);
+    Mtolua_delete(self);
+    return 0;
+}
+
+// 类的注册
+tolua_usertype(tolua_S, &quot;Action&quot;);
+tolua_usettype(tolua_S, &quot;Speed&quot;);
+tolua_usertype(tolua_S, &quot;TextFieldTTF&quot;);
+tolua_usertype(tolua_S, &quot;GridBase&quot;);
+</code></pre><h3 id="3-初始化脚本引擎"><a href="#3-初始化脚本引擎" class="headerlink" title="3.初始化脚本引擎"></a>3.初始化脚本引擎</h3><pre><code>bool AppDelegate::applicationDidFinishLaunching()
+{
+    // 初始化显示设备
+    auto director = Director::getInstance();
+    auto glView = director-&gt;getOpenGLView();
+    if (!glView)
+    {
+        glview = GLViewImpl::create(&quot;Cp Empty Test&quot;);
+        director-&gt;setOpenGLView(glview);
+    }
+
+    director-&gt;setOpenGLView(glview);
+    //使用高清模式
+    director-&gt;enableRetainDisplay(true);
+
+    director-&gt;setDisplayFPS(true);
+    director-&gt;setAnimationInterval(1.0/60);
+
+    // 通过LuaEngin的静态函数获取一个Lua脚本引擎实例对象指针
+    ScriptEnginProtocol *pEngine = LuaEngine::getInstance();
+
+    // ScripEnginManager的静态函数getInstanceaq获取单例脚本引擎管理器的实例对象
+    // 然后将Lua脚本引擎实例对象指针设为脚本引擎管理器当前进行管理的脚本引擎
+    ScripEngineManager::getInstance()-&gt;setScriptEngine(pEngine);
+
+#if (CC_TARGET_PLANTFORM == CC_PLANTFORM_ANDROID)
+
+    // 在android平台下，会通过文件处理API类FileUtils中的getFileData取得hello.lua文件并读取到char数组中
+    unsigned long size;
+    char *pFileContent = (char*)FileUtils::getFileData(&quot;hello.lua&quot;, &quot;r&quot;, &amp;size);
+
+    if (pFileContent)
+    {
+        // 将char数组数据放入一个新的以&apos;\0&apos;结尾的char数组中形成一个Lua脚本字符串
+        char *pCodes = new char[size + 1];
+        pCodes[size] = &apos;\0&apos;;
+        memcpy(pCodes, pFileContent, size);
+        delete[] pFileContent;
+        // 让脚本引擎执行这个LUA脚本字符串
+        pEngine-&gt;executeString(pCodes);
+        // 释放动态申请的char数组的内存
+        delete []pCode;
+    }
+
+#endif
+
+#if (CC_TARGET_PLANTFORM == CC_PLANTFORM_WIN32) || (CC_TARGET_PLANTFORM == CC_PLANTFORM_IOS) || (CC_TARGET_PLANTFORM == CC_PLANTFORM_MARWALADE)
+
+    // 如果是Win32, iOS, MARMALADE平台，通过文件处理API类FileUtils中的fullPathFromRelativeFile函数产生一个hello.lua在当前程序在目录下的路径
+    string path = FileUtils::fullPathFromRelativeFile(&quot;hello.lua&quot;);
+    // 将这个路径的目录放入到脚本引擎的搜索目录
+    // path.substr会将路径中的目录取出来
+    pEngine-&gt;addSearchPath(path.substr(0, path.find_last_of(&quot;/&quot;)).c_str());
+    // 执行这个脚本所指向的LUA文件
+    pEngine-&gt;executeScriptFile(path.c_str());
+
+#endif
+}
+</code></pre>
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = ""
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+</html>
