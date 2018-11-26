@@ -112,7 +112,7 @@
 <meta name="keywords" content="Cococs2d与OpenGL ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="3.1 纹理">
-<meta property="og:url" content="http://yoursite.com/2018/11/24/Cocos-C++-P/3.1（1） 纹理/index.html">
+<meta property="og:url" content="https://www.arraystars.com/2018/11/24/Cocos-C++-P/3.1（1） 纹理/index.html">
 <meta property="og:site_name" content="ArrayStars">
 <meta property="og:description" content="纹理的重要性体现在下面两个方面： （1）3D图形渲染最重要的工作之一是将纹理应用到物体表面，这片过程主要发生在片段着色器工作阶段，使用光栅化阶段插值计算得出的纹理坐标从纹理中采样，然后对片段进行着色，可以处理丰富的物资，如光照、阴影等。纹理是其实现的重要基础。 （2）纹理的存储格式影响着应用程序包的大小，也占据的应用程序的大部分内存。游戏开发中对纹理进行各个层面的优化是一项重要的工作，只有了解纹理">
 <meta property="og:locale" content="en">
@@ -136,7 +136,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/24/Cocos-C++-P/3.1（1） 纹理/">
+  <link rel="canonical" href="https://www.arraystars.com/2018/11/24/Cocos-C++-P/3.1（1） 纹理/">
 
 
 
@@ -212,7 +212,7 @@
     </div>
     
       
-        <p class="site-subtitle">一些个人的总结，辩证来看，不保证完全正确。</p>
+        <p class="site-subtitle">游戏不止艺术。</p>
       
     
   </div>
@@ -366,11 +366,11 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Cocos-C++-P/3.1（1） 纹理/">
+    <link itemprop="mainEntityOfPage" href="https://www.arraystars.com/2018/11/24/Cocos-C++-P/3.1（1） 纹理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zenos">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些个人的总结，辩证来看，不保证完全正确。">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -1158,7 +1158,7 @@ void setAliasTexParameters();
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Zenos</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">一些个人的总结，辩证来看，不保证完全正确。</p>
           </div>
 
           
@@ -1249,7 +1249,7 @@ void setAliasTexParameters();
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-光栅化"><span class="nav-number">1.</span> <span class="nav-text">1 光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-多重采样"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">1.1 多重采样</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-纹理坐标"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.2 纹理坐标</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#2-像素矩形"><span class="nav-number">2.</span> <span class="nav-text">2 像素矩形</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-像素存储模式"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 像素存储模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-纹理数据的传输"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 纹理数据的传输</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-解包"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 解包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-客户端图像格式"><span class="nav-number">3.</span> <span class="nav-text">3 客户端图像格式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-纹理格式的对应关系"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 纹理格式的对应关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-图像数据格式转换"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 图像数据格式转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-纹理对象和加载纹理"><span class="nav-number">4.</span> <span class="nav-text">4 纹理对象和加载纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-纹理单元与多重纹理"><span class="nav-number">5.</span> <span class="nav-text">5 纹理单元与多重纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-纹理缩放"><span class="nav-number">6.</span> <span class="nav-text">6 纹理缩放</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-纹理缩小"><span class="nav-number">6.0.1.</span> <span class="nav-text">6.1 纹理缩小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-纹理放大"><span class="nav-number">6.0.2.</span> <span class="nav-text">6.2 纹理放大</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-在Cocos2d-x中设置过滤模式"><span class="nav-number">6.0.3.</span> <span class="nav-text">6.3 在Cocos2d-x中设置过滤模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-多级纹理"><span class="nav-number">7.</span> <span class="nav-text">7 多级纹理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-多级纹理的过滤模式"><span class="nav-number">7.0.1.</span> <span class="nav-text">7.1 多级纹理的过滤模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-多级纹理的上传"><span class="nav-number">7.0.2.</span> <span class="nav-text">7.2 多级纹理的上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-多级纹理的生成"><span class="nav-number">7.0.3.</span> <span class="nav-text">7.3 多级纹理的生成</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-光栅化"><span class="nav-text">1 光栅化</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-1-多重采样"><span class="nav-text">1.1 多重采样</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-纹理坐标"><span class="nav-text">1.2 纹理坐标</span></a></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#2-像素矩形"><span class="nav-text">2 像素矩形</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-像素存储模式"><span class="nav-text">2.1 像素存储模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-纹理数据的传输"><span class="nav-text">2.2 纹理数据的传输</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-解包"><span class="nav-text">2.3 解包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-客户端图像格式"><span class="nav-text">3 客户端图像格式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-纹理格式的对应关系"><span class="nav-text">3.1 纹理格式的对应关系</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-图像数据格式转换"><span class="nav-text">3.2 图像数据格式转换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-纹理对象和加载纹理"><span class="nav-text">4 纹理对象和加载纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-纹理单元与多重纹理"><span class="nav-text">5 纹理单元与多重纹理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-纹理缩放"><span class="nav-text">6 纹理缩放</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-纹理缩小"><span class="nav-text">6.1 纹理缩小</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-纹理放大"><span class="nav-text">6.2 纹理放大</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-在Cocos2d-x中设置过滤模式"><span class="nav-text">6.3 在Cocos2d-x中设置过滤模式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-多级纹理"><span class="nav-text">7 多级纹理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-多级纹理的过滤模式"><span class="nav-text">7.1 多级纹理的过滤模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-多级纹理的上传"><span class="nav-text">7.2 多级纹理的上传</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-3-多级纹理的生成"><span class="nav-text">7.3 多级纹理的生成</span></a></li></ol></li></div>
             
 
           </div>

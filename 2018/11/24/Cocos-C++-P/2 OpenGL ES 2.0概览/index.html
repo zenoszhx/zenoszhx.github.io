@@ -112,7 +112,7 @@
 <meta name="keywords" content="Cococs2d与OpenGL ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="OpenGL ES2.0概览">
-<meta property="og:url" content="http://yoursite.com/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/index.html">
+<meta property="og:url" content="https://www.arraystars.com/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/index.html">
 <meta property="og:site_name" content="ArrayStars">
 <meta property="og:description" content="游戏引擎对开发者提供了一级UI元素，以及组织这些UI元素构成游戏场景的接口。在游戏引擎内部，则将这些UI元素转化为一系列OpenGL ES命令的调用，并在每一帧将它们绘制到设备屏幕上。因此，了解OpenGL ES，我们能清楚的知道每个UI元素是怎样被绘制的，知道怎样使用它们会三室两厅最高的性能，同时也能更灵活的使用着色器来增强游戏画面的表现力。 1 GPUGPU是集成了坐标变换、光照、图元裁剪、渲">
 <meta property="og:locale" content="en">
@@ -133,7 +133,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/">
+  <link rel="canonical" href="https://www.arraystars.com/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/">
 
 
 
@@ -209,7 +209,7 @@
     </div>
     
       
-        <p class="site-subtitle">一些个人的总结，辩证来看，不保证完全正确。</p>
+        <p class="site-subtitle">游戏不止艺术。</p>
       
     
   </div>
@@ -363,11 +363,11 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/">
+    <link itemprop="mainEntityOfPage" href="https://www.arraystars.com/2018/11/24/Cocos-C++-P/2 OpenGL ES 2.0概览/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zenos">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些个人的总结，辩证来看，不保证完全正确。">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -708,7 +708,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, pix
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Zenos</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">一些个人的总结，辩证来看，不保证完全正确。</p>
           </div>
 
           
@@ -799,7 +799,7 @@ glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, 2, 2, 2, 0, GL_RGB, GL_UNSIGNED_BYTE, pix
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-GPU"><span class="nav-number">1.</span> <span class="nav-text">1 GPU</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-GPU和CPU的区别"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 GPU和CPU的区别</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#2-什么是OpenGL-ES"><span class="nav-number">2.</span> <span class="nav-text">2 什么是OpenGL ES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-OpenGL-ES-2-0-渲染管线"><span class="nav-number">3.</span> <span class="nav-text">3 OpenGL ES 2.0 渲染管线</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-顶点数组"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 顶点数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-顶点着色器"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 顶点着色器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-图元装配"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.3 图元装配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-光栅化"><span class="nav-number">3.0.4.</span> <span class="nav-text">3.4 光栅化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-片段着色器"><span class="nav-number">3.0.5.</span> <span class="nav-text">3.5 片段着色器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-6-片段测试"><span class="nav-number">3.0.6.</span> <span class="nav-text">3.6 片段测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-渲染管线中的并行计算"><span class="nav-number">4.</span> <span class="nav-text">4 渲染管线中的并行计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-构建高性能的渲染引擎"><span class="nav-number">5.</span> <span class="nav-text">5 构建高性能的渲染引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-帧缓冲"><span class="nav-number">6.</span> <span class="nav-text">6 帧缓冲</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-GPU"><span class="nav-text">1 GPU</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-GPU和CPU的区别"><span class="nav-text">1.1 GPU和CPU的区别</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#2-什么是OpenGL-ES"><span class="nav-text">2 什么是OpenGL ES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-OpenGL-ES-2-0-渲染管线"><span class="nav-text">3 OpenGL ES 2.0 渲染管线</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-顶点数组"><span class="nav-text">3.1 顶点数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-顶点着色器"><span class="nav-text">3.2 顶点着色器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-3-图元装配"><span class="nav-text">3.3 图元装配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-4-光栅化"><span class="nav-text">3.4 光栅化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-5-片段着色器"><span class="nav-text">3.5 片段着色器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-6-片段测试"><span class="nav-text">3.6 片段测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-渲染管线中的并行计算"><span class="nav-text">4 渲染管线中的并行计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-构建高性能的渲染引擎"><span class="nav-text">5 构建高性能的渲染引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-帧缓冲"><span class="nav-text">6 帧缓冲</span></a></li></div>
             
 
           </div>

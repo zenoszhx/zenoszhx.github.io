@@ -112,7 +112,7 @@
 <meta name="keywords" content="Cococs2d与OpenGL ES">
 <meta property="og:type" content="article">
 <meta property="og:title" content="全新的绘制系统">
-<meta property="og:url" content="http://yoursite.com/2018/11/24/Cocos-C++-P/3 全新的绘制系统/index.html">
+<meta property="og:url" content="https://www.arraystars.com/2018/11/24/Cocos-C++-P/3 全新的绘制系统/index.html">
 <meta property="og:site_name" content="ArrayStars">
 <meta property="og:description" content="在Cocos2d-x3.0之前，Cococs2d-x每个元素的绘制逻辑均分布于每个元素内部的draw()方法里，并且紧密依赖UI树的遍历。虽然通过SpriteBatchNode等机制可以使它目前仍然高效的工作，但这是一个不易扩展的架构。例如，依赖UI树的遍历顺序导致无法在多个层之间调整绘制顺序，各个绘制逻辑分布在每个元素内部不利于针对绘制进行优化（如自动批绘制），针对一些硬件平台的优化可能要修改多">
 <meta property="og:locale" content="en">
@@ -132,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/24/Cocos-C++-P/3 全新的绘制系统/">
+  <link rel="canonical" href="https://www.arraystars.com/2018/11/24/Cocos-C++-P/3 全新的绘制系统/">
 
 
 
@@ -208,7 +208,7 @@
     </div>
     
       
-        <p class="site-subtitle">一些个人的总结，辩证来看，不保证完全正确。</p>
+        <p class="site-subtitle">游戏不止艺术。</p>
       
     
   </div>
@@ -362,11 +362,11 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/24/Cocos-C++-P/3 全新的绘制系统/">
+    <link itemprop="mainEntityOfPage" href="https://www.arraystars.com/2018/11/24/Cocos-C++-P/3 全新的绘制系统/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Zenos">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="一些个人的总结，辩证来看，不保证完全正确。">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -963,7 +963,7 @@ glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INF, _indices);
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">Zenos</p>
-              <p class="site-description motion-element" itemprop="description"></p>
+              <p class="site-description motion-element" itemprop="description">一些个人的总结，辩证来看，不保证完全正确。</p>
           </div>
 
           
@@ -1054,7 +1054,7 @@ glDrawElements(GL_TRIANGLES, 24, GL_UNSIGNED_INF, _indices);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新绘制系统的特点"><span class="nav-number">1.</span> <span class="nav-text">1 新绘制系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-绘制系统概览"><span class="nav-number">2.</span> <span class="nav-text">2 绘制系统概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RenderCommand"><span class="nav-number">3.</span> <span class="nav-text">3 RenderCommand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-概述"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-关键因素："><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 关键因素：</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RenderQueue"><span class="nav-number">4.</span> <span class="nav-text">4 RenderQueue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-GroupCommand"><span class="nav-number">5.</span> <span class="nav-text">5 GroupCommand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-GropCommand与RenderQueue"><span class="nav-number">5.0.1.</span> <span class="nav-text">5.1 GropCommand与RenderQueue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-GropCommand使用"><span class="nav-number">5.0.2.</span> <span class="nav-text">5.2 GropCommand使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Render"><span class="nav-number">6.</span> <span class="nav-text">6 Render</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-RenderCommand的排序"><span class="nav-number">6.0.1.</span> <span class="nav-text">6.1 RenderCommand的排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-QuadCommand"><span class="nav-number">6.0.2.</span> <span class="nav-text">6.2 QuadCommand</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-自动批绘制"><span class="nav-number">6.0.3.</span> <span class="nav-text">6.3 自动批绘制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-元素的可见性"><span class="nav-number">7.</span> <span class="nav-text">7 元素的可见性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-自动裁剪"><span class="nav-number">7.0.1.</span> <span class="nav-text">7.1 自动裁剪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-visible"><span class="nav-number">7.0.2.</span> <span class="nav-text">7.2 visible</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-绘制的时机"><span class="nav-number">8.</span> <span class="nav-text">8 绘制的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-示例：自定义RenderCommand"><span class="nav-number">9.</span> <span class="nav-text">9 示例：自定义RenderCommand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-思路"><span class="nav-number">9.0.1.</span> <span class="nav-text">9.1 思路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-2-实现"><span class="nav-number">9.0.2.</span> <span class="nav-text">9.2 实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-小结"><span class="nav-number">10.</span> <span class="nav-text">10 小结</span></a></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-新绘制系统的特点"><span class="nav-text">1 新绘制系统的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-绘制系统概览"><span class="nav-text">2 绘制系统概览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RenderCommand"><span class="nav-text">3 RenderCommand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-概述"><span class="nav-text">3.1 概述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-2-关键因素："><span class="nav-text">3.2 关键因素：</span></a></li></ol></li></ol><li class="nav-item nav-level-3"><a class="nav-link" href="#4-RenderQueue"><span class="nav-text">4 RenderQueue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-GroupCommand"><span class="nav-text">5 GroupCommand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#5-1-GropCommand与RenderQueue"><span class="nav-text">5.1 GropCommand与RenderQueue</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-2-GropCommand使用"><span class="nav-text">5.2 GropCommand使用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Render"><span class="nav-text">6 Render</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6-1-RenderCommand的排序"><span class="nav-text">6.1 RenderCommand的排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-2-QuadCommand"><span class="nav-text">6.2 QuadCommand</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-3-自动批绘制"><span class="nav-text">6.3 自动批绘制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-元素的可见性"><span class="nav-text">7 元素的可见性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#7-1-自动裁剪"><span class="nav-text">7.1 自动裁剪</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#7-2-visible"><span class="nav-text">7.2 visible</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-绘制的时机"><span class="nav-text">8 绘制的时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-示例：自定义RenderCommand"><span class="nav-text">9 示例：自定义RenderCommand</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#9-1-思路"><span class="nav-text">9.1 思路</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#9-2-实现"><span class="nav-text">9.2 实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-小结"><span class="nav-text">10 小结</span></a></li></div>
             
 
           </div>
